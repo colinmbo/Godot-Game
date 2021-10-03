@@ -11,7 +11,7 @@ export var dialog = [
 	"Sample text",
 ]
 
-const textboxScene = preload("res://Textbox.tscn")
+const textboxScene = preload("res://Textbox/Textbox.tscn")
 
 func _ready():
 	facing_direction = round(facing_direction * 90) / 90
