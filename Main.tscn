@@ -137,3 +137,5 @@ use_collision = true
 mesh = SubResource( 5 )
 
 [node name="HUDCanvas" type="CanvasLayer" parent="."]
+
+[node name="Hello World" type="Node" parent="."]
