@@ -1,0 +1,201 @@
+[gd_resource type="SpriteFrames" load_steps=32 format=2]
+
+[ext_resource path="res://Player/SampleCharacter Frames.png" type="Texture" id=1]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 936, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 962, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 468, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 494, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 520, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 546, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 130, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 156, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 182, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 208, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 338, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 364, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 390, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 416, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 676, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 702, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 728, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=18]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 754, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 26, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 52, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 78, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=23]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 806, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=24]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 832, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=25]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 858, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=26]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 884, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=27]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 260, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=28]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 286, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=29]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 598, 0, 26, 28 )
+
+[sub_resource type="AtlasTexture" id=30]
+flags = 16
+atlas = ExtResource( 1 )
+region = Rect2( 624, 0, 26, 28 )
+
+[resource]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "attackBack",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "jumpSide",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "jumpFront",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "runSide",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "runBack",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "runFront",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
+"loop": true,
+"name": "jumpBack",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 27 ), SubResource( 28 ) ],
+"loop": true,
+"name": "attackFront",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 29 ), SubResource( 30 ) ],
+"loop": true,
+"name": "attackSide",
+"speed": 5.0
+} ]
