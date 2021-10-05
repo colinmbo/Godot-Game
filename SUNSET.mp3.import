@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/SUNSET.mp3-392e35526e3b35c4a70571e6f2efb7ab.mp3str"
+
+[deps]
+
+source_file="res://SUNSET.mp3"
+dest_files=[ "res://.import/SUNSET.mp3-392e35526e3b35c4a70571e6f2efb7ab.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

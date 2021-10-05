@@ -47,6 +47,7 @@ func interacted():
 	var textbox = textboxScene.instance()
 	textbox.connect("dialog_exited", owner.get_node("Player"), "end_interaction")
 	textbox.connect("dialog_exited", self, "end_interaction")
+	textbox.speaker = self
 	textbox.dialog = dialog
 	owner.get_node("HUDCanvas").add_child(textbox)
 
@@ -67,3 +68,4 @@ func end_interaction():
 			animatedSprite.set_flip_h(false)
 	animatedSprite.stop()
 	animatedSprite.set_frame(0)
+	

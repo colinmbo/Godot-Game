@@ -8,6 +8,8 @@ export var type_speed = 0.4
 export var vocal1 : AudioStream
 export var vocal2 : AudioStream
 
+# Address to object that is speaking
+var speaker = null
 # Raw dialog with special chars
 var dialog = []
 # Dialog with special chars removed
@@ -50,8 +52,8 @@ func _process(delta):
 					and current_char != "?" and current_char != "'"
 					and current_char != ""):
 				var voice_player = AudioStreamPlayer3D.new()
-				add_child(voice_player)
-				voice_player.unit_db = 5
+				speaker.add_child(voice_player)
+				voice_player.unit_db = 8
 				voice_player.unit_size = 10
 				voice_player.connect("finished", voice_player, "queue_free")
 				var num = randi() % 3
