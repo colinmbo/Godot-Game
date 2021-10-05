@@ -4,7 +4,7 @@ extends Control
 signal dialog_exited
 
 
-export var type_speed = 0.3
+export var type_speed = 0.4
 export var vocal1 : AudioStream
 export var vocal2 : AudioStream
 
@@ -33,31 +33,33 @@ func _process(delta):
 	
 	# If the current scanned char is special, increment the scanner slower
 	# Otherwise, increment the scanner and visible chars by the typing speed
-	var current_scan_char = dialog[page_index].substr(floor(char_scanner) - 1, 1)
-	if current_scan_char == "/":
+	var scanned_char = dialog[page_index].substr(char_scanner, 1)
+	if scanned_char == "/":
 		char_scanner += type_speed * 0.2
 	else:
 		char_scanner += type_speed
 		visible_chars += type_speed
 	
-	# Play random voice sound if a new char just became visible
-	var current_vis_char = clean_dialog[page_index].substr(floor(visible_chars) - 1, 1)
-	if floor(visible_chars - type_speed) < floor(visible_chars):
-		# Don't play sound when encountering certain chars
-		if (current_vis_char != " " and current_vis_char != "," 
-				and current_vis_char != "." and current_vis_char != "!" 
-				and current_vis_char != "?" and current_vis_char != ""):
-			var voice_player = AudioStreamPlayer3D.new()
-			add_child(voice_player)
-			voice_player.unit_db = 5
-			voice_player.unit_size = 10
-			voice_player.connect("finished", voice_player, "queue_free")
-			var num = randi() % 3
-			match num:
-				0: voice_player.stream = vocal1
-				1: voice_player.stream = vocal2
-				_: voice_player.queue_free()
-			voice_player.play()
+		# Play random voice sound if a new char just became visible
+		var current_char = clean_dialog[page_index].substr(floor(visible_chars) - 1, 1)
+		# print(current_vis_char + "	" + String(visible_chars) + "	" + String(char_scanner))
+		if floor(visible_chars - type_speed) < floor(visible_chars):
+			# Don't play sound when encountering certain chars
+			if (current_char != " " and current_char != "," 
+					and current_char != "." and current_char != "!" 
+					and current_char != "?" and current_char != "'"
+					and current_char != ""):
+				var voice_player = AudioStreamPlayer3D.new()
+				add_child(voice_player)
+				voice_player.unit_db = 5
+				voice_player.unit_size = 10
+				voice_player.connect("finished", voice_player, "queue_free")
+				var num = randi() % 3
+				match num:
+					0: voice_player.stream = vocal1
+					1: voice_player.stream = vocal2
+					_: voice_player.queue_free()
+				voice_player.play()
 	
 	# If all the text has been displayed, cap off scanner and visible chars
 	if char_scanner >= dialog[page_index].length():

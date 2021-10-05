@@ -12,6 +12,7 @@
 background_mode = 4
 ambient_light_color = Color( 0.501961, 0.501961, 0.501961, 1 )
 ambient_light_energy = 0.4
+fog_enabled = true
 fog_color = Color( 0, 0, 0, 1 )
 fog_depth_begin = 60.0
 
@@ -53,6 +54,10 @@ collision/safe_margin = 0.01
 [node name="NPC" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 9.3, -8 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
+
+[node name="NPC2" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 9.3, -25 )
+dialog = [ ".../hey.", "my name's froggo./ i'm a wanted man in this town.", "why, you may ask?// well,/ you've gotta keep this on the low,/ kid.", "you see,/ underneath this town there's an underground trade network.// for like,/ gems and stuff.", "i happen to be one of the few unlucky individuals that got caught.", "doesn't happen too often,/ but the feds wanna lock us up.// keep the gems for themselves.", "///i've been hiding out here for the past few days.// not much to do but open up to a stranger about things...", "yeah.././ i probably shouldn'tve said all that.", "you won't go telling anyone what i told you,/ right?" ]
 
 [node name="CameraAnchor" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3.3, 0 )

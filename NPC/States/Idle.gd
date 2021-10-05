@@ -9,13 +9,13 @@ func enter():
 			owner.animatedSprite.set_animation("runSide")
 			owner.animatedSprite.set_flip_h(false)
 		90:
-			owner.animatedSprite.set_animation("runFront")
+			owner.animatedSprite.set_animation("runBack")
 			owner.animatedSprite.set_flip_h(false)
 		180:
 			owner.animatedSprite.set_animation("runSide")
 			owner.animatedSprite.set_flip_h(true)
-		-90:
-			owner.animatedSprite.set_animation("runBack")
+		270:
+			owner.animatedSprite.set_animation("runFront")
 			owner.animatedSprite.set_flip_h(false)
 	owner.animatedSprite.stop()
 	owner.animatedSprite.set_frame(0)

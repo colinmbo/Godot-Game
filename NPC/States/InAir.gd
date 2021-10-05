@@ -8,16 +8,17 @@ func enter():
 			owner.animatedSprite.set_animation("jumpSide")
 			owner.animatedSprite.set_flip_h(false)
 		90:
-			owner.animatedSprite.set_animation("jumpFront")
+			owner.animatedSprite.set_animation("jumpBack")
 			owner.animatedSprite.set_flip_h(false)
 		180:
 			owner.animatedSprite.set_animation("jumpSide")
 			owner.animatedSprite.set_flip_h(true)
-		-90:
-			owner.animatedSprite.set_animation("jumpBack")
+		270:
+			owner.animatedSprite.set_animation("jumpFront")
 			owner.animatedSprite.set_flip_h(false)
+		
 	owner.animatedSprite.stop()
-	owner.animatedSprite.set_frame(3)
+	owner.animatedSprite.set_frame(0)
 	
 # Called once per frame
 func update(delta):

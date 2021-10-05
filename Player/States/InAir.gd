@@ -2,6 +2,7 @@ extends State
 
 # Called when first entering state
 func enter():
+	
 	match owner.facing_direction:
 		0:
 			owner.animatedSprite.set_animation("jumpSide")
