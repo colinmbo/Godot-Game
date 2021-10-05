@@ -25,7 +25,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-typeSpeed = 0.2
 vocal1 = ExtResource( 2 )
 vocal2 = ExtResource( 1 )
 

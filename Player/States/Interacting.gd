@@ -1,4 +1,4 @@
-extends Node
+extends State
 
 
 # Called when first entering state

@@ -14,7 +14,7 @@
 [ext_resource path="res://Sounds/Footstep3.mp3" type="AudioStream" id=12]
 [ext_resource path="res://Sounds/Footstep4.mp3" type="AudioStream" id=13]
 [ext_resource path="res://Player/States/Attacking.gd" type="Script" id=14]
-[ext_resource path="res://Player/Interacting.gd" type="Script" id=15]
+[ext_resource path="res://Player/States/Interacting.gd" type="Script" id=15]
 
 [sub_resource type="CylinderShape" id=1]
 

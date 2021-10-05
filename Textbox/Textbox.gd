@@ -1,6 +1,6 @@
 extends Control
 
-export var typeSpeed = 0.15
+export var typeSpeed = 0.5
 
 export var vocal1 : AudioStream
 export var vocal2 : AudioStream
