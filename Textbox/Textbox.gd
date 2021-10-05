@@ -1,72 +1,83 @@
 extends Control
 
-export var typeSpeed = 0.5
 
+export var type_speed = 0.4
 export var vocal1 : AudioStream
 export var vocal2 : AudioStream
 
 
-var dialog = ["Empty dialog"]
-var cleanDialog = []
-var dialog_index = 0
+# Raw dialog with special chars
+var dialog = []
+# Dialog with special chars removed
+var clean_dialog = []
+# Index for the current page of dialog displayed
+var page_index = 0
+# Number of characters currently displayed
 var visible_chars = 0
+# Removes special chars and controls dialog pace
 var char_scanner = 0
 
 
+
 func _ready():
+	
+	# Copy dialog to clean dialog with special chars removed
 	for t in dialog:
-		cleanDialog.append(t.replace("/",""))
-		
-	$RichTextLabel.set_text(cleanDialog[dialog_index])
+		clean_dialog.append(t.replace("/",""))
+	
+	$RichTextLabel.set_text(clean_dialog[page_index])
 
 
 func _process(delta):
 	
-	if char_scanner < dialog[dialog_index].length():
-		
-		var last_visible_chars = visible_chars
-		var currentChar = dialog[dialog_index].substr(char_scanner-1, 1)
-		if currentChar == "/":
-			char_scanner += typeSpeed*0.1
-		else:
-			char_scanner += typeSpeed
-			visible_chars += typeSpeed
-			
-		currentChar = dialog[dialog_index].substr(char_scanner-1, 1)
-		if fmod(visible_chars, 1.0) < fmod(last_visible_chars, 1.0):
-				if (currentChar != " " && currentChar != "," && 
-				currentChar != "." && currentChar != "!"):
-					var soundPlayer = AudioStreamPlayer3D.new()
-					add_child(soundPlayer)
-					soundPlayer.unit_db = 5
-					soundPlayer.unit_size = 10
-					var rng = RandomNumberGenerator.new()
-					rng.randomize()
-					var num = rng.randi_range(0, 2)
-					match num:
-						0:
-							soundPlayer.stream = vocal1
-						1:
-							soundPlayer.stream = vocal2
-					soundPlayer.play()
-					
-		#Skip dialog	
-		if Input.is_action_just_pressed("cancel"):
-			char_scanner = dialog[dialog_index].length()
-			visible_chars = cleanDialog[dialog_index].length()
-			
+	# If the current scanned char is special, increment the scanner slower
+	# Otherwise, increment the scanner and visible chars by the typing speed
+	var current_scan_char = dialog[page_index].substr(char_scanner-1, 1)
+	if current_scan_char == "/":
+		char_scanner += type_speed * 0.1
 	else:
-		char_scanner = dialog[dialog_index].length()
-		visible_chars = cleanDialog[dialog_index].length()
+		char_scanner += type_speed
+		visible_chars += type_speed
+	
+	var current_vis_char = clean_dialog[page_index].substr(visible_chars-1, 1)
+	
+	# Play random voice sound if a new char just became visible
+	if floor(visible_chars - type_speed) < floor(visible_chars):
+		# Don't play sound when encountering certain chars
+		if (current_vis_char != " " and current_vis_char != "," 
+				and current_vis_char != "." and current_vis_char != "!" 
+				and current_vis_char != "?"):
+			var voice_player = AudioStreamPlayer3D.new()
+			add_child(voice_player)
+			voice_player.unit_db = 5
+			voice_player.unit_size = 10
+			voice_player.connect("finished", voice_player, "queue_free")
+			var num = randi() % 3
+			match num:
+				0: voice_player.stream = vocal1
+				1: voice_player.stream = vocal2
+				_: voice_player.queue_free()
+			voice_player.play()
+	
+	# If all the text has been displayed, cap off scanner and visible chars
+	if char_scanner >= dialog[page_index].length():
+		char_scanner = dialog[page_index].length()
+		visible_chars = clean_dialog[page_index].length()
 		
-		if Input.is_action_just_pressed("interact") or Input.is_action_just_pressed("action") or Input.is_action_just_pressed("cancel"):
-			visible_chars = 0
+		# If button is pressed, go to next dialog page
+		# If there is no more dialog, delete the textbox
+		if Input.is_action_just_pressed("interact"):
 			char_scanner = 0
-			dialog_index += 1
-			if dialog_index >= dialog.size():
-				#FIRE SIGNAL THAT THE TEXTBOX HAS ENDED
+			visible_chars = 0
+			page_index += 1
+			if page_index >= dialog.size():
 				queue_free()
 			else:
-				$RichTextLabel.set_text(cleanDialog[dialog_index])
+				$RichTextLabel.set_text(clean_dialog[page_index])
+	else:
+		# Skip dialog on input if the text is still being typed out
+		if Input.is_action_just_pressed("cancel"):
+			char_scanner = dialog[page_index].length()
+			visible_chars = clean_dialog[page_index].length()
 	
 	$RichTextLabel.set_visible_characters(visible_chars)
