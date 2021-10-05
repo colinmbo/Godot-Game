@@ -39,3 +39,6 @@ func _process(delta):
 
 func _physics_process(delta):
 	pass
+
+func end_interaction():
+	$StateMachine.transition_to("Idle")

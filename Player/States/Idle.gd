@@ -3,7 +3,7 @@ extends State
 
 # Called when first entering state
 func enter():
-			
+	
 	owner.velocity = Vector3.ZERO
 	match owner.facing_direction:
 		0:

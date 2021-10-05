@@ -1,7 +1,10 @@
 extends Control
 
 
-export var type_speed = 0.4
+signal dialog_exited
+
+
+export var type_speed = 0.3
 export var vocal1 : AudioStream
 export var vocal2 : AudioStream
 
@@ -11,10 +14,10 @@ var dialog = []
 var clean_dialog = []
 # Index for the current page of dialog displayed
 var page_index = 0
-# Number of characters currently displayed
-var visible_chars = 0
 # Removes special chars and controls dialog pace
 var char_scanner = 0
+# Number of characters currently displayed
+var visible_chars = 0
 
 
 func _ready():
@@ -32,7 +35,7 @@ func _process(delta):
 	# Otherwise, increment the scanner and visible chars by the typing speed
 	var current_scan_char = dialog[page_index].substr(floor(char_scanner) - 1, 1)
 	if current_scan_char == "/":
-		char_scanner += type_speed * 0.1
+		char_scanner += type_speed * 0.2
 	else:
 		char_scanner += type_speed
 		visible_chars += type_speed
@@ -62,12 +65,13 @@ func _process(delta):
 		visible_chars = clean_dialog[page_index].length()
 		
 		# If button is pressed, go to next dialog page
-		# If there is no more dialog, delete the textbox
+		# If there is no more dialog, emit signal and delete the textbox
 		if Input.is_action_just_pressed("interact"):
 			char_scanner = 0
 			visible_chars = 0
 			page_index += 1
 			if page_index >= dialog.size():
+				emit_signal("dialog_exited")
 				queue_free()
 			else:
 				$RichTextLabel.set_text(clean_dialog[page_index])
