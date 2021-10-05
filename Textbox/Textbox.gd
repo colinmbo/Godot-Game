@@ -34,19 +34,21 @@ func _ready():
 func _process(delta):
 	
 	# If the current scanned char is special, increment the scanner slower
-	# Otherwise, increment the scanner and visible chars by the typing speed
+	# Otherwise, increment the scanner by the typing speed
 	var scanned_char = dialog[page_index].substr(char_scanner, 1)
 	if scanned_char == "/":
 		char_scanner += type_speed * 0.2
 	else:
 		char_scanner += type_speed
-		visible_chars += type_speed
-	
-		# Play random voice sound if a new char just became visible
-		var current_char = clean_dialog[page_index].substr(floor(visible_chars) - 1, 1)
-		# print(current_vis_char + "	" + String(visible_chars) + "	" + String(char_scanner))
-		if floor(visible_chars - type_speed) < floor(visible_chars):
-			# Don't play sound when encountering certain chars
+
+		if floor(char_scanner - type_speed) < floor(char_scanner):
+			
+			# If the scanner surpasses a char, make a new char visible
+			visible_chars += 1
+			
+			var current_char = clean_dialog[page_index].substr(floor(visible_chars) - 1, 1)
+			
+			# Play random voice sound if a new char just became visible
 			if (current_char != " " and current_char != "," 
 					and current_char != "." and current_char != "!" 
 					and current_char != "?" and current_char != "'"
@@ -56,7 +58,7 @@ func _process(delta):
 				voice_player.unit_db = 8
 				voice_player.unit_size = 10
 				voice_player.connect("finished", voice_player, "queue_free")
-				var num = randi() % 3
+				var num = randi() % 2
 				match num:
 					0: voice_player.stream = vocal1
 					1: voice_player.stream = vocal2
