@@ -5,7 +5,6 @@ export var type_speed = 0.4
 export var vocal1 : AudioStream
 export var vocal2 : AudioStream
 
-
 # Raw dialog with special chars
 var dialog = []
 # Dialog with special chars removed
@@ -16,7 +15,6 @@ var page_index = 0
 var visible_chars = 0
 # Removes special chars and controls dialog pace
 var char_scanner = 0
-
 
 
 func _ready():
@@ -32,21 +30,20 @@ func _process(delta):
 	
 	# If the current scanned char is special, increment the scanner slower
 	# Otherwise, increment the scanner and visible chars by the typing speed
-	var current_scan_char = dialog[page_index].substr(char_scanner-1, 1)
+	var current_scan_char = dialog[page_index].substr(floor(char_scanner) - 1, 1)
 	if current_scan_char == "/":
 		char_scanner += type_speed * 0.1
 	else:
 		char_scanner += type_speed
 		visible_chars += type_speed
 	
-	var current_vis_char = clean_dialog[page_index].substr(visible_chars-1, 1)
-	
 	# Play random voice sound if a new char just became visible
+	var current_vis_char = clean_dialog[page_index].substr(floor(visible_chars) - 1, 1)
 	if floor(visible_chars - type_speed) < floor(visible_chars):
 		# Don't play sound when encountering certain chars
 		if (current_vis_char != " " and current_vis_char != "," 
 				and current_vis_char != "." and current_vis_char != "!" 
-				and current_vis_char != "?"):
+				and current_vis_char != "?" and current_vis_char != ""):
 			var voice_player = AudioStreamPlayer3D.new()
 			add_child(voice_player)
 			voice_player.unit_db = 5

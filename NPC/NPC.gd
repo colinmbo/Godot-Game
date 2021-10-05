@@ -1,11 +1,13 @@
 extends KinematicBody
 
+
+export var facing_direction := 90
+export var grav_force = 1.0
+
 onready var animatedSprite = $AnimatedSprite3D
 
 var velocity = Vector3.ZERO
 
-export var facing_direction := 90
-export var grav_force = 1.0
 
 export var dialog = [
 	"Sample text",
@@ -15,7 +17,6 @@ const textboxScene = preload("res://Textbox/Textbox.tscn")
 
 func _ready():
 	facing_direction = round(facing_direction * 90) / 90
-
 
 func _process(delta):
 	pass
