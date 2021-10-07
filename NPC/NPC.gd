@@ -6,6 +6,8 @@ export var facing_direction := 270
 export var grav_force = 1.0
 
 onready var animatedSprite = $AnimatedSprite3D
+onready var shadowRay = $ShadowRay
+onready var shadow = $Shadow
 
 var velocity = Vector3.ZERO
 
@@ -17,7 +19,15 @@ func _ready():
 
 
 func _process(delta):
-	pass
+	
+	rotation_degrees = Vector3(0,facing_direction,0)
+	
+	#Shadow stuff
+	if (shadowRay.is_colliding()):
+		shadow.show()
+		shadow.global_transform.origin.y = (shadowRay.get_collision_point().y + 0.05)
+	else:
+		shadow.hide()
 
 
 func _physics_process(delta):
@@ -69,3 +79,11 @@ func end_interaction():
 	animatedSprite.stop()
 	animatedSprite.set_frame(0)
 	
+func get_hurt(dir, force, height, dmg, stun):
+	dir = dir.normalized()
+	
+	$StateMachine/Hurt.dir = dir
+	$StateMachine/Hurt.force = force
+	$StateMachine/Hurt.height = height
+	$StateMachine/Hurt.stun = stun
+	$StateMachine.transition_to("Hurt")

@@ -1,12 +1,25 @@
 extends Spatial
 
 
+var life = 40
+var time_to_destroy = 20
+var destroy = false
 
 func _ready():
 	pass
 
+
 func _process(delta):
-	pass
+	if life <= 0:
+		life = 0
+		$Particles.emitting = false
+		destroy = true
+	life -= 1
+	
+	if destroy:
+		time_to_destroy -= 1
+	if time_to_destroy <= 0:
+		queue_free()
 
 
 func _on_Area_body_entered(body):

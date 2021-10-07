@@ -15,7 +15,7 @@
 [ext_resource path="res://Sounds/Footstep4.mp3" type="AudioStream" id=13]
 [ext_resource path="res://Player/States/Attacking.gd" type="Script" id=14]
 [ext_resource path="res://Player/States/Interacting.gd" type="Script" id=15]
-[ext_resource path="res://Player/Hurt.gd" type="Script" id=16]
+[ext_resource path="res://Player/States/Hurt.gd" type="Script" id=16]
 [ext_resource path="res://Player/SampleCharacter Frames.png" type="Texture" id=17]
 [ext_resource path="res://SpriteShader.tres" type="Shader" id=18]
 

@@ -1,6 +1,7 @@
 extends State
 
-var timer = 50
+var attack_time = 12
+var timer = 0
 
 const spell = preload("res://Spell1.tscn")
 
@@ -23,11 +24,11 @@ func enter():
 			owner.animatedSprite.set_flip_h(false)
 	owner.animatedSprite.stop()
 	owner.animatedSprite.set_frame(1)
-	timer = 50
+	timer = attack_time
 	
 	var spellInst = spell.instance()
 	get_tree().get_root().get_node("Main").add_child(spellInst)
-	spellInst.set_translation(owner.get_translation() + Vector3(-3,0,0))
+	spellInst.global_transform.origin = owner.global_transform.origin + Vector3(Vector2.RIGHT.rotated(deg2rad(owner.facing_direction)).x, 0, Vector2.RIGHT.rotated(-deg2rad(owner.facing_direction)).y) * 2
 
 # Called once per frame
 func update(delta):
