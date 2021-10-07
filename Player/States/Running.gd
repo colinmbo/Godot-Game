@@ -1,5 +1,9 @@
 extends State
 
+
+var last_frame = 0
+
+
 # Called when first entering state
 func enter():
 	match owner.facing_direction:
@@ -18,11 +22,25 @@ func enter():
 		
 	owner.animatedSprite.set_frame(1)
 	owner.animatedSprite.play()
-	
-	
+
+
 # Called once per frame
 func update(delta):
-	pass
+	if owner.animatedSprite.frame % 2 == 0 and owner.animatedSprite.frame != last_frame:
+		var footstep_player = AudioStreamPlayer3D.new()
+		owner.add_child(footstep_player)
+		footstep_player.unit_db = 15
+		footstep_player.unit_size = 10
+		footstep_player.connect("finished", footstep_player, "queue_free")
+		var num = randi() % 3
+		match num:
+			0: footstep_player.stream = owner.footstep_sound1
+			1: footstep_player.stream = owner.footstep_sound2
+			2: footstep_player.stream = owner.footstep_sound3
+			3: footstep_player.stream = owner.footstep_sound4
+		footstep_player.play()
+	last_frame = owner.animatedSprite.frame
+
 
 # Called once per physics frame
 func physics_update(delta):
@@ -63,26 +81,16 @@ func physics_update(delta):
 	owner.velocity.z = input_direction.y * owner.move_speed
 	owner.move_and_slide_with_snap(owner.velocity, Vector3(0, -0.1, 0), Vector3.UP, true)
 	
-	if owner.animatedSprite.get_frame() % 2 == 0:
-		if (!owner.fs1.is_playing() and !owner.fs2.is_playing() and 
-			!owner.fs3.is_playing() and !owner.fs4.is_playing()):
-			var rng = RandomNumberGenerator.new()
-			rng.randomize()
-			var num = rng.randi_range(0, 3)
-			match num:
-				0:
-					owner.fs1.play()
-				1:
-					owner.fs2.play()
-				2:
-					owner.fs3.play()
-				3:
-					owner.fs4.play()
-	
 	if owner.is_on_floor():
 		if Input.is_action_just_pressed("jump"):
+			var jump_player = AudioStreamPlayer3D.new()
+			owner.add_child(jump_player)
+			jump_player.unit_db = 15
+			jump_player.unit_size = 10
+			jump_player.connect("finished", jump_player, "queue_free")
+			jump_player.stream = owner.jump_sound
+			jump_player.play()
 			owner.velocity.y = owner.jump_force
-			owner.jumpSound.play()
 			state_machine.transition_to("InAir")
 		elif Input.is_action_just_pressed("action"):
 			#Run attack here?
@@ -98,6 +106,7 @@ func physics_update(delta):
 			if collider.has_method("interacted"):
 				collider.interacted()
 				state_machine.transition_to("Interacting")
+
 
 # Called when exiting state
 func exit():

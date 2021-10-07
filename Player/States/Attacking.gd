@@ -26,7 +26,7 @@ func enter():
 	timer = 50
 	
 	var spellInst = spell.instance()
-	get_tree().get_root().add_child(spellInst)
+	get_tree().get_root().get_node("Main").add_child(spellInst)
 	spellInst.set_translation(owner.get_translation() + Vector3(-3,0,0))
 
 # Called once per frame

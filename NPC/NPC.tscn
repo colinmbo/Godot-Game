@@ -25,7 +25,6 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 material_override = SubResource( 2 )
 pixel_size = 0.1
-billboard = 1
 frames = ExtResource( 3 )
 animation = "runFront"
 

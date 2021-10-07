@@ -7,7 +7,6 @@ uniform_name = "TextureUniform"
 constant = 0.98
 
 [sub_resource type="VisualShaderNodeColorOp" id=3]
-operator = 1
 
 [sub_resource type="VisualShaderNodeColorUniform" id=4]
 uniform_name = "ColorUniform"
@@ -52,7 +51,7 @@ void fragment() {
 	}
 
 // ColorOp:4
-	vec3 n_out4p0 = abs(n_out5p0 - n_out2p0);
+	vec3 n_out4p0 = vec3(1.0) - (vec3(1.0) - n_out5p0) * (vec3(1.0) - n_out2p0);
 
 // Scalar:3
 	float n_out3p0 = 0.980000;
@@ -69,7 +68,7 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -499.201, 11.8763 )
+graph_offset = Vector2( -477.95, -29.3325 )
 flags/unshaded = true
 nodes/vertex/2/node = SubResource( 5 )
 nodes/vertex/2/position = Vector2( -1680, 160 )
@@ -79,11 +78,11 @@ nodes/vertex/2/output_ports = "0,3,output0;"
 nodes/vertex/2/expression = "MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],CAMERA_MATRIX[1],CAMERA_MATRIX[2],WORLD_MATRIX[3]);"
 nodes/vertex/connections = PoolIntArray( 2, 0, 0, 0 )
 nodes/fragment/2/node = SubResource( 1 )
-nodes/fragment/2/position = Vector2( -700, 380 )
+nodes/fragment/2/position = Vector2( -660, 380 )
 nodes/fragment/3/node = SubResource( 2 )
-nodes/fragment/3/position = Vector2( -140, 860 )
+nodes/fragment/3/position = Vector2( -160, 760 )
 nodes/fragment/4/node = SubResource( 3 )
-nodes/fragment/4/position = Vector2( -120, 80 )
+nodes/fragment/4/position = Vector2( -120, 120 )
 nodes/fragment/5/node = SubResource( 4 )
 nodes/fragment/5/position = Vector2( -700, 60 )
 nodes/fragment/connections = PoolIntArray( 2, 1, 0, 1, 3, 0, 0, 18, 5, 0, 4, 0, 2, 0, 4, 1, 4, 0, 0, 0 )

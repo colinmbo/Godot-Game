@@ -46,7 +46,13 @@ func physics_update(delta):
 		owner.animatedSprite.set_frame(3)
 	
 	if owner.is_on_floor() and owner.velocity.y < 0:
-		owner.thumpSound.play()
+		var thump_player = AudioStreamPlayer3D.new()
+		owner.add_child(thump_player)
+		thump_player.unit_db = 15
+		thump_player.unit_size = 10
+		thump_player.connect("finished", thump_player, "queue_free")
+		thump_player.stream = owner.thump_sound
+		thump_player.play()
 		if input_direction.length() > 0:
 			state_machine.transition_to("Running")
 		else:

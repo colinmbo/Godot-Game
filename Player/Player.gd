@@ -13,6 +13,13 @@ onready var fs4 = $Footstep4
 onready var jumpSound = $JumpSound
 onready var thumpSound = $ThumpSound
 
+export var footstep_sound1 : AudioStream
+export var footstep_sound2 : AudioStream
+export var footstep_sound3 : AudioStream
+export var footstep_sound4 : AudioStream
+export var jump_sound : AudioStream
+export var thump_sound : AudioStream
+
 export var move_speed = 9.0
 export var jump_force = 20.0
 export var grav_force = 1.0
@@ -43,5 +50,6 @@ func _physics_process(delta):
 func end_interaction():
 	$StateMachine.transition_to("Idle")
 	
-func get_hurt(damage, type):
+func get_hurt():
+	print("hit")
 	$StateMachine.transition_to("Hurt")

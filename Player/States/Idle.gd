@@ -39,8 +39,14 @@ func physics_update(delta):
 	
 	if owner.is_on_floor():
 		if Input.is_action_just_pressed("jump"):
+			var jump_player = AudioStreamPlayer3D.new()
+			owner.add_child(jump_player)
+			jump_player.unit_db = 15
+			jump_player.unit_size = 10
+			jump_player.connect("finished", jump_player, "queue_free")
+			jump_player.stream = owner.jump_sound
+			jump_player.play()
 			owner.velocity.y = owner.jump_force
-			owner.jumpSound.play()
 			state_machine.transition_to("InAir")
 		elif Input.is_action_just_pressed("action"):
 			state_machine.transition_to("Attacking")
