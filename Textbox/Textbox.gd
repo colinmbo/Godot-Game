@@ -8,7 +8,7 @@ export var type_speed = 0.4
 export var vocal1 : AudioStream
 export var vocal2 : AudioStream
 
-# Address to object that is speaking
+# Reference to object that is speaking
 var speaker = null
 # Raw dialog with special chars
 var dialog = []

@@ -13,7 +13,6 @@
 background_mode = 4
 ambient_light_color = Color( 0.501961, 0.501961, 0.501961, 1 )
 ambient_light_energy = 0.4
-fog_enabled = true
 fog_color = Color( 0, 0, 0, 1 )
 fog_depth_begin = 60.0
 
@@ -62,7 +61,7 @@ dialog = [ ".../hey.", "my name's froggo./ i'm a wanted man in this town.", "why
 
 [node name="NPC3" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3.3, -19 )
-dialog = [ "///i've been hiding out here for the past few days.//// not much to do but open up to a stranger about things..." ]
+dialog = [ "Hope you enjoy your time here!" ]
 
 [node name="CameraAnchor" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3.3, 0 )

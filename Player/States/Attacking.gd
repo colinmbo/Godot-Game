@@ -41,4 +41,4 @@ func physics_update(delta):
 
 # Called when exiting state
 func exit():
-	get_tree().get_root().get_node("Spell1").queue_free()
+	pass

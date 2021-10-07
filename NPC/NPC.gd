@@ -45,7 +45,7 @@ func interacted():
 	animatedSprite.stop()
 	animatedSprite.set_frame(0)
 	var textbox = textboxScene.instance()
-	textbox.connect("dialog_exited", owner.get_node("Player"), "end_interaction")
+	textbox.connect("dialog_exited", interactor, "end_interaction")
 	textbox.connect("dialog_exited", self, "end_interaction")
 	textbox.speaker = self
 	textbox.dialog = dialog

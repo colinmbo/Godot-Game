@@ -42,3 +42,6 @@ func _physics_process(delta):
 
 func end_interaction():
 	$StateMachine.transition_to("Idle")
+	
+func get_hurt(damage, type):
+	$StateMachine.transition_to("Hurt")
