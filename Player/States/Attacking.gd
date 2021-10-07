@@ -3,7 +3,7 @@ extends State
 var attack_time = 12
 var timer = 0
 
-const spell = preload("res://Spell1.tscn")
+var spell = preload("res://Spell1.tscn")
 
 # Called when first entering state
 func enter():
@@ -27,8 +27,11 @@ func enter():
 	timer = attack_time
 	
 	var spellInst = spell.instance()
+	spellInst.user = owner
 	get_tree().get_root().get_node("Main").add_child(spellInst)
-	spellInst.global_transform.origin = owner.global_transform.origin + Vector3(Vector2.RIGHT.rotated(deg2rad(owner.facing_direction)).x, 0, Vector2.RIGHT.rotated(-deg2rad(owner.facing_direction)).y) * 2
+	spellInst.global_transform.origin = (owner.global_transform.origin + 
+		Vector3(Vector2.RIGHT.rotated(deg2rad(owner.facing_direction)).x, 
+		0, Vector2.RIGHT.rotated(-deg2rad(owner.facing_direction)).y) * 2)
 
 # Called once per frame
 func update(delta):

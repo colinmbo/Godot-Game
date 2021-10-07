@@ -1,6 +1,6 @@
 extends Spatial
 
-
+var user = null
 var life = 40
 var time_to_destroy = 20
 var destroy = false
@@ -23,8 +23,8 @@ func _process(delta):
 
 
 func _on_Area_body_entered(body):
-	if body.has_method("get_hurt"):
+	if body != user and body.has_method("get_hurt"):
 		var body_pos_2d = Vector2(body.global_transform.origin.x, body.global_transform.origin.z)
-		var spell_pos_2d = Vector2(global_transform.origin.x, global_transform.origin.z)
-		var dir = body_pos_2d - spell_pos_2d
-		body.get_hurt(dir, 10, 10, 10, 30)
+		var user_pos_2d = Vector2(user.global_transform.origin.x, user.global_transform.origin.z)
+		var dir = body_pos_2d - user_pos_2d
+		body.get_hurt(dir, 20, 5, 10, 30)

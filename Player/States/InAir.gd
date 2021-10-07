@@ -59,7 +59,7 @@ func physics_update(delta):
 			state_machine.transition_to("Idle")
 	elif Input.is_action_just_pressed("action"):
 		#Do air attack here
-		#state_machine.transition_to("Attacking")
+		# state_machine.transition_to("Attacking")
 		pass
 
 # Called when exiting state
