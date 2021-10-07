@@ -12,21 +12,11 @@
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 7 )
-shader_param/ColorUniform = Color( 0, 0, 0, 1 )
-shader_param/TextureUniform = ExtResource( 6 )
+shader_param/Is_White = null
+shader_param/Sprites = ExtResource( 6 )
 
 [node name="NPC" type="KinematicBody"]
 script = ExtResource( 4 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1.3, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 1 )
-
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-material_override = SubResource( 2 )
-pixel_size = 0.1
-frames = ExtResource( 3 )
-animation = "runFront"
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
@@ -37,3 +27,13 @@ script = ExtResource( 1 )
 
 [node name="InAir" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1.3, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+material_override = SubResource( 2 )
+pixel_size = 0.1
+frames = ExtResource( 3 )
+animation = "runFront"

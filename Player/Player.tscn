@@ -23,8 +23,8 @@
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 18 )
-shader_param/ColorUniform = Color( 0, 0, 0, 1 )
-shader_param/TextureUniform = ExtResource( 17 )
+shader_param/Is_White = false
+shader_param/Sprites = ExtResource( 17 )
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
