@@ -17,6 +17,8 @@ onready var shadowRay = $ShadowRay
 onready var shadow = $Shadow
 onready var interactRay = $InteractRay
 
+
+var health = 100
 var facing_direction := 270
 var velocity = Vector3.ZERO
 
@@ -50,5 +52,7 @@ func get_hurt(dir, force, height, dmg, stun):
 	$StateMachine/Hurt.force = force
 	$StateMachine/Hurt.height = height
 	$StateMachine/Hurt.stun = stun
+	
+	health -= dmg
 	$StateMachine.transition_to("Hurt")
 

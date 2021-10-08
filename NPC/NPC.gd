@@ -9,6 +9,7 @@ onready var animatedSprite = $AnimatedSprite3D
 onready var shadowRay = $ShadowRay
 onready var shadow = $Shadow
 
+var health = 50
 var velocity = Vector3.ZERO
 
 const textboxScene = preload("res://Textbox/Textbox.tscn")
@@ -28,6 +29,9 @@ func _process(delta):
 		shadow.global_transform.origin.y = (shadowRay.get_collision_point().y + 0.05)
 	else:
 		shadow.hide()
+		
+	if health <= 0:
+		die()
 
 
 func _physics_process(delta):
@@ -86,4 +90,9 @@ func get_hurt(dir, force, height, dmg, stun):
 	$StateMachine/Hurt.force = force
 	$StateMachine/Hurt.height = height
 	$StateMachine/Hurt.stun = stun
+	
+	health -= dmg
 	$StateMachine.transition_to("Hurt")
+	
+func die():
+	queue_free()

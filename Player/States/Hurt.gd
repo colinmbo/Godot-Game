@@ -26,8 +26,8 @@ func enter():
 			owner.animatedSprite.set_flip_h(false)
 	owner.animatedSprite.stop()
 	owner.animatedSprite.set_frame(0)
-	
-	
+
+
 # Called once per frame
 func update(delta):
 	if stun <= 0:

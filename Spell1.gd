@@ -1,6 +1,10 @@
 extends Spatial
 
 var user = null
+var damage = 10
+var knockback_force = 10
+var knockback_height = 10
+var stun = 30
 var life = 40
 var time_to_destroy = 20
 var destroy = false
@@ -27,4 +31,4 @@ func _on_Area_body_entered(body):
 		var body_pos_2d = Vector2(body.global_transform.origin.x, body.global_transform.origin.z)
 		var user_pos_2d = Vector2(user.global_transform.origin.x, user.global_transform.origin.z)
 		var dir = body_pos_2d - user_pos_2d
-		body.get_hurt(dir, 20, 5, 10, 30)
+		body.get_hurt(dir, knockback_force, knockback_height, damage, stun)
