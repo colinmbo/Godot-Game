@@ -32,7 +32,7 @@ func _ready():
 	pass
 
 
-func _process(delta):
+func _process(_delta):
 	
 	rotation_degrees = Vector3(0,facing_dir,0)
 	

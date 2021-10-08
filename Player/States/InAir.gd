@@ -28,7 +28,7 @@ func enter():
 
 
 # Called once per frame
-func update(delta):
+func update(_delta):
 	
 	input_vec = Vector2(
 		int(Input.get_action_strength("move_right") 
@@ -40,7 +40,7 @@ func update(delta):
 
 
 # Called once per physics frame
-func physics_update(delta):
+func physics_update(_delta):
 	
 	player.velocity += Vector3(input_vec.x, 0, input_vec.y) * 0.4
 	var vel_xz = Vector2(player.velocity.x, player.velocity.z)
@@ -92,8 +92,3 @@ func physics_update(delta):
 			
 	elif Input.is_action_just_pressed("action"):
 		pass
-
-
-# Called when exiting state
-func exit():
-	pass

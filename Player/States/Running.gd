@@ -23,7 +23,7 @@ func enter():
 
 
 # Called once per frame
-func update(delta):
+func update(_delta):
 	
 	input_vec = Vector2(
 		int(Input.get_action_strength("move_right") 
@@ -52,7 +52,7 @@ func update(delta):
 
 
 # Called once per physics frame
-func physics_update(delta):
+func physics_update(_delta):
 	
 	if !player.is_on_floor():
 		state_machine.transition_to("InAir")
@@ -91,13 +91,13 @@ func physics_update(delta):
 
 func facing_from_vec(vec):
 	var dir = rad2deg(vec.angle())
-	return posmod(round(dir / 90) * 90, 360)
+	return posmod(int(round(dir / 90) * 90), 360)
 
 
 func play_footstep():
 	var num = randi() % 3
 	match num:
 		0: player.play_sound_3d(player.footstep_sound1, 15, 10)
-		1: player.play_sound_3d(player.footstep_sound1, 15, 10)
-		2: player.play_sound_3d(player.footstep_sound1, 15, 10)
-		3: player.play_sound_3d(player.footstep_sound1, 15, 10)
+		1: player.play_sound_3d(player.footstep_sound2, 15, 10)
+		2: player.play_sound_3d(player.footstep_sound3, 15, 10)
+		3: player.play_sound_3d(player.footstep_sound4, 15, 10)

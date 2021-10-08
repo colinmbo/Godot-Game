@@ -29,7 +29,7 @@ func enter():
 
 
 # Called once per frame
-func update(delta):
+func update(_delta):
 	
 	if stun <= 0:
 		stun = 0
@@ -40,7 +40,7 @@ func update(delta):
 
 
 # Called once per physics frame
-func physics_update(delta):
+func physics_update(_delta):
 	
 	player.velocity.x = dir.x * force
 	player.velocity.z = dir.y * force

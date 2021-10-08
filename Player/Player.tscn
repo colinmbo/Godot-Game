@@ -191,6 +191,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 27, 28, 29, 26 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("StateMachine/Running")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25, 0.75 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_footstep"
+}, {
+"args": [  ],
+"method": "play_footstep"
+} ]
+}
 
 [sub_resource type="Animation" id=11]
 resource_name = "run_front"
@@ -215,9 +232,15 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"values": [  ]
+"times": PoolRealArray( 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_footstep"
+}, {
+"args": [  ],
+"method": "play_footstep"
+} ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -235,6 +258,23 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 14, 15, 16, 13 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("StateMachine/Running")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25, 0.75 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_footstep"
+}, {
+"args": [  ],
+"method": "play_footstep"
+} ]
 }
 
 [node name="Player" type="KinematicBody"]
@@ -291,6 +331,7 @@ material_override = SubResource( 3 )
 pixel_size = 0.1
 texture = ExtResource( 17 )
 hframes = 38
+frame = 14
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack_back = SubResource( 4 )

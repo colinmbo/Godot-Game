@@ -25,7 +25,7 @@ func enter():
 
 
 # Called once per frame
-func update(delta):
+func update(_delta):
 	
 	input_vec = Vector2(
 		int(Input.get_action_strength("move_right") 
@@ -37,7 +37,7 @@ func update(delta):
 
 
 # Called once per physics frame
-func physics_update(delta):
+func physics_update(_delta):
 	
 	if !player.is_on_floor():
 		state_machine.transition_to("InAir")

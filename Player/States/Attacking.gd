@@ -36,14 +36,10 @@ func enter():
 	var facing_vec = Vector2.RIGHT.rotated(deg2rad(player.facing_dir))
 	spell_inst.global_transform.origin = (player.global_transform.origin +
 		Vector3(facing_vec.x, 0, -facing_vec.y) * 2)
-	
-#	spell_inst.global_transform.origin = (player.global_transform.origin + 
-#		Vector3(Vector2.RIGHT.rotated(deg2rad(player.facing_direction)).x, 
-#		0, Vector2.RIGHT.rotated(-deg2rad(player.facing_direction)).y) * 2)
+
 
 # Called once per frame
-func update(delta):
+func update(_delta):
 	timer -= 1
 	if timer <= 0:
 		state_machine.transition_to("Idle")
-
