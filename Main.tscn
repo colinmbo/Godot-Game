@@ -13,7 +13,6 @@
 background_mode = 4
 ambient_light_color = Color( 0.501961, 0.501961, 0.501961, 1 )
 ambient_light_energy = 0.4
-fog_enabled = true
 fog_color = Color( 0, 0, 0, 1 )
 fog_depth_begin = 60.0
 
@@ -148,7 +147,7 @@ mesh = SubResource( 5 )
 
 [node name="HUDCanvas" type="CanvasLayer" parent="."]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = -4.0
 autoplay = true
