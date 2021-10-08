@@ -92,7 +92,7 @@ tracks/0/keys = {
 "values": [ 26 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=15]
 resource_name = "idle_front"
 step = 1.0
 tracks/0/type = "value"
@@ -108,7 +108,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=16]
 resource_name = "idle_side"
 step = 1.0
 tracks/0/type = "value"
@@ -124,7 +124,7 @@ tracks/0/keys = {
 "values": [ 13 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=17]
 length = 0.75
 step = 0.25
 tracks/0/type = "value"
@@ -140,7 +140,7 @@ tracks/0/keys = {
 "values": [ 32, 33, 34 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=18]
 length = 0.75
 step = 0.25
 tracks/0/type = "value"
@@ -156,7 +156,7 @@ tracks/0/keys = {
 "values": [ 6, 7, 8 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=19]
 length = 0.75
 step = 0.25
 tracks/0/type = "value"
@@ -172,7 +172,7 @@ tracks/0/keys = {
 "values": [ 19, 20, 21 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=20]
 loop = true
 step = 0.25
 tracks/0/type = "value"
@@ -325,18 +325,18 @@ material_override = SubResource( 2 )
 pixel_size = 0.1
 texture = ExtResource( 17 )
 hframes = 38
-frame = 19
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack_back = SubResource( 3 )
 anims/attack_front = SubResource( 4 )
 anims/attack_side = SubResource( 5 )
 anims/idle_back = SubResource( 6 )
-anims/idle_front = SubResource( 7 )
-anims/idle_side = SubResource( 8 )
-anims/jump_back = SubResource( 9 )
-anims/jump_front = SubResource( 10 )
-anims/jump_side = SubResource( 11 )
-anims/run_back = SubResource( 12 )
+anims/idle_front = SubResource( 15 )
+anims/idle_side = SubResource( 16 )
+anims/jump_back = SubResource( 17 )
+anims/jump_front = SubResource( 18 )
+anims/jump_side = SubResource( 19 )
+anims/run_back = SubResource( 20 )
 anims/run_front = SubResource( 13 )
 anims/run_side = SubResource( 14 )

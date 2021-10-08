@@ -1,27 +1,29 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Camera/Camera.gd" type="Script" id=2]
 [ext_resource path="res://Camera/CameraAnchor.gd" type="Script" id=3]
-[ext_resource path="res://Textures/WhiteBrick1.png" type="Texture" id=4]
+[ext_resource path="res://Textures/Grass.png" type="Texture" id=4]
 [ext_resource path="res://Textures/SunsetTest1.png" type="Texture" id=5]
 [ext_resource path="res://SUNSET.mp3" type="AudioStream" id=6]
 [ext_resource path="res://Textures/BrickTest1.png" type="Texture" id=7]
 [ext_resource path="res://NPC/NPC.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Partner.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
 ambient_light_color = Color( 0.501961, 0.501961, 0.501961, 1 )
 ambient_light_energy = 0.4
+fog_enabled = true
 fog_color = Color( 0, 0, 0, 1 )
 fog_depth_begin = 60.0
 
 [sub_resource type="PlaneMesh" id=2]
 
 [sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.901961, 0.901961, 0.901961, 1 )
+albedo_color = Color( 0, 0.764706, 1, 1 )
 albedo_texture = ExtResource( 4 )
-uv1_scale = Vector3( 5, 5, 1 )
+uv1_scale = Vector3( 8, 6, 1 )
 
 [sub_resource type="SpatialMaterial" id=4]
 albedo_texture = ExtResource( 7 )
@@ -151,3 +153,9 @@ mesh = SubResource( 5 )
 stream = ExtResource( 6 )
 volume_db = -4.0
 autoplay = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+
+[node name="Partner" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 9.44504, 0 )
+target = NodePath("../Player")
