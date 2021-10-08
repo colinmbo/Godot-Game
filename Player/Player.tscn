@@ -20,12 +20,12 @@
 
 [sub_resource type="CylinderShape" id=1]
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 18 )
 shader_param/Is_White = false
 shader_param/Sprites = ExtResource( 17 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "attack_back"
 length = 0.25
 step = 0.25
@@ -42,7 +42,7 @@ tracks/0/keys = {
 "values": [ 37 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "attack_front"
 length = 0.25
 step = 0.25
@@ -59,7 +59,7 @@ tracks/0/keys = {
 "values": [ 11 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "attack_side"
 length = 0.25
 step = 0.25
@@ -76,7 +76,7 @@ tracks/0/keys = {
 "values": [ 24 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=6]
 resource_name = "idle_back"
 step = 1.0
 tracks/0/type = "value"
@@ -92,7 +92,7 @@ tracks/0/keys = {
 "values": [ 26 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=7]
 resource_name = "idle_front"
 step = 1.0
 tracks/0/type = "value"
@@ -108,7 +108,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=8]
 resource_name = "idle_side"
 step = 1.0
 tracks/0/type = "value"
@@ -124,8 +124,7 @@ tracks/0/keys = {
 "values": [ 13 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "jump_back"
+[sub_resource type="Animation" id=9]
 length = 0.75
 step = 0.25
 tracks/0/type = "value"
@@ -141,8 +140,7 @@ tracks/0/keys = {
 "values": [ 32, 33, 34 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "jump_front"
+[sub_resource type="Animation" id=10]
 length = 0.75
 step = 0.25
 tracks/0/type = "value"
@@ -158,8 +156,7 @@ tracks/0/keys = {
 "values": [ 6, 7, 8 ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "jump_side"
+[sub_resource type="Animation" id=11]
 length = 0.75
 step = 0.25
 tracks/0/type = "value"
@@ -175,8 +172,7 @@ tracks/0/keys = {
 "values": [ 19, 20, 21 ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "run_back"
+[sub_resource type="Animation" id=12]
 loop = true
 step = 0.25
 tracks/0/type = "value"
@@ -209,8 +205,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "run_front"
+[sub_resource type="Animation" id=13]
 loop = true
 step = 0.25
 tracks/0/type = "value"
@@ -232,7 +227,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0.25, 0.75 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -243,8 +238,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "run_side"
+[sub_resource type="Animation" id=14]
 loop = true
 step = 0.25
 tracks/0/type = "value"
@@ -327,22 +321,22 @@ cast_to = Vector3( 2, 0, 0 )
 collision_mask = 3
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-material_override = SubResource( 3 )
+material_override = SubResource( 2 )
 pixel_size = 0.1
 texture = ExtResource( 17 )
 hframes = 38
-frame = 14
+frame = 19
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack_back = SubResource( 4 )
-anims/attack_front = SubResource( 5 )
-anims/attack_side = SubResource( 6 )
-anims/idle_back = SubResource( 14 )
-anims/idle_front = SubResource( 13 )
-anims/idle_side = SubResource( 15 )
-anims/jump_back = SubResource( 7 )
-anims/jump_front = SubResource( 8 )
-anims/jump_side = SubResource( 9 )
-anims/run_back = SubResource( 10 )
-anims/run_front = SubResource( 11 )
-anims/run_side = SubResource( 12 )
+anims/attack_back = SubResource( 3 )
+anims/attack_front = SubResource( 4 )
+anims/attack_side = SubResource( 5 )
+anims/idle_back = SubResource( 6 )
+anims/idle_front = SubResource( 7 )
+anims/idle_side = SubResource( 8 )
+anims/jump_back = SubResource( 9 )
+anims/jump_front = SubResource( 10 )
+anims/jump_side = SubResource( 11 )
+anims/run_back = SubResource( 12 )
+anims/run_front = SubResource( 13 )
+anims/run_side = SubResource( 14 )

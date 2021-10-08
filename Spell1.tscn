@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Spell1.gd" type="Script" id=1]
 [ext_resource path="res://FIRE PARTICLE.png" type="Texture" id=2]
 [ext_resource path="res://Sounds/fire.wav" type="AudioStream" id=3]
 [ext_resource path="res://STAR.png" type="Texture" id=4]
+[ext_resource path="res://Sounds/FlameHit.mp3" type="AudioStream" id=5]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -81,6 +82,7 @@ material = SubResource( 12 )
 
 [node name="Spell1" type="Spatial"]
 script = ExtResource( 1 )
+hit_sound = ExtResource( 5 )
 
 [node name="Area" type="Area" parent="."]
 

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/FlameHit.mp3-4a7a5b283abab42c1a81f0305148ae0c.mp3str"
+
+[deps]
+
+source_file="res://Sounds/FlameHit.mp3"
+dest_files=[ "res://.import/FlameHit.mp3-4a7a5b283abab42c1a81f0305148ae0c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

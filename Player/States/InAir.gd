@@ -47,10 +47,6 @@ func physics_update(_delta):
 	player.velocity.x = vel_xz.clamped(player.move_speed).x
 	player.velocity.z = vel_xz.clamped(player.move_speed).y
 	
-#	if Vector2(velocity.x,velocity.z).length() > player.move_speed+1:
-#		velocity.x = Vector2(velocity.x,velocity.z).normalized().x * (player.move_speed)
-#		velocity.z = Vector2(velocity.x,velocity.z).normalized().y * (player.move_speed)
-	
 	player.velocity.y += player.grav_force
 	player.move_and_slide(player.velocity, Vector3.UP)
 	
@@ -91,4 +87,4 @@ func physics_update(_delta):
 			state_machine.transition_to("Running")
 			
 	elif Input.is_action_just_pressed("action"):
-		pass
+		state_machine.transition_to("Attacking")

@@ -33,7 +33,6 @@ func _ready():
 
 
 func _process(_delta):
-	
 	rotation_degrees = Vector3(0,facing_dir,0)
 	
 	#Shadow stuff
@@ -45,12 +44,10 @@ func _process(_delta):
 
 
 func end_interaction():
-	
 	$StateMachine.transition_to("Idle")
 
 
 func get_hurt(dir, force, height, dmg, stun):
-	
 	dir = dir.normalized()
 	
 	$StateMachine/Hurt.dir = dir
@@ -63,7 +60,6 @@ func get_hurt(dir, force, height, dmg, stun):
 
 
 func play_sound_3d(sound, unit_db, unit_size):
-	
 	var sound_player = AudioStreamPlayer3D.new()
 	add_child(sound_player)
 	sound_player.unit_db = unit_db
