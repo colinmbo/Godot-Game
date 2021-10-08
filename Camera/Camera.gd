@@ -10,7 +10,7 @@ var shake_decay = 0
 func _ready():
 	# 32 is the game resolution width times the sprite pixel size (0.1)
 	# 16 is half that
-	set_fov(2*rad2deg(atan(16/get_translation().z)))
+	set_fov(2*rad2deg(atan(18/get_translation().z)))
 
 
 func _process(delta):
@@ -27,7 +27,7 @@ func _process(delta):
 		
 	# 32 is the game resolution width times the sprite pixel size (0.1)
 	# 16 is half that
-	set_fov(2*rad2deg(atan(16/get_translation().z)))
+	set_fov(2*rad2deg(atan(18/get_translation().z)))
 	
 	if shaking:
 		if shake_magnitude <= 0:
