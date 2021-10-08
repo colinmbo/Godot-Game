@@ -13,6 +13,7 @@
 [sub_resource type="CylinderShape" id=1]
 
 [sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
 shader = ExtResource( 7 )
 shader_param/Is_White = null
 shader_param/Sprites = ExtResource( 6 )
