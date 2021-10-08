@@ -1,66 +1,98 @@
-extends State
+extends PlayerState
+
+
+var input_vec := Vector2.ZERO
+var init_vel_xz := Vector2.ZERO
+
 
 # Called when first entering state
 func enter():
 	
-	match owner.facing_direction:
+	match player.facing_dir:
 		0:
-			owner.animatedSprite.set_animation("jumpSide")
-			owner.animatedSprite.set_flip_h(false)
+			anim.play("jump_side")
+			sprite.set_flip_h(false)
 		90:
-			owner.animatedSprite.set_animation("jumpBack")
-			owner.animatedSprite.set_flip_h(false)
+			anim.play("jump_back")
+			sprite.set_flip_h(false)
 		180:
-			owner.animatedSprite.set_animation("jumpSide")
-			owner.animatedSprite.set_flip_h(true)
+			anim.play("jump_side")
+			sprite.set_flip_h(true)
 		270:
-			owner.animatedSprite.set_animation("jumpFront")
-			owner.animatedSprite.set_flip_h(false)
+			anim.play("jump_front")
+			sprite.set_flip_h(false)
 		
-	owner.animatedSprite.stop()
-	owner.animatedSprite.set_frame(0)
+	player.anim.stop()
 	
+	init_vel_xz = Vector2(player.velocity.x, player.velocity.z)
+
+
 # Called once per frame
 func update(delta):
-	pass
+	
+	input_vec = Vector2(
+		int(Input.get_action_strength("move_right") 
+			- Input.get_action_strength("move_left")),
+		int(Input.get_action_strength("move_down") 
+			- Input.get_action_strength("move_up"))
+	)
+	input_vec = input_vec.normalized()
+
 
 # Called once per physics frame
 func physics_update(delta):
-	var input_direction = Vector2(
-		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	)
-	input_direction = input_direction.normalized()
 	
-	owner.velocity += Vector3(input_direction.x,0,input_direction.y)*0.4
-	if Vector2(owner.velocity.x,owner.velocity.z).length() > owner.move_speed+1:
-		owner.velocity.x = Vector2(owner.velocity.x,owner.velocity.z).normalized().x * (owner.move_speed)
-		owner.velocity.z = Vector2(owner.velocity.x,owner.velocity.z).normalized().y * (owner.move_speed)
+	player.velocity += Vector3(input_vec.x, 0, input_vec.y) * 0.4
+	var vel_xz = Vector2(player.velocity.x, player.velocity.z)
+	player.velocity.x = vel_xz.clamped(player.move_speed).x
+	player.velocity.z = vel_xz.clamped(player.move_speed).y
 	
-	owner.move_and_slide(owner.velocity, Vector3.UP)
-	owner.velocity.y -= owner.grav_force
+#	if Vector2(velocity.x,velocity.z).length() > player.move_speed+1:
+#		velocity.x = Vector2(velocity.x,velocity.z).normalized().x * (player.move_speed)
+#		velocity.z = Vector2(velocity.x,velocity.z).normalized().y * (player.move_speed)
 	
-	if owner.velocity.y > 0:
-		owner.animatedSprite.set_frame(2)
+	player.velocity.y += player.grav_force
+	player.move_and_slide(player.velocity, Vector3.UP)
+	
+	if player.velocity.y > 0:
+		match player.facing_dir:
+			0:
+				sprite.frame = 20
+				sprite.set_flip_h(false)
+			90:
+				sprite.frame = 33
+				sprite.set_flip_h(false)
+			180:
+				sprite.frame = 20
+				sprite.set_flip_h(true)
+			270:
+				sprite.frame = 7
+				sprite.set_flip_h(false)
 	else:
-		owner.animatedSprite.set_frame(3)
+		match player.facing_dir:
+			0:
+				sprite.frame = 21
+				sprite.set_flip_h(false)
+			90:
+				sprite.frame = 34
+				sprite.set_flip_h(false)
+			180:
+				sprite.frame = 21
+				sprite.set_flip_h(true)
+			270:
+				sprite.frame = 8
+				sprite.set_flip_h(false)
 	
-	if owner.is_on_floor() and owner.velocity.y < 0:
-		var thump_player = AudioStreamPlayer3D.new()
-		owner.add_child(thump_player)
-		thump_player.unit_db = 15
-		thump_player.unit_size = 10
-		thump_player.connect("finished", thump_player, "queue_free")
-		thump_player.stream = owner.thump_sound
-		thump_player.play()
-		if input_direction.length() > 0:
-			state_machine.transition_to("Running")
-		else:
+	if player.is_on_floor() and player.velocity.y < 0:
+		player.play_sound_3d(player.thump_sound, 15, 10)
+		if is_equal_approx(input_vec.length(), 0):
 			state_machine.transition_to("Idle")
+		else:
+			state_machine.transition_to("Running")
+			
 	elif Input.is_action_just_pressed("action"):
-		#Do air attack here
-		# state_machine.transition_to("Attacking")
 		pass
+
 
 # Called when exiting state
 func exit():

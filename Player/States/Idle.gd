@@ -1,68 +1,68 @@
-extends State
+extends PlayerState
+
+
+var input_vec := Vector2.ZERO
 
 
 # Called when first entering state
 func enter():
 	
-	owner.velocity = Vector3.ZERO
-	match owner.facing_direction:
-		0:
-			owner.animatedSprite.set_animation("runSide")
-			owner.animatedSprite.set_flip_h(false)
-		90:
-			owner.animatedSprite.set_animation("runBack")
-			owner.animatedSprite.set_flip_h(false)
-		180:
-			owner.animatedSprite.set_animation("runSide")
-			owner.animatedSprite.set_flip_h(true)
-		270:
-			owner.animatedSprite.set_animation("runFront")
-			owner.animatedSprite.set_flip_h(false)
-	owner.animatedSprite.stop()
-	owner.animatedSprite.set_frame(0)
+	player.velocity = Vector3.ZERO
 	
+	match player.facing_dir:
+		0:
+			anim.play("idle_side")
+			sprite.set_flip_h(false)
+		90:
+			anim.play("idle_back")
+			sprite.set_flip_h(false)
+		180:
+			anim.play("idle_side")
+			sprite.set_flip_h(true)
+		270:
+			anim.play("idle_front")
+			sprite.set_flip_h(false)
+
+
 # Called once per frame
 func update(delta):
-	pass
+	
+	input_vec = Vector2(
+		int(Input.get_action_strength("move_right") 
+			- Input.get_action_strength("move_left")),
+		int(Input.get_action_strength("move_down") 
+			- Input.get_action_strength("move_up"))
+	)
+	input_vec = input_vec.normalized()
+
 
 # Called once per physics frame
 func physics_update(delta):
-
-	var input_direction = Vector2(
-		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	)
-	input_direction = input_direction.normalized()
 	
-	owner.velocity.y = -0.1
-	owner.move_and_slide_with_snap(owner.velocity, Vector3(0, -0.1, 0), Vector3.UP, true)
+	if !player.is_on_floor():
+		state_machine.transition_to("InAir")
+		return
 	
-	if owner.is_on_floor():
-		if Input.is_action_just_pressed("jump"):
-			var jump_player = AudioStreamPlayer3D.new()
-			owner.add_child(jump_player)
-			jump_player.unit_db = 15
-			jump_player.unit_size = 10
-			jump_player.connect("finished", jump_player, "queue_free")
-			jump_player.stream = owner.jump_sound
-			jump_player.play()
-			owner.velocity.y = owner.jump_force
-			state_machine.transition_to("InAir")
-		elif Input.is_action_just_pressed("action"):
-			state_machine.transition_to("Attacking")
-		elif !is_equal_approx(input_direction.length(), 0.0):
-			state_machine.transition_to("Running")
-	else:
+	#I changed this from being -0.1, might not work now
+	player.velocity.y = player.grav_force
+	
+	player.move_and_slide_with_snap(player.velocity, 
+		Vector3.DOWN * player.floor_snap, Vector3.UP, true)
+	
+	if Input.is_action_just_pressed("jump"):
+		player.velocity.y = player.jump_force
+		player.play_sound_3d(player.jump_sound, 15, 10)
 		state_machine.transition_to("InAir")
 		
-	if Input.is_action_just_pressed("interact"):
-		var collider = owner.interactRay.get_collider()
+	elif Input.is_action_just_pressed("action"):
+		state_machine.transition_to("Attacking")
+		
+	elif !is_equal_approx(input_vec.length(), 0):
+		state_machine.transition_to("Running")
+		
+	elif Input.is_action_just_pressed("interact"):
+		var collider = interact_ray.get_collider()
 		if collider != null:
 			if collider.has_method("interacted"):
 				collider.interacted()
 				state_machine.transition_to("Interacting")
-		
-
-# Called when exiting state
-func exit():
-	pass
