@@ -1,9 +1,8 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Camera/Camera.gd" type="Script" id=2]
 [ext_resource path="res://Camera/CameraAnchor.gd" type="Script" id=3]
-[ext_resource path="res://Textures/Grass.png" type="Texture" id=4]
 [ext_resource path="res://Textures/SunsetTest1.png" type="Texture" id=5]
 [ext_resource path="res://SUNSET.mp3" type="AudioStream" id=6]
 [ext_resource path="res://Textures/BrickTest1.png" type="Texture" id=7]
@@ -14,15 +13,13 @@
 background_mode = 4
 ambient_light_color = Color( 0.501961, 0.501961, 0.501961, 1 )
 ambient_light_energy = 0.4
-fog_enabled = true
 fog_color = Color( 0.411765, 0.309804, 0.635294, 1 )
 fog_depth_begin = 60.0
 
 [sub_resource type="PlaneMesh" id=2]
 
 [sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0, 0.764706, 1, 1 )
-albedo_texture = ExtResource( 4 )
+albedo_color = Color( 0.623529, 0.623529, 0.623529, 1 )
 uv1_scale = Vector3( 8, 6, 1 )
 
 [sub_resource type="SpatialMaterial" id=4]

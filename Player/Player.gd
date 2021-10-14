@@ -17,8 +17,6 @@ export var thump_sound : AudioStream
 onready var sprite = $Sprite3D
 onready var anim = $AnimationPlayer
 onready var interact_ray = $InteractRay
-# REMOVE SOON
-onready var animatedSprite = $AnimatedSprite3D
 onready var shadow = $Shadow
 onready var shadow_ray = $ShadowRay
 
