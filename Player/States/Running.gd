@@ -2,6 +2,7 @@ extends PlayerState
 
 
 var input_vec := Vector2.ZERO
+var cam_input_vec := Vector2.ZERO
 
 
 # Called once per frame
@@ -15,6 +16,14 @@ func update(_delta):
 			- Input.get_action_strength("move_up"))
 	)
 	input_vec = input_vec.normalized()
+	
+	var cam = get_viewport().get_camera()
+	cam_input_vec = Vector2(
+		cam.global_transform.basis.z.x * input_vec.y,
+		cam.global_transform.basis.z.z * input_vec.y
+	)
+	cam_input_vec.x += cam.global_transform.basis.x.x * input_vec.x
+	cam_input_vec.y += cam.global_transform.basis.x.z * input_vec.x
 	
 	# Update facing direction
 	if input_vec.y != 0:
@@ -59,8 +68,8 @@ func physics_update(_delta):
 		return
 	
 	# Set movement velocity
-	player.velocity.x = input_vec.x * player.move_speed
-	player.velocity.z = input_vec.y * player.move_speed
+	player.velocity.x = cam_input_vec.x * player.move_speed
+	player.velocity.z = cam_input_vec.y * player.move_speed
 	
 	# Add gravity when grounded to detect floor
 	player.velocity.y = player.grav_force

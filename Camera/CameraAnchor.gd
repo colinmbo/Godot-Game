@@ -3,6 +3,11 @@ extends Spatial
 
 onready var target = owner.get_node("Player")
 
+var target_rotation = 0
+var prev_angle = 0
+var angle_change_amt = 0
+var changing_angle = false
+
 var is_smooth = false
 var is_following = true
 
@@ -15,6 +20,16 @@ func _process(delta):
 
 
 func _physics_process(delta):
+	
+	#rotation_degrees.y = rad2deg(lerp_angle(deg2rad(rotation_degrees.y), deg2rad(target_rotation), 0.1))
+	
+	if changing_angle:
+		angle_change_amt += 0.005
+		rotation_degrees.y = rad2deg(lerp_angle(deg2rad(prev_angle), deg2rad(target_rotation), ease(angle_change_amt,-2.5)))
+		if angle_change_amt >= 1:
+			angle_change_amt = 0
+			changing_angle = false
+	
 	if is_following:
 		if is_smooth:
 			set_translation(Vector3(
@@ -50,5 +65,7 @@ func _physics_process(delta):
 		if abs(get_translation().z - newTarget.get_translation().z) > pan_speed:
 			set_translation(Vector3(get_translation().x, get_translation().y, get_translation().z-sign(get_translation().z-newTarget.get_translation().z)*pan_speed))
 
-
-
+func change_angle(new_angle):
+	changing_angle = true
+	prev_angle = rotation_degrees.y
+	target_rotation = new_angle
