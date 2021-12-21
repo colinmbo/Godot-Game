@@ -274,7 +274,6 @@ tracks/1/keys = {
 [sub_resource type="CubeMesh" id=15]
 
 [node name="Player" type="KinematicBody"]
-transform = Transform( 1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 0, 0, 0 )
 script = ExtResource( 2 )
 footstep_sound1 = ExtResource( 8 )
 footstep_sound2 = ExtResource( 9 )
@@ -320,7 +319,7 @@ texture = ExtResource( 7 )
 
 [node name="InteractRay" type="RayCast" parent="."]
 enabled = true
-cast_to = Vector3( 2, 0, 0 )
+cast_to = Vector3( 0, 0, 2 )
 collision_mask = 3
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
@@ -328,7 +327,6 @@ material_override = SubResource( 2 )
 pixel_size = 0.1
 texture = ExtResource( 17 )
 hframes = 38
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack_back = SubResource( 3 )
@@ -345,7 +343,7 @@ anims/run_front = SubResource( 13 )
 anims/run_side = SubResource( 14 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( -9.45465e-09, 0, 1, 0, 0.230797, 0, -0.216297, 0, -4.37114e-08, 1.06535, 0, 1.27042e-08 )
+transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 1, 0, 0, 1 )
 visible = false
 mesh = SubResource( 15 )
 material/0 = null

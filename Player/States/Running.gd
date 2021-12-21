@@ -10,38 +10,17 @@ func update(_delta):
 	
 	# Update input vector
 	input_vec = Vector2(
-		int(Input.get_action_strength("move_right") 
+		(Input.get_action_strength("move_right") 
 			- Input.get_action_strength("move_left")),
-		int(Input.get_action_strength("move_down") 
+		(Input.get_action_strength("move_down") 
 			- Input.get_action_strength("move_up"))
 	)
 	input_vec = input_vec.normalized()
 	
 	var cam = get_viewport().get_camera()
-	cam_input_vec = Vector2(
-		cam.global_transform.basis.z.x * input_vec.y,
-		cam.global_transform.basis.z.z * input_vec.y
-	)
-	cam_input_vec.x += cam.global_transform.basis.x.x * input_vec.x
-	cam_input_vec.y += cam.global_transform.basis.x.z * input_vec.x
-	
-	# Update facing direction
-	if input_vec.y != 0:
-		if input_vec.x != 0:
-			if player.facing_dir == 0:
-				if input_vec.x < 0: player.facing_dir = 180
-			elif player.facing_dir == 90:
-				if input_vec.y > 0: player.facing_dir = 270
-			elif player.facing_dir == 180:
-				if input_vec.x > 0: player.facing_dir = 0
-			elif player.facing_dir == 270:
-				if input_vec.y < 0: player.facing_dir = 90
-		else: 
-			if input_vec.y > 0: player.facing_dir = 270
-			else: player.facing_dir = 90
-	elif input_vec.x != 0:
-		if input_vec.x > 0: player.facing_dir = 0
-		else: player.facing_dir = 180
+	cam_input_vec = input_vec.rotated(-cam.global_transform.basis.get_euler().y).normalized()
+	if !is_equal_approx(input_vec.length(), 0):
+		player.rotation.y = Vector2(cam_input_vec.x, -cam_input_vec.y).angle() + PI/2
 	
 	# Play appropriate animation
 	match player.facing_dir:

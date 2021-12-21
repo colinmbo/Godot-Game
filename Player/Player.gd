@@ -26,12 +26,16 @@ var velocity := Vector3.ZERO
 var input_vec := Vector2.ZERO
 
 
-func _ready():
-	pass
-
-
 func _process(_delta):
-	rotation_degrees = Vector3(0,facing_dir,0)
+	
+	transform = transform.orthonormalized()
+	
+	var cam = get_viewport().get_camera()
+	var relative_facing = Vector2(
+	transform.basis.z.dot(cam.global_transform.basis.x),
+	-transform.basis.x.dot(cam.global_transform.basis.x)
+	)
+	facing_dir = fposmod(round(rad2deg(relative_facing.angle()) / 90) * 90, 360)
 	
 	#Shadow stuff
 	if (shadow_ray.is_colliding()):
@@ -54,7 +58,7 @@ func get_hurt(dir, force, height, dmg, stun):
 	$StateMachine/Hurt.stun = stun
 	
 	health -= dmg
-	$StateMachine.transition_to("Hurt")
+	$StateMachine.transition_to("Hurt")	
 
 
 func play_sound_3d(sound, unit_db, unit_size):

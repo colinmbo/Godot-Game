@@ -40,12 +40,7 @@ func update(_delta):
 	input_vec = input_vec.normalized()
 	
 	var cam = get_viewport().get_camera()
-	cam_input_vec = Vector2(
-		cam.global_transform.basis.z.x * input_vec.y,
-		cam.global_transform.basis.z.z * input_vec.y
-	)
-	cam_input_vec.x += cam.global_transform.basis.x.x * input_vec.x
-	cam_input_vec.y += cam.global_transform.basis.x.z * input_vec.x
+	cam_input_vec = input_vec.rotated(-cam.global_transform.basis.get_euler().y).normalized()
 
 
 # Called once per physics frame
