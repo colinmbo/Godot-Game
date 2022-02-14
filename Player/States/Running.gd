@@ -4,6 +4,10 @@ extends PlayerState
 var input_vec := Vector2.ZERO
 
 
+# Called when first entering state
+func enter():
+	pass
+
 # Called once per frame
 func update(_delta):
 	
@@ -35,19 +39,7 @@ func update(_delta):
 		else: player.facing_dir = 180
 	
 	# Play appropriate animation
-	match player.facing_dir:
-		0:
-			anim.play("run_side")
-			sprite.set_flip_h(false)
-		90:
-			anim.play("run_back")
-			sprite.set_flip_h(false)
-		180:
-			anim.play("run_side")
-			sprite.set_flip_h(true)
-		270:
-			anim.play("run_front")
-			sprite.set_flip_h(false)
+	set_anim(player.facing_dir, "run_front", "run_side", "run_back")
 
 
 # Called once per physics frame
@@ -58,9 +50,12 @@ func physics_update(_delta):
 		state_machine.transition_to("InAir")
 		return
 	
-	# Set movement velocity
-	player.velocity.x = input_vec.x * player.move_speed
-	player.velocity.z = input_vec.y * player.move_speed
+	player.velocity.x += input_vec.x * 2
+	player.velocity.z += input_vec.y * 2
+	var stored_vel = Vector2(player.velocity.x, player.velocity.z)
+	if stored_vel.length() > player.move_speed:
+		player.velocity.x = stored_vel.normalized().x * player.move_speed
+		player.velocity.z = stored_vel.normalized().y * player.move_speed
 	
 	# Add gravity when grounded to detect floor
 	player.velocity.y = player.grav_force
@@ -71,9 +66,7 @@ func physics_update(_delta):
 	
 	# Transition to air state when jump is pressed
 	if Input.is_action_just_pressed("jump"):
-		player.velocity.y = player.jump_force
-		player.play_sound_3d(player.jump_sound, 15, 10)
-		state_machine.transition_to("InAir")
+		state_machine.transition_to("Jumping")
 	
 	# Transition to attack state when attack is pressed
 	elif Input.is_action_just_pressed("action"):
@@ -92,6 +85,11 @@ func physics_update(_delta):
 				state_machine.transition_to("Interacting")
 
 
+# Called when exiting state
+func exit():
+	pass
+
+
 # Play randomized footstep sound effect, called by AnimationPlayer
 func play_footstep():
 	var num = randi() % 3
@@ -100,3 +98,22 @@ func play_footstep():
 		1: player.play_sound_3d(player.footstep_sound2, 15, 10)
 		2: player.play_sound_3d(player.footstep_sound3, 15, 10)
 		3: player.play_sound_3d(player.footstep_sound4, 15, 10)
+
+
+# Play appropriate animation based on facing direction
+func set_anim(dir, front_anim, side_anim, back_anim):
+	
+	match dir:
+		0:
+			anim.play(side_anim)
+			sprite.set_flip_h(false)
+		90:
+			anim.play(back_anim)
+			sprite.set_flip_h(false)
+		180:
+			anim.play(side_anim)
+			sprite.set_flip_h(true)
+		270:
+			anim.play(front_anim)
+			sprite.set_flip_h(false)
+

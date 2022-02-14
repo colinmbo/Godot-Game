@@ -15,12 +15,14 @@ func _process(delta):
 
 
 func _physics_process(delta):
+	
+	var clampRegion = 30
 	if is_following:
 		if is_smooth:
 			set_translation(Vector3(
-				lerp(get_translation().x, target.get_translation().x, 0.025),
+				lerp(get_translation().x, target.get_translation().x, 0.08),
 				get_translation().y,
-				lerp(get_translation().z, target.get_translation().z, 0.025)
+				lerp(get_translation().z, target.get_translation().z, 0.08)
 			))
 			if target.is_on_floor():
 				set_translation(Vector3(
@@ -30,9 +32,9 @@ func _physics_process(delta):
 				))
 		else:
 			set_translation(Vector3(
-				clamp(target.get_translation().x, -15, 15),
+				clamp(target.get_translation().x, -clampRegion, clampRegion),
 				get_translation().y,
-				clamp(target.get_translation().z, -15, 15)
+				clamp(target.get_translation().z, -clampRegion, clampRegion)
 			))
 			if target.is_on_floor():
 				set_translation(Vector3(

@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=7 format=2]
+[gd_resource type="VisualShader" load_steps=8 format=2]
 
 [sub_resource type="VisualShaderNodeTextureUniform" id=1]
 uniform_name = "Sprites"
@@ -13,9 +13,18 @@ uniform_name = "Is_White"
 
 [sub_resource type="VisualShaderNodeColorConstant" id=5]
 
-[sub_resource type="VisualShaderNodeExpression" id=6]
-size = Vector2( 1910.81, 401.942 )
-expression = "MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],CAMERA_MATRIX[1],CAMERA_MATRIX[2],WORLD_MATRIX[3]);"
+[sub_resource type="VisualShaderNodeGlobalExpression" id=6]
+size = Vector2( 444, 151 )
+expression = "uniform sampler2D tex : hint_albedo;"
+
+[sub_resource type="VisualShaderNodeExpression" id=7]
+size = Vector2( 1023, 361 )
+expression = "MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],CAMERA_MATRIX[1],CAMERA_MATRIX[2],WORLD_MATRIX[3]);
+
+float sc = -MODELVIEW_MATRIX[3].z * 0.01;
+MODELVIEW_MATRIX[0] *= sc;
+MODELVIEW_MATRIX[1] *= sc;
+MODELVIEW_MATRIX[2] *= sc;"
 
 [resource]
 code = "shader_type spatial;
@@ -25,6 +34,8 @@ uniform bool Is_White;
 uniform sampler2D Sprites;
 
 
+// GlobalExpression:0
+	uniform sampler2D tex : hint_albedo;
 
 void vertex() {
 // Expression:2
@@ -32,6 +43,11 @@ void vertex() {
 	n_out2p0 = mat4(1.0);
 	{
 		MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],CAMERA_MATRIX[1],CAMERA_MATRIX[2],WORLD_MATRIX[3]);
+		
+		float sc = -MODELVIEW_MATRIX[3].z * 0.01;
+		MODELVIEW_MATRIX[0] *= sc;
+		MODELVIEW_MATRIX[1] *= sc;
+		MODELVIEW_MATRIX[2] *= sc;
 	}
 
 // Output:0
@@ -81,24 +97,36 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -484.744, 165.25 )
+graph_offset = Vector2( -999, 41 )
 flags/unshaded = true
-nodes/vertex/2/node = SubResource( 6 )
-nodes/vertex/2/position = Vector2( -1680, 160 )
-nodes/vertex/2/size = Vector2( 1910.81, 401.942 )
+nodes/vertex/0/position = Vector2( 220, 160 )
+nodes/vertex/2/node = SubResource( 7 )
+nodes/vertex/2/position = Vector2( -880, 140 )
+nodes/vertex/2/size = Vector2( 1023, 361 )
 nodes/vertex/2/input_ports = ""
 nodes/vertex/2/output_ports = "0,3,output0;"
-nodes/vertex/2/expression = "MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],CAMERA_MATRIX[1],CAMERA_MATRIX[2],WORLD_MATRIX[3]);"
+nodes/vertex/2/expression = "MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0],CAMERA_MATRIX[1],CAMERA_MATRIX[2],WORLD_MATRIX[3]);
+
+float sc = -MODELVIEW_MATRIX[3].z * 0.01;
+MODELVIEW_MATRIX[0] *= sc;
+MODELVIEW_MATRIX[1] *= sc;
+MODELVIEW_MATRIX[2] *= sc;"
 nodes/vertex/connections = PoolIntArray( 2, 0, 0, 0 )
-nodes/fragment/0/position = Vector2( 640, 220 )
+nodes/fragment/0/position = Vector2( 1260, 300 )
 nodes/fragment/2/node = SubResource( 1 )
-nodes/fragment/2/position = Vector2( -100, 280 )
+nodes/fragment/2/position = Vector2( 380, 260 )
 nodes/fragment/3/node = SubResource( 2 )
-nodes/fragment/3/position = Vector2( 260, 640 )
+nodes/fragment/3/position = Vector2( 340, 700 )
 nodes/fragment/6/node = SubResource( 3 )
-nodes/fragment/6/position = Vector2( -40, 0 )
+nodes/fragment/6/position = Vector2( 360, 80 )
 nodes/fragment/7/node = SubResource( 4 )
-nodes/fragment/7/position = Vector2( 280, 100 )
+nodes/fragment/7/position = Vector2( 720, 160 )
 nodes/fragment/8/node = SubResource( 5 )
-nodes/fragment/8/position = Vector2( -120, 140 )
+nodes/fragment/8/position = Vector2( 160, 180 )
+nodes/fragment/9/node = SubResource( 6 )
+nodes/fragment/9/position = Vector2( 400, 480 )
+nodes/fragment/9/size = Vector2( 444, 151 )
+nodes/fragment/9/input_ports = ""
+nodes/fragment/9/output_ports = ""
+nodes/fragment/9/expression = "uniform sampler2D tex : hint_albedo;"
 nodes/fragment/connections = PoolIntArray( 2, 1, 0, 1, 3, 0, 0, 18, 6, 0, 7, 0, 8, 0, 7, 1, 2, 0, 7, 2, 7, 0, 0, 0 )

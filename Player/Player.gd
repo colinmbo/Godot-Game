@@ -33,10 +33,12 @@ func _ready():
 func _process(_delta):
 	rotation_degrees = Vector3(0,facing_dir,0)
 	
+	sprite.material_override.set_shader_param("cam_dist", owner.get_node("CameraAnchor").get_node("Camera").get_translation().z)
+	
 	#Shadow stuff
 	if (shadow_ray.is_colliding()):
 		shadow.show()
-		shadow.global_transform.origin.y = (shadow_ray.get_collision_point().y + 0.05)
+		shadow.global_transform.origin.y = (shadow_ray.get_collision_point().y + 0.01)
 	else:
 		shadow.hide()
 

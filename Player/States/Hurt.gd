@@ -52,3 +52,8 @@ func physics_update(_delta):
 	player.velocity.y += player.grav_force
 	player.move_and_slide_with_snap(player.velocity, 
 		Vector3.DOWN * player.floor_snap, Vector3.UP, true)
+
+
+# Called when exiting state
+func exit():
+	pass

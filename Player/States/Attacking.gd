@@ -9,7 +9,7 @@ var spell = preload("res://Spell1.tscn")
 
 # Called when first entering state
 func enter():
-			
+	
 	player.velocity = Vector3.ZERO
 	
 	match player.facing_dir:
@@ -40,6 +40,18 @@ func enter():
 
 # Called once per frame
 func update(_delta):
+	
 	timer -= 1
 	if timer <= 0:
 		state_machine.transition_to("Idle")
+
+
+# Called once per physics frame
+func physics_update(_delta):
+	pass
+
+
+# Called when exiting state
+func exit():
+	pass
+

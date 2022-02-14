@@ -8,11 +8,11 @@ var shake_decay = 0
 
 
 func _ready():
-	# 32 is the game resolution width times the sprite pixel size (0.1)
-	# 16 is half that
-	set_fov(2*rad2deg(atan(18/get_translation().z)))
-
-
+	# 36 is the game resolution width times the sprite pixel size (0.1)
+	# 18 is half that
+	# set_fov(2*rad2deg(atan(18/get_translation().z)))
+	pass
+	
 func _process(delta):
 	
 	#Keep for debugging only
@@ -24,10 +24,17 @@ func _process(delta):
 		get_parent().rotate_x(0.001)
 	if Input.is_action_pressed("ui_down"):
 		get_parent().rotate_x(-0.001)
+	if Input.is_action_pressed("turn_right"):
+		get_parent().rotate_y(0.005)
+	if Input.is_action_pressed("turn_left"):
+		get_parent().rotate_y(-0.005)
 		
-	# 32 is the game resolution width times the sprite pixel size (0.1)
-	# 16 is half that
-	set_fov(2*rad2deg(atan(18/get_translation().z)))
+	#translation.z = 100
+	
+	# 36 is the game resolution width times the sprite pixel size (0.1)
+	# 18 is half that
+	if Input.is_action_pressed("interact"):
+		set_fov(2*rad2deg(atan(18/get_translation().z)))
 	
 	if shaking:
 		if shake_magnitude <= 0:
@@ -41,7 +48,7 @@ func _process(delta):
 			shake_magnitude -= shake_decay
 	
 	# Create offset for screenshake
-	transform.origin.x = offset.x
+	transform.origin.x = offset.x + 0.05
 	transform.origin.y = offset.y
 
 

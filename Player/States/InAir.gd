@@ -2,34 +2,18 @@ extends PlayerState
 
 
 var input_vec := Vector2.ZERO
-var init_vel_xz := Vector2.ZERO
 
 
 # Called when first entering state
 func enter():
 	
-	match player.facing_dir:
-		0:
-			anim.play("jump_side")
-			sprite.set_flip_h(false)
-		90:
-			anim.play("jump_back")
-			sprite.set_flip_h(false)
-		180:
-			anim.play("jump_side")
-			sprite.set_flip_h(true)
-		270:
-			anim.play("jump_front")
-			sprite.set_flip_h(false)
-		
 	player.anim.stop()
-	
-	init_vel_xz = Vector2(player.velocity.x, player.velocity.z)
 
 
 # Called once per frame
 func update(_delta):
 	
+	# Update input vector
 	input_vec = Vector2(
 		int(Input.get_action_strength("move_right") 
 			- Input.get_action_strength("move_left")),

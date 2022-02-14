@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BrickTest1.png-bc73ffb76cd0b0d42ef73b8026d4994f.stex"
+path="res://.import/rogueportbackdrop.png-f2efec47df5238c32eae78e1f6ebf69b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/BrickTest1.png"
-dest_files=[ "res://.import/BrickTest1.png-bc73ffb76cd0b0d42ef73b8026d4994f.stex" ]
+source_file="res://rogueportbackdrop.png"
+dest_files=[ "res://.import/rogueportbackdrop.png-f2efec47df5238c32eae78e1f6ebf69b.stex" ]
 
 [params]
 
@@ -23,7 +23,7 @@ flags/repeat=1
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
-flags/srgb=0
+flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
