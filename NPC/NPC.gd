@@ -151,3 +151,21 @@ func get_hurt(dir, force, height, dmg, stun):
 	
 func die():
 	queue_free()
+
+# Play randomized footstep sound effect, called by AnimationPlayer
+func play_footstep():
+	var num = randi() % 3
+	match num:
+		0: play_sound_3d(get_parent().player.footstep_sound1, 15, 10)
+		1: play_sound_3d(get_parent().player.footstep_sound2, 15, 10)
+		2: play_sound_3d(get_parent().player.footstep_sound3, 15, 10)
+		3: play_sound_3d(get_parent().player.footstep_sound4, 15, 10)
+
+func play_sound_3d(sound, unit_db, unit_size):
+	var sound_player = AudioStreamPlayer3D.new()
+	add_child(sound_player)
+	sound_player.unit_db = unit_db
+	sound_player.unit_size = unit_size
+	sound_player.connect("finished", sound_player, "queue_free")
+	sound_player.stream = sound
+	sound_player.play()

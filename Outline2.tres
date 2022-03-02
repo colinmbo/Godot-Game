@@ -1,0 +1,41 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode unshaded, blend_mix;
+
+uniform float depth_multiplier = -0.25;
+uniform float depth_addend = 0.;
+uniform float transparency = 0.75;
+uniform vec4 outline_color = vec4(0.0, 0.0, 0.0, 1.0);
+
+float get_linear_depth(vec2 screen_uv, mat4 inv_proj_matrix, float depth) {
+	vec3 ndc = vec3(screen_uv, depth) * 2.0 - 1.0;
+	vec4 view = inv_proj_matrix * vec4(ndc, 1.0);
+	view.xyz /= view.w;
+	return -view.z;
+}
+
+void fragment() {
+
+	float depth = get_linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX, texture(DEPTH_TEXTURE, SCREEN_UV).r);
+	float depth_neighbor1 = get_linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX, texture(DEPTH_TEXTURE, SCREEN_UV + vec2(1.0/VIEWPORT_SIZE.x,0)).r);
+	float depth_neighbor2 = get_linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX, texture(DEPTH_TEXTURE, SCREEN_UV - vec2(1.0/VIEWPORT_SIZE.x,0)).r);
+	float depth_neighbor3 = get_linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX, texture(DEPTH_TEXTURE, SCREEN_UV + vec2(0,1.0/VIEWPORT_SIZE.y)).r);
+	float depth_neighbor4 = get_linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX, texture(DEPTH_TEXTURE, SCREEN_UV - vec2(0,1.0/VIEWPORT_SIZE.y)).r);
+	
+	float xdiff = depth - depth_neighbor1;
+	xdiff += depth - depth_neighbor2;
+	float ydiff = depth - depth_neighbor3;
+	ydiff += depth - depth_neighbor4;
+	
+	ALBEDO = mix(texture(SCREEN_TEXTURE, SCREEN_UV).rgb, outline_color.rgb, round(clamp((ydiff + xdiff) * depth_multiplier + depth_addend, 0.0, 1.0) * 2.0) / 2.0 * transparency);
+
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/depth_multiplier = -0.25
+shader_param/depth_addend = 0.0
+shader_param/transparency = 0.75
+shader_param/outline_color = Plane( 0, 0, 0, 1 )

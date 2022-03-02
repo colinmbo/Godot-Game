@@ -93,7 +93,7 @@ void fragment() {
 // Output:0
 	ALBEDO = n_out7p0;
 	ALPHA = n_out2p1;
-	ALPHA_SCISSOR = n_out3p0;
+	//ALPHA_SCISSOR = n_out3p0;
 
 }
 

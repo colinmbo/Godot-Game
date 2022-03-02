@@ -29,7 +29,6 @@ var input_vec := Vector2.ZERO
 func _ready():
 	pass
 
-
 func _process(_delta):
 	rotation_degrees = Vector3(0,facing_dir,0)
 	

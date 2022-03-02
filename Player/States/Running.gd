@@ -50,8 +50,8 @@ func physics_update(_delta):
 		state_machine.transition_to("InAir")
 		return
 	
-	player.velocity.x += input_vec.x * 2
-	player.velocity.z += input_vec.y * 2
+	player.velocity.x += input_vec.x * 3
+	player.velocity.z += input_vec.y * 3
 	var stored_vel = Vector2(player.velocity.x, player.velocity.z)
 	if stored_vel.length() > player.move_speed:
 		player.velocity.x = stored_vel.normalized().x * player.move_speed

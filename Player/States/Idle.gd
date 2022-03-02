@@ -33,7 +33,7 @@ func physics_update(_delta):
 	
 	# Slow down player
 	var stored_vel = Vector2(player.velocity.x, player.velocity.z)
-	stored_vel = stored_vel * 0.8
+	stored_vel = stored_vel * 0.75
 	player.velocity.x = stored_vel.x
 	player.velocity.z = stored_vel.y
 	
