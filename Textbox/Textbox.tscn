@@ -9,7 +9,6 @@
 font_data = ExtResource( 3 )
 
 [sub_resource type="CanvasItemMaterial" id=2]
-blend_mode = 3
 light_mode = 1
 
 [node name="Textbox" type="Control"]

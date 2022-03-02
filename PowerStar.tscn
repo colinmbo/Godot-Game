@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://PowerStar.gd" type="Script" id=1]
+[ext_resource path="res://PowerStar.png" type="Texture" id=2]
+[ext_resource path="res://Sounds/slider.wav" type="AudioStream" id=3]
+
+[sub_resource type="BoxShape" id=1]
+
+[node name="PowerStar" type="Spatial"]
+script = ExtResource( 1 )
+sound_effect = ExtResource( 3 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.1
+billboard = 1
+texture = ExtResource( 2 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
