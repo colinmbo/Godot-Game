@@ -9,8 +9,8 @@ var anim : AnimationPlayer
 var interact_ray : RayCast
 
 
+
 func _ready():
-	
 	yield(owner, "ready")
 	
 	player = owner as Player

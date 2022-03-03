@@ -49,9 +49,11 @@ func physics_update(_delta):
 	if !player.is_on_floor():
 		state_machine.transition_to("InAir")
 		return
-	
-	player.velocity.x += input_vec.x * 3
-	player.velocity.z += input_vec.y * 3
+
+	# CHANGED FOR CAMERA RELATIVITY
+	player.velocity.x += (get_viewport().get_camera().global_transform.basis.x.x * input_vec.x + input_vec.y * get_viewport().get_camera().global_transform.basis.z.x) *3
+	player.velocity.z += (get_viewport().get_camera().global_transform.basis.x.z * input_vec.x + input_vec.y * get_viewport().get_camera().global_transform.basis.z.z) *3
+#	player.velocity += Vector3(input_vec.x, 0, input_vec.y) * 3
 	var stored_vel = Vector2(player.velocity.x, player.velocity.z)
 	if stored_vel.length() > player.move_speed:
 		player.velocity.x = stored_vel.normalized().x * player.move_speed

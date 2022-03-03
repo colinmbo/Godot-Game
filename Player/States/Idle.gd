@@ -6,7 +6,7 @@ var input_vec := Vector2.ZERO
 
 # Called when first entering state
 func enter():
-	
+	#print(owner)
 	set_anim(player.facing_dir, "idle_front", "idle_side", "idle_back")
 
 
@@ -86,5 +86,4 @@ func set_anim(dir, front_anim, side_anim, back_anim):
 		270:
 			anim.play(front_anim)
 			sprite.set_flip_h(false)
-
 

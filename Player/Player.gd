@@ -17,22 +17,20 @@ export var thump_sound : AudioStream
 onready var sprite = $Sprite3D
 onready var anim = $AnimationPlayer
 onready var interact_ray = $InteractRay
+
 onready var shadow = $Shadow
 onready var shadow_ray = $ShadowRay
 
 var health := 100
 var facing_dir := 270
 var velocity := Vector3.ZERO
-var input_vec := Vector2.ZERO
+# var input_vec := Vector2.ZERO
 
 
 func _ready():
 	pass
 
 func _process(_delta):
-	rotation_degrees = Vector3(0,facing_dir,0)
-	
-	sprite.material_override.set_shader_param("cam_dist", owner.get_node("CameraAnchor").get_node("Camera").get_translation().z)
 	
 	#Shadow stuff
 	if (shadow_ray.is_colliding()):

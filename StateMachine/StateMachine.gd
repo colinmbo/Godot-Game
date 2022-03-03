@@ -1,8 +1,8 @@
 class_name StateMachine
 extends Node
 
-export var initial_state = NodePath()
-onready var current_state = get_node(initial_state)
+export var initial_state : NodePath
+onready var current_state = get_node(initial_state) as State
 
 func _ready():
 	# Runs the ready event of the Player first

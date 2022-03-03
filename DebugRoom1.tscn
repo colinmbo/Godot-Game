@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Partner.tscn" type="PackedScene" id=2]
@@ -11,7 +11,7 @@
 [ext_resource path="res://rogueportsewerswall.png" type="Texture" id=9]
 [ext_resource path="res://rogueportsewers.png" type="Texture" id=10]
 
-[sub_resource type="Environment" id=1]
+[sub_resource type="Environment" id=4]
 background_mode = 4
 ambient_light_color = Color( 0.501961, 0.501961, 0.501961, 1 )
 ambient_light_energy = 0.4
@@ -20,9 +20,136 @@ fog_color = Color( 0.247059, 0.227451, 0.129412, 1 )
 fog_depth_begin = 75.0
 fog_depth_end = 150.0
 
-[sub_resource type="QuadMesh" id=8]
+[sub_resource type="QuadMesh" id=5]
+size = Vector2( 2, 2 )
 
-[sub_resource type="Shader" id=7]
+[sub_resource type="Shader" id=3]
+code = "shader_type spatial;
+render_mode unshaded, blend_mix;
+
+uniform bool is_inverted = false;
+uniform float depth_multiplier = 0.25;
+uniform float depth_addend = 0.0;
+uniform float transparency = 0.75;
+uniform vec4 outline_color = vec4(0.0, 0.0, 0.0, 1.0);
+
+float get_linear_depth(vec2 screen_uv, mat4 inv_proj_matrix, float depth) {
+	vec3 ndc = vec3(screen_uv, depth) * 2.0 - 1.0;
+	vec4 view = inv_proj_matrix * vec4(ndc, 1.0);
+	view.xyz /= view.w;
+	return -view.z;
+}
+
+void vertex() {
+	POSITION = vec4(VERTEX, 1.0);
+}
+
+void fragment() {
+
+	float depth = get_linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX, texture(DEPTH_TEXTURE, SCREEN_UV).r);
+	float depth_neighbor1 = get_linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX, texture(DEPTH_TEXTURE, SCREEN_UV + vec2(1.0/VIEWPORT_SIZE.x,0)).r);
+	float depth_neighbor2 = get_linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX, texture(DEPTH_TEXTURE, SCREEN_UV - vec2(1.0/VIEWPORT_SIZE.x,0)).r);
+	float depth_neighbor3 = get_linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX, texture(DEPTH_TEXTURE, SCREEN_UV + vec2(0,1.0/VIEWPORT_SIZE.y)).r);
+	float depth_neighbor4 = get_linear_depth(SCREEN_UV, INV_PROJECTION_MATRIX, texture(DEPTH_TEXTURE, SCREEN_UV - vec2(0,1.0/VIEWPORT_SIZE.y)).r);
+
+	float diff = 0.0;
+	if (is_inverted) {
+		diff = -min(depth-depth_neighbor1 + depth-depth_neighbor2, depth-depth_neighbor3 + depth-depth_neighbor4);
+	} else {
+		diff = max(depth-depth_neighbor1 + depth-depth_neighbor2, depth-depth_neighbor3 + depth-depth_neighbor4);
+	}
+
+	float line_strength = round(clamp(diff * depth_multiplier + depth_addend, 0.0, 1.0) * 3.0) / 3.0 * transparency;
+
+	ALBEDO = mix(texture(SCREEN_TEXTURE, SCREEN_UV).rgb, outline_color.rgb, line_strength);
+	//ALBEDO = mix(outline_color.rgb, vec3(1.0), line_strength);
+//
+//	if (texture(mask, SCREEN_UV).a == 0.0) {
+//		ALBEDO = vec3(1.0);
+//	} else {
+//		if (texture(mask, SCREEN_UV, 0.0).rgb != texture(DEPTH_TEXTURE, SCREEN_UV, 0.0).rgb) {
+//			ALBEDO = vec3(0.0);
+//		}
+//	}
+	//ALBEDO = texture(mask, SCREEN_UV).rgb;
+	
+	
+	//NEW STUFF HERE
+	
+	/*float depth = texture(DEPTH_TEXTURE, SCREEN_UV).x;
+	vec3 ndc = vec3(SCREEN_UV, depth) * 2.0 - 1.0;
+	vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	view.xyz /= view.w;
+	float linear_depth = -view.z;*/
+	
+	//ALBEDO = vec3(0.01) * linear_depth - 0.25;
+	//ALBEDO = pow(ALBEDO, vec3(2.2));
+	//ALBEDO = pow(texture(mask, SCREEN_UV).rgb, vec3(2.2));
+	
+	//if (pow(texture(mask, SCREEN_UV).rgb, vec3(2.2)).r <= ALBEDO.r) {
+	//	ALBEDO = vec3(0.0);
+	//}
+	//ALBEDO = pow(texture(mask, SCREEN_UV).rgb, vec3(2.2));
+	
+	
+	//ALBEDO = pow(ALBEDO, vec3(2.2));
+	
+	
+	//if (ALBEDO != pow(texture(mask, SCREEN_UV).rgb, vec3(2.2))) {
+	//	ALBEDO = vec3(0.0);
+	//}
+	
+	
+	//END
+	
+	
+	//ALBEDO = mix(texture(SCREEN_TEXTURE, SCREEN_UV).rgb, outline_color.rgb, line_strength);
+	
+	//ALBEDO = (vec3(1.0) - mix(vec3(1.0), outline_color.rgb, line_strength));
+	//ALBEDO = vec3(1.0) * texture(DEPTH_TEXTURE, SCREEN_UV).r * 0.01;
+	
+	
+	//ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+	
+	//ALBEDO = texture(DEPTH_TEXTURE, SCREEN_UV).rgb * 0.1;
+	
+//	vec4 c = texture(TEXTURE, SCREEN_UV, 0.0);
+//	if (c.a == 0.0){
+//
+//		vec2 side_width = width*SCREEN_PIXEL_SIZE;
+//		bool is_done = false;
+//
+//		for (float x = -side_width.x; x <= side_width.x && !is_done; x += SCREEN_PIXEL_SIZE.x) {
+//			for (float y = -side_width.y; y <= side_width.y && !is_done; y += SCREEN_PIXEL_SIZE.y) {
+//				vec4 nc = texture(TEXTURE, SCREEN_UV + vec2(x, y), 0.0);
+//				if ( nc.a != 0.0) {
+//					COLOR = color;
+//					is_done = true;
+//				}
+//			}
+//		}
+//		if (!is_done){
+//			COLOR = vec4(0, 0, 0, 0);
+//		}
+//	}else{
+//		COLOR = vec4(0, 0, 0, 0);
+//	}
+
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+render_priority = -1
+shader = SubResource( 3 )
+shader_param/is_inverted = false
+shader_param/depth_multiplier = 0.3
+shader_param/depth_addend = 0.0
+shader_param/transparency = 0.9
+shader_param/outline_color = Plane( 0, 0, 0, 1 )
+
+[sub_resource type="QuadMesh" id=7]
+
+[sub_resource type="Shader" id=8]
 code = "shader_type spatial;
 render_mode unshaded, blend_mix;
 
@@ -66,32 +193,32 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=9]
 render_priority = -1
-shader = SubResource( 7 )
+shader = SubResource( 8 )
 shader_param/is_inverted = false
 shader_param/depth_multiplier = 0.25
 shader_param/depth_addend = 0.0
 shader_param/transparency = 0.9
 shader_param/outline_color = Plane( 0, 0, 0, 1 )
 
-[sub_resource type="PlaneMesh" id=2]
+[sub_resource type="PlaneMesh" id=10]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=11]
 flags_vertex_lighting = true
 params_diffuse_mode = 2
 albedo_texture = ExtResource( 10 )
 uv1_scale = Vector3( 12, 12, 1 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=12]
 flags_vertex_lighting = true
 albedo_texture = ExtResource( 9 )
 
-[sub_resource type="PlaneMesh" id=5]
-material = SubResource( 4 )
+[sub_resource type="PlaneMesh" id=13]
+material = SubResource( 12 )
 
 [node name="DebugRoom1" type="Spatial"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 1 )
+environment = SubResource( 4 )
 
 [node name="BackgroundCanvas" type="CanvasLayer" parent="WorldEnvironment"]
 layer = -1
@@ -106,6 +233,11 @@ texture = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Outline" type="MeshInstance" parent="."]
+extra_cull_margin = 2000.0
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
 
 [node name="HUDCanvas" type="CanvasLayer" parent="."]
 
@@ -138,7 +270,8 @@ script = ExtResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="CameraAnchor/Camera"]
 transform = Transform( 100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -1.90735e-06, -25 )
-mesh = SubResource( 8 )
+visible = false
+mesh = SubResource( 7 )
 material/0 = SubResource( 9 )
 
 [node name="NPCs" type="Node" parent="."]
@@ -408,72 +541,72 @@ dialog = [ "Hope you enjoy your time here!" ]
 [node name="Ground" type="CSGMesh" parent="World"]
 transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0 )
 use_collision = true
-mesh = SubResource( 2 )
-material = SubResource( 3 )
+mesh = SubResource( 10 )
+material = SubResource( 11 )
 
 [node name="CSGBox" type="CSGBox" parent="World"]
 transform = Transform( 4.99999, 0, 0, 0, 3, 0, 0, 0, 4.99999, -10, 1, -10 )
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="CSGBox11" type="CSGBox" parent="World"]
 transform = Transform( 4.99999, 0, 0, 0, 3, 0, 0, 0, 4.99999, -4, 1, 22 )
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="CSGBox6" type="CSGBox" parent="World"]
 transform = Transform( 4.99999, 0, 0, 0, 3, 0, 0, 0, 4.99999, -25, 0, 18 )
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="CSGBox7" type="CSGBox" parent="World"]
 transform = Transform( 5, 0, 0, 0, 4, 0, 0, 0, 10, 25, -1, 15 )
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="CSGBox4" type="CSGBox" parent="World"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 10, -25, 0, -20 )
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="CSGBox5" type="CSGBox" parent="World"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 25, 5, -25 )
 visible = false
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="CSGBox8" type="CSGBox" parent="World"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 10, 5, -25 )
 visible = false
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="CSGBox9" type="CSGBox" parent="World"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, -15, 5, -25 )
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="CSGBox10" type="CSGBox" parent="World"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, -25, 5, 2 )
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="CSGBox2" type="CSGBox" parent="World"]
 transform = Transform( 4.99999, 0, 0, 0, 3.9, 0, 0, 0, 10, 10, 2, -4.99999 )
 visible = false
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="CSGBox3" type="CSGBox" parent="World"]
 transform = Transform( 7, 0, 0, 0, 4, 0, 0, 0, 3, -8, 1, 8 )
 use_collision = true
-material = SubResource( 4 )
+material = SubResource( 12 )
 
 [node name="Ramp" type="CSGMesh" parent="World"]
 transform = Transform( 3, 0, 0, 0, 0.866025, -3, 0, 0.5, 5.19615, 12, 2.88778, 10.249 )
 visible = false
 use_collision = true
-mesh = SubResource( 5 )
+mesh = SubResource( 13 )
 
 [node name="firstworld" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.358873, 0, 0.933386, 0, 1, 0, -0.933386, 0, 0.358873, 12.8258, 3.26456, -9.68662 )

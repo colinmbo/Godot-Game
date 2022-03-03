@@ -20,7 +20,7 @@ fog_depth_end = 150.0
 [sub_resource type="QuadMesh" id=2]
 size = Vector2( 2, 2 )
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=12]
 code = "shader_type spatial;
 render_mode unshaded, blend_mix;
 
@@ -137,7 +137,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
 render_priority = -1
-shader = SubResource( 3 )
+shader = SubResource( 12 )
 shader_param/is_inverted = false
 shader_param/depth_multiplier = 0.3
 shader_param/depth_addend = 0.0
@@ -154,7 +154,7 @@ uv1_scale = Vector3( 12, 12, 1 )
 
 [sub_resource type="SpatialMaterial" id=7]
 flags_vertex_lighting = true
-albedo_color = Color( 0, 1, 0.392157, 1 )
+albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="Shader" id=8]
 code = "shader_type particles;
@@ -644,7 +644,7 @@ process_material = SubResource( 9 )
 draw_pass_1 = SubResource( 11 )
 
 [node name="Camera" type="Camera" parent="CameraAnchor"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 70 )
+transform = Transform( 1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, -2.86102e-06, 70 )
 keep_aspect = 0
 fov = 45.0
 far = 500.0
