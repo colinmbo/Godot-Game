@@ -315,6 +315,7 @@ tracks/1/keys = {
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
+move_speed = 12.0
 footstep_sound1 = ExtResource( 8 )
 footstep_sound2 = ExtResource( 9 )
 footstep_sound3 = ExtResource( 12 )
