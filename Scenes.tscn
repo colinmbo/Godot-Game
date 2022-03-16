@@ -11,13 +11,8 @@ uniform float multiplier = 0.5;
 
 void fragment() {
 	float value = max(abs(UV.x - 0.5), abs(UV.y - 0.5)) * 2.0;
-	//value = distance(UV, vec2(0.5));
-	COLOR = vec4(color.rgb, smoothstep(multiplier, multiplier, value));
-//	if (abs((UV.x + 0.5) / 2.0) <= multiplier) {
-//		if (abs((UV.y + 0.5) / 2.0) <= multiplier) {
-//			COLOR = vec4(vec3(0.0), 1.0);
-//		}
-//	}
+	value = distance(UV, vec2(0.5));
+	COLOR = vec4(color.rgb, smoothstep(-multiplier, -multiplier, -value));
 }"
 
 [sub_resource type="ShaderMaterial" id=2]
@@ -35,9 +30,9 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0, 1.0 ]
+"values": [ 0.0, 0.75 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -50,9 +45,9 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 2, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 1.0, 0.0 ]
+"values": [ 0.75, 0.0 ]
 }
 
 [node name="Scenes" type="Spatial"]

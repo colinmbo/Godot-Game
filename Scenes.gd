@@ -3,9 +3,12 @@ extends Spatial
 var timer = 15
 var is_fade_out = false
 
+var room1 = load("res://SnowyRoom.tscn/").instance()
+var room2 = load("res://DebugRoom1.tscn/").instance()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_child(load("res://SnowyRoom.tscn/").instance())
+	add_child(room1)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -18,6 +21,8 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("transition"):
 		if is_fade_out:
+			remove_child(room1)
+			add_child(room2)
 			$AnimationPlayer.play("FadeIn")
 		else:
 			$AnimationPlayer.play("FadeOut")

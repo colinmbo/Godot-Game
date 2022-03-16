@@ -70,7 +70,7 @@ func _process(delta):
 			animatedSprite.play()
 			animatedSprite.set_frame(0)
 	else:
-		move_and_slide(global_transform.basis.x * 1, Vector3.UP, false)
+		move_and_slide(global_transform.basis.z * 1, Vector3.UP, false)
 		move_meter -= 1
 		if move_meter <= 0:
 			is_moving = false

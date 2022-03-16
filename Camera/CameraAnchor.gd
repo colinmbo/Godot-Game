@@ -39,7 +39,7 @@ func _physics_process(delta):
 			if target.is_on_floor():
 				set_translation(Vector3(
 					get_translation().x,
-					lerp(get_translation().y, target.get_translation().y, 0.15),
+					lerp(get_translation().y, target.get_translation().y+1.0, 0.15),
 					get_translation().z
 				))
 	else:

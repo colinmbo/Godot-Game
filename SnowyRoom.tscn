@@ -20,14 +20,14 @@ fog_depth_end = 150.0
 [sub_resource type="QuadMesh" id=2]
 size = Vector2( 2, 2 )
 
-[sub_resource type="Shader" id=12]
+[sub_resource type="Shader" id=3]
 code = "shader_type spatial;
 render_mode unshaded, blend_mix;
 
 uniform bool is_inverted = false;
-uniform float depth_multiplier = 0.25;
+uniform float depth_multiplier = 0.3;
 uniform float depth_addend = 0.0;
-uniform float transparency = 0.75;
+uniform float transparency = 0.9;
 uniform vec4 outline_color = vec4(0.0, 0.0, 0.0, 1.0);
 
 float get_linear_depth(vec2 screen_uv, mat4 inv_proj_matrix, float depth) {
@@ -59,89 +59,17 @@ void fragment() {
 	float line_strength = round(clamp(diff * depth_multiplier + depth_addend, 0.0, 1.0) * 3.0) / 3.0 * transparency;
 
 	ALBEDO = mix(texture(SCREEN_TEXTURE, SCREEN_UV).rgb, outline_color.rgb, line_strength);
-	//ALBEDO = mix(outline_color.rgb, vec3(1.0), line_strength);
-//
-//	if (texture(mask, SCREEN_UV).a == 0.0) {
-//		ALBEDO = vec3(1.0);
-//	} else {
-//		if (texture(mask, SCREEN_UV, 0.0).rgb != texture(DEPTH_TEXTURE, SCREEN_UV, 0.0).rgb) {
-//			ALBEDO = vec3(0.0);
-//		}
-//	}
-	//ALBEDO = texture(mask, SCREEN_UV).rgb;
-	
-	
-	//NEW STUFF HERE
-	
-	/*float depth = texture(DEPTH_TEXTURE, SCREEN_UV).x;
-	vec3 ndc = vec3(SCREEN_UV, depth) * 2.0 - 1.0;
-	vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
-	view.xyz /= view.w;
-	float linear_depth = -view.z;*/
-	
-	//ALBEDO = vec3(0.01) * linear_depth - 0.25;
-	//ALBEDO = pow(ALBEDO, vec3(2.2));
-	//ALBEDO = pow(texture(mask, SCREEN_UV).rgb, vec3(2.2));
-	
-	//if (pow(texture(mask, SCREEN_UV).rgb, vec3(2.2)).r <= ALBEDO.r) {
-	//	ALBEDO = vec3(0.0);
-	//}
-	//ALBEDO = pow(texture(mask, SCREEN_UV).rgb, vec3(2.2));
-	
-	
-	//ALBEDO = pow(ALBEDO, vec3(2.2));
-	
-	
-	//if (ALBEDO != pow(texture(mask, SCREEN_UV).rgb, vec3(2.2))) {
-	//	ALBEDO = vec3(0.0);
-	//}
-	
-	
-	//END
-	
-	
-	//ALBEDO = mix(texture(SCREEN_TEXTURE, SCREEN_UV).rgb, outline_color.rgb, line_strength);
-	
-	//ALBEDO = (vec3(1.0) - mix(vec3(1.0), outline_color.rgb, line_strength));
-	//ALBEDO = vec3(1.0) * texture(DEPTH_TEXTURE, SCREEN_UV).r * 0.01;
-	
-	
-	//ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
-	
-	//ALBEDO = texture(DEPTH_TEXTURE, SCREEN_UV).rgb * 0.1;
-	
-//	vec4 c = texture(TEXTURE, SCREEN_UV, 0.0);
-//	if (c.a == 0.0){
-//
-//		vec2 side_width = width*SCREEN_PIXEL_SIZE;
-//		bool is_done = false;
-//
-//		for (float x = -side_width.x; x <= side_width.x && !is_done; x += SCREEN_PIXEL_SIZE.x) {
-//			for (float y = -side_width.y; y <= side_width.y && !is_done; y += SCREEN_PIXEL_SIZE.y) {
-//				vec4 nc = texture(TEXTURE, SCREEN_UV + vec2(x, y), 0.0);
-//				if ( nc.a != 0.0) {
-//					COLOR = color;
-//					is_done = true;
-//				}
-//			}
-//		}
-//		if (!is_done){
-//			COLOR = vec4(0, 0, 0, 0);
-//		}
-//	}else{
-//		COLOR = vec4(0, 0, 0, 0);
-//	}
 
 }"
 
 [sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
 render_priority = -1
-shader = SubResource( 12 )
+shader = SubResource( 3 )
 shader_param/is_inverted = false
 shader_param/depth_multiplier = 0.3
 shader_param/depth_addend = 0.0
-shader_param/transparency = 0.9
+shader_param/transparency = 0.8
 shader_param/outline_color = Plane( 0, 0, 0, 1 )
 
 [sub_resource type="PlaneMesh" id=5]
@@ -413,7 +341,7 @@ volume_db = -4.0
 transform = Transform( 0.961934, -0.0745567, -0.262916, 0.250437, 0.625568, 0.738882, 0.109383, -0.776599, 0.620427, 0, 10, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.3, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.60054, 0 )
 collision/safe_margin = 0.01
 
 [node name="World" type="Spatial" parent="."]
@@ -476,7 +404,7 @@ use_collision = true
 material = SubResource( 7 )
 
 [node name="NPCs" type="Spatial" parent="."]
-transform = Transform( 0.10498, 0, 0.994474, 0, 1, 0, -0.994474, 0, 0.10498, 5.22889, 0, -11.2416 )
+transform = Transform( 0.10498, 0, 0.994474, 0, 1, 0, -0.994474, 0, 0.10498, 5.22889, 3.59625, -8.07141 )
 
 [node name="NPC" parent="NPCs" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.708183, 4.90321, -19.8237 )
