@@ -15,12 +15,12 @@ fog_color = Color( 0, 0, 0, 1 )
 fog_depth_begin = 75.0
 fog_depth_end = 150.0
 
-[sub_resource type="PlaneMesh" id=8]
+[sub_resource type="PlaneMesh" id=2]
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=3]
 params_cull_mode = 2
 
-[sub_resource type="ConvexPolygonShape" id=9]
+[sub_resource type="ConvexPolygonShape" id=4]
 points = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, -1 )
 
 [sub_resource type="QuadMesh" id=5]
@@ -179,7 +179,7 @@ volume_db = -4.0
 transform = Transform( 0.961934, -0.0745567, -0.262916, 0.250437, 0.625568, 0.738882, 0.109383, -0.776599, 0.620427, 0, 10, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.183176, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18135, 0 )
 collision/safe_margin = 0.01
 
 [node name="World" type="Spatial" parent="."]
@@ -189,87 +189,87 @@ transform = Transform( 0.566016, 0, 0, 0, 0.566016, 0, 0, 0, 0.566016, 0, 0, 0 )
 transform = Transform( 18, 0, 0, 0, 1, 0, 0, 0, 24, 0, 0, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Ground"]
-mesh = SubResource( 8 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="World/Ground"]
-shape = SubResource( 9 )
+shape = SubResource( 4 )
 
 [node name="Hall1" type="StaticBody" parent="World"]
 transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, -33.244 )
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Hall1"]
-mesh = SubResource( 8 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="World/Hall1"]
-shape = SubResource( 9 )
+shape = SubResource( 4 )
 
 [node name="Hall2" type="StaticBody" parent="World"]
 transform = Transform( -2.62268e-06, 0, 10, 0, 1, 0, -32.7621, 0, -2.38679e-07, 49.988, -0.000527344, -70.3676 )
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Hall2"]
-mesh = SubResource( 8 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="World/Hall2"]
-shape = SubResource( 9 )
+shape = SubResource( 4 )
 
 [node name="Hall3" type="StaticBody" parent="World"]
 transform = Transform( -2.62268e-06, 0, 10, 0, 1, 0, -32.7621, 0, -2.38679e-07, -49.9792, -0.000527344, -70.3676 )
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Hall3"]
-mesh = SubResource( 8 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="World/Hall3"]
-shape = SubResource( 9 )
+shape = SubResource( 4 )
 
 [node name="Hall5" type="StaticBody" parent="World"]
 transform = Transform( -2.62268e-06, 0, 10, -5.17137, 0.901061, -3.76746e-08, -10.7443, -0.43369, -7.82751e-08, 49.7859, -5.2507, -113.663 )
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Hall5"]
-mesh = SubResource( 8 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="World/Hall5"]
-shape = SubResource( 9 )
+shape = SubResource( 4 )
 
 [node name="Hall6" type="StaticBody" parent="World"]
 transform = Transform( -2.62268e-06, 0, 10, -5.17137, 0.901061, -3.76746e-08, -10.7443, -0.43369, -7.82751e-08, -50.1813, -5.2507, -113.663 )
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Hall6"]
-mesh = SubResource( 8 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="World/Hall6"]
-shape = SubResource( 9 )
+shape = SubResource( 4 )
 
 [node name="Hall4" type="StaticBody" parent="World"]
 transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 10, 0, -10.2609, -134.005 )
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Hall4"]
-mesh = SubResource( 8 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="World/Hall4"]
-shape = SubResource( 9 )
+shape = SubResource( 4 )
 
 [node name="Hall7" type="StaticBody" parent="World"]
 transform = Transform( 31.8347, 0.227264, -5.91667, -23.624, 0.919224, -3.54304e-07, 45.0384, 0.321523, 4.18211, -83.8603, 12.1142, -181.719 )
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Hall7"]
-mesh = SubResource( 8 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="World/Hall7"]
-shape = SubResource( 9 )
+shape = SubResource( 4 )
 
 [node name="NPCs" type="Spatial" parent="."]
 transform = Transform( 0.10498, 0, 0.994474, 0, 1, 0, -0.994474, 0, 0.10498, 5.22889, 0, -11.2416 )
 
 [node name="NPC" parent="NPCs" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.18949, 1.4167, 6.52441 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.55642, 1.4167, -1.49258 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
 
 [node name="Outline" type="MeshInstance" parent="."]

@@ -40,7 +40,8 @@ void vertex() {
 	if(-(MODELVIEW_MATRIX)[3].z / PROJECTION_MATRIX[0][0] > 18.0) {
 		sc = 1.0;
 	} else {
-		sc = (-(MODELVIEW_MATRIX)[3].z / PROJECTION_MATRIX[0][0]) * 0.055;
+		//sc = (-(MODELVIEW_MATRIX)[3].z / PROJECTION_MATRIX[0][0]) * 0.055;
+		sc = (-(MODELVIEW_MATRIX)[3].z / PROJECTION_MATRIX[0][0]) * 0.1 * (5.0/9.0);
 	}
 	
 	MODELVIEW_MATRIX[0]*=sc;

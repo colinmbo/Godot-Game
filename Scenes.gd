@@ -5,6 +5,7 @@ var is_fade_out = false
 
 var room1 = load("res://SnowyRoom.tscn/").instance()
 var room2 = load("res://DebugRoom1.tscn/").instance()
+var room3 = load("res://LobbyRoom.tscn/").instance()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

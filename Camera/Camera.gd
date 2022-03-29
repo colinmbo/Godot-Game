@@ -11,7 +11,7 @@ func _ready():
 	# 36 is the game resolution width times the sprite pixel size (0.1)
 	# 18 is half that
 	# set_fov(2*rad2deg(atan(18/get_translation().z)))
-	pass
+	set_fov(2*rad2deg(atan(18/get_translation().z)))
 	
 func _process(delta):
 	
@@ -34,6 +34,9 @@ func _process(delta):
 	# 36 is the game resolution width times the sprite pixel size (0.1)
 	# 18 is half that
 	if Input.is_action_pressed("interact"):
+		set_fov(2*rad2deg(atan(18/get_translation().z)))
+	
+	if get_fov() < (2*rad2deg(atan(18/get_translation().z))):
 		set_fov(2*rad2deg(atan(18/get_translation().z)))
 	
 	if shaking:

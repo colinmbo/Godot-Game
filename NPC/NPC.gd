@@ -169,3 +169,7 @@ func play_sound_3d(sound, unit_db, unit_size):
 	sound_player.connect("finished", sound_player, "queue_free")
 	sound_player.stream = sound
 	sound_player.play()
+
+
+func _on_Hurtbox_area_entered(area):
+	queue_free()
