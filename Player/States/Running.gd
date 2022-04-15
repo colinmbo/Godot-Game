@@ -41,7 +41,6 @@ func update(_delta):
 	# Play appropriate animation
 	set_anim(player.facing_dir, "run_front", "run_side", "run_back")
 
-
 # Called once per physics frame
 func physics_update(_delta):
 	
@@ -61,6 +60,8 @@ func physics_update(_delta):
 	
 	# Add gravity when grounded to detect floor
 	player.velocity.y = player.grav_force
+	
+	player.global_facing = Vector2(player.velocity.x, player.velocity.z).normalized()
 	
 	# Move the player based on velocity
 	player.move_and_slide_with_snap(player.velocity, 
@@ -105,17 +106,16 @@ func play_footstep():
 # Play appropriate animation based on facing direction
 func set_anim(dir, front_anim, side_anim, back_anim):
 	
-	match dir:
-		0:
-			anim.play(side_anim)
-			sprite.set_flip_h(false)
-		90:
-			anim.play(back_anim)
-			sprite.set_flip_h(false)
-		180:
-			anim.play(side_anim)
-			sprite.set_flip_h(true)
-		270:
+	match player.relative_facing:
+		0.0, PI*2:
 			anim.play(front_anim)
 			sprite.set_flip_h(false)
-
+		PI*0.5:
+			anim.play(side_anim)
+			sprite.set_flip_h(false)
+		PI*1:
+			anim.play(back_anim)
+			sprite.set_flip_h(false)
+		PI*1.5:
+			anim.play(side_anim)
+			sprite.set_flip_h(true)

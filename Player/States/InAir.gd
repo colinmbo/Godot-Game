@@ -67,7 +67,6 @@ func physics_update(_delta):
 				sprite.set_flip_h(false)
 	
 	if player.is_on_floor() and player.velocity.y < 0:
-		player.play_sound_3d(player.thump_sound, 15, 10)
 		if is_equal_approx(input_vec.length(), 0):
 			state_machine.transition_to("Idle")
 		else:
@@ -75,3 +74,6 @@ func physics_update(_delta):
 			
 	elif Input.is_action_just_pressed("action"):
 		state_machine.transition_to("Attacking")
+
+func exit():
+	player.get_node("Particles").emitting = true

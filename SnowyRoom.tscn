@@ -564,6 +564,7 @@ script = ExtResource( 5 )
 
 [node name="Snow" type="Particles" parent="CameraAnchor"]
 transform = Transform( 1, 0, 0, 0, 0.866026, -0.500001, 0, 0.500001, 0.866026, 0, 14.22, 7.8743 )
+visible = false
 amount = 150
 lifetime = 5.0
 fixed_fps = 30

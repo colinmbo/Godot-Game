@@ -7,18 +7,13 @@
 [ext_resource path="res://Player/States/Running.gd" type="Script" id=5]
 [ext_resource path="res://Player/States/InAir.gd" type="Script" id=6]
 [ext_resource path="res://Shadow3.png" type="Texture" id=7]
-[ext_resource path="res://Sounds/Footstep1.mp3" type="AudioStream" id=8]
-[ext_resource path="res://Sounds/Footstep2.mp3" type="AudioStream" id=9]
-[ext_resource path="res://Sounds/Jump.mp3" type="AudioStream" id=10]
-[ext_resource path="res://Sounds/Thump.mp3" type="AudioStream" id=11]
-[ext_resource path="res://Sounds/Footstep3.mp3" type="AudioStream" id=12]
-[ext_resource path="res://Sounds/Footstep4.mp3" type="AudioStream" id=13]
 [ext_resource path="res://Player/States/Attacking.gd" type="Script" id=14]
 [ext_resource path="res://Player/States/Interacting.gd" type="Script" id=15]
 [ext_resource path="res://Player/States/Hurt.gd" type="Script" id=16]
 [ext_resource path="res://rough spritesheet.png" type="Texture" id=17]
 [ext_resource path="res://newSpriteShader.shader" type="Shader" id=18]
 [ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=19]
+[ext_resource path="res://STAR.png" type="Texture" id=20]
 
 [sub_resource type="CylinderShape" id=1]
 
@@ -216,8 +211,9 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=13]
+length = 0.533333
 loop = true
-step = 0.25
+step = 0.0333333
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -225,32 +221,16 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"times": PoolRealArray( 0, 0.133333, 0.266667, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 11, 12, 13, 10 ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath("StateMachine/Running")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.25, 0.75 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "play_footstep"
-}, {
-"args": [  ],
-"method": "play_footstep"
-} ]
-}
 
 [sub_resource type="Animation" id=14]
+length = 0.533333
 loop = true
-step = 0.25
+step = 0.0333333
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -258,32 +238,16 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"times": PoolRealArray( 0, 0.133333, 0.266667, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 1, 2, 3, 0 ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath("StateMachine/Running")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.25, 0.75 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "play_footstep"
-}, {
-"args": [  ],
-"method": "play_footstep"
-} ]
-}
 
 [sub_resource type="Animation" id=15]
+length = 0.533333
 loop = true
-step = 0.25
+step = 0.0333333
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite3D:frame")
 tracks/0/interp = 1
@@ -291,40 +255,47 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"times": PoolRealArray( 0, 0.133333, 0.266667, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 6, 7, 8, 5 ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath("StateMachine/Running")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.25, 0.75 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "play_footstep"
-}, {
-"args": [  ],
-"method": "play_footstep"
-} ]
-}
 
 [sub_resource type="CapsuleShape" id=16]
 
+[sub_resource type="ParticlesMaterial" id=17]
+lifetime_randomness = 1.0
+flag_rotate_y = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+flatness = 1.0
+gravity = Vector3( 0, 1.5, 0 )
+initial_velocity = 3.0
+radial_accel = -0.8
+damping = 2.0
+
+[sub_resource type="SpatialMaterial" id=18]
+render_priority = 1
+flags_transparent = true
+flags_unshaded = true
+flags_albedo_tex_force_srgb = true
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 20 )
+
+[sub_resource type="QuadMesh" id=19]
+material = SubResource( 18 )
+
+[sub_resource type="CubeMesh" id=20]
+
+[sub_resource type="SpatialMaterial" id=21]
+flags_unshaded = true
+
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
-move_speed = 12.0
-footstep_sound1 = ExtResource( 8 )
-footstep_sound2 = ExtResource( 9 )
-footstep_sound3 = ExtResource( 12 )
-footstep_sound4 = ExtResource( 13 )
-jump_sound = ExtResource( 10 )
-thump_sound = ExtResource( 11 )
+move_speed = 16.0
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
@@ -380,7 +351,7 @@ offset = Vector2( 0.5, 12 )
 pixel_size = 0.1
 texture = ExtResource( 17 )
 hframes = 14
-frame = 1
+frame = 11
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
@@ -403,5 +374,22 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2658, 0 )
 [node name="CollisionShape" parent="Hurtbox" index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.253059, 0 )
 shape = SubResource( 16 )
+
+[node name="Particles" type="Particles" parent="."]
+emitting = false
+lifetime = 2.0
+one_shot = true
+speed_scale = 3.0
+explosiveness = 1.0
+local_coords = false
+process_material = SubResource( 17 )
+draw_pass_1 = SubResource( 19 )
+
+[node name="Anchor" type="Spatial" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="Anchor"]
+transform = Transform( 0.15168, 0, 0, 0, 0.15168, 0, 0, 0, 1.36888, 0, 1.39064, 1.38695 )
+mesh = SubResource( 20 )
+material/0 = SubResource( 21 )
 
 [editable path="Hurtbox"]

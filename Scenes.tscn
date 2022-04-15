@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes.gd" type="Script" id=1]
 [ext_resource path="res://Overlay.gd" type="Script" id=2]
+[ext_resource path="res://Fonts/MenuFont.tres" type="DynamicFont" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
@@ -66,6 +67,7 @@ script = ExtResource( 2 )
 [node name="CanvasLayer" type="CanvasLayer" parent="Overlay"]
 
 [node name="ColorRect" type="ColorRect" parent="Overlay/CanvasLayer"]
+visible = false
 material = SubResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -76,15 +78,205 @@ __meta__ = {
 [node name="CanvasLayer2" type="CanvasLayer" parent="Overlay"]
 layer = 2
 
-[node name="ColorRect" type="ColorRect" parent="Overlay/CanvasLayer2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 216.0
-margin_top = 70.0
-margin_right = -54.0
-margin_bottom = -70.0
-color = Color( 0, 0, 0, 1 )
+[node name="TabContainer" type="TabContainer" parent="Overlay/CanvasLayer2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -85.0
+margin_right = 90.0
+margin_bottom = 85.0
+custom_fonts/font = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Cards" type="ScrollContainer" parent="Overlay/CanvasLayer2/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 24.0
+margin_right = -4.0
+margin_bottom = -4.0
+follow_focus = true
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Overlay/CanvasLayer2/TabContainer/Cards"]
+margin_right = 172.0
+margin_bottom = 142.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Card1" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Cards/VBoxContainer"]
+margin_right = 172.0
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 3 )
+text = "Card1"
+clip_text = true
+
+[node name="Card2" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Cards/VBoxContainer"]
+margin_top = 16.0
+margin_right = 172.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 3 )
+text = "Card2"
+clip_text = true
+
+[node name="Card3" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Cards/VBoxContainer"]
+margin_top = 32.0
+margin_right = 172.0
+margin_bottom = 44.0
+custom_fonts/font = ExtResource( 3 )
+text = "Card3"
+clip_text = true
+
+[node name="Card4" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Cards/VBoxContainer"]
+margin_top = 48.0
+margin_right = 172.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 3 )
+text = "Card4"
+clip_text = true
+
+[node name="Card5" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Cards/VBoxContainer"]
+margin_top = 64.0
+margin_right = 172.0
+margin_bottom = 76.0
+custom_fonts/font = ExtResource( 3 )
+text = "Card5"
+clip_text = true
+
+[node name="Card6" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Cards/VBoxContainer"]
+margin_top = 80.0
+margin_right = 172.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 3 )
+text = "Card6"
+clip_text = true
+
+[node name="Card7" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Cards/VBoxContainer"]
+margin_top = 96.0
+margin_right = 172.0
+margin_bottom = 108.0
+custom_fonts/font = ExtResource( 3 )
+text = "Card7"
+clip_text = true
+
+[node name="Card8" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Cards/VBoxContainer"]
+margin_top = 112.0
+margin_right = 172.0
+margin_bottom = 124.0
+custom_fonts/font = ExtResource( 3 )
+text = "Card8"
+clip_text = true
+
+[node name="Badges" type="ScrollContainer" parent="Overlay/CanvasLayer2/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 24.0
+margin_right = -4.0
+margin_bottom = -4.0
+follow_focus = true
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Overlay/CanvasLayer2/TabContainer/Badges"]
+margin_right = 172.0
+margin_bottom = 172.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Badge1" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_right = 160.0
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge1"
+clip_text = true
+
+[node name="Badge2" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_top = 16.0
+margin_right = 160.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge2"
+clip_text = true
+
+[node name="Badge3" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_top = 32.0
+margin_right = 160.0
+margin_bottom = 44.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge3"
+clip_text = true
+
+[node name="Badge4" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_top = 48.0
+margin_right = 160.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge4"
+clip_text = true
+
+[node name="Badge5" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_top = 64.0
+margin_right = 160.0
+margin_bottom = 76.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge5"
+clip_text = true
+
+[node name="Badge6" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_top = 80.0
+margin_right = 160.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge6"
+clip_text = true
+
+[node name="Badge7" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_top = 96.0
+margin_right = 160.0
+margin_bottom = 108.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge7"
+clip_text = true
+
+[node name="Badge8" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_top = 112.0
+margin_right = 160.0
+margin_bottom = 124.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge8"
+clip_text = true
+
+[node name="Badge9" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_top = 128.0
+margin_right = 160.0
+margin_bottom = 140.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge9"
+clip_text = true
+
+[node name="Badge10" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_top = 144.0
+margin_right = 160.0
+margin_bottom = 156.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge10"
+clip_text = true
+
+[node name="Badge11" type="Button" parent="Overlay/CanvasLayer2/TabContainer/Badges/VBoxContainer"]
+margin_top = 160.0
+margin_right = 160.0
+margin_bottom = 172.0
+custom_fonts/font = ExtResource( 3 )
+text = "Badge11"
+clip_text = true

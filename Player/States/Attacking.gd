@@ -32,6 +32,7 @@ func enter():
 	var spell_inst = spell.instance()
 	get_tree().get_root().add_child(spell_inst)
 	spell_inst.transform.origin = player.transform.origin
+	spell_inst.dir = player.facing_dir
 
 
 # Called once per frame

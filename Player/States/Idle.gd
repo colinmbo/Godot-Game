@@ -6,7 +6,7 @@ var input_vec := Vector2.ZERO
 
 # Called when first entering state
 func enter():
-	#print(owner)
+	
 	set_anim(player.facing_dir, "idle_front", "idle_side", "idle_back")
 
 
@@ -21,6 +21,8 @@ func update(_delta):
 			- Input.get_action_strength("move_up"))
 	)
 	input_vec = input_vec.normalized()
+	
+	set_anim(player.facing_dir, "idle_front", "idle_side", "idle_back")
 
 
 # Called once per physics frame
@@ -73,17 +75,17 @@ func exit():
 # Play appropriate animation based on facing direction
 func set_anim(dir, front_anim, side_anim, back_anim):
 	
-	match dir:
-		0:
-			anim.play(side_anim)
-			sprite.set_flip_h(false)
-		90:
-			anim.play(back_anim)
-			sprite.set_flip_h(false)
-		180:
-			anim.play(side_anim)
-			sprite.set_flip_h(true)
-		270:
+	match player.relative_facing:
+		0.0, PI*2:
 			anim.play(front_anim)
 			sprite.set_flip_h(false)
+		PI*0.5:
+			anim.play(side_anim)
+			sprite.set_flip_h(false)
+		PI*1:
+			anim.play(back_anim)
+			sprite.set_flip_h(false)
+		PI*1.5:
+			anim.play(side_anim)
+			sprite.set_flip_h(true)
 

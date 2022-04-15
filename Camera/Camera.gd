@@ -16,18 +16,19 @@ func _ready():
 func _process(delta):
 	
 	#Keep for debugging only
-	if Input.is_action_pressed("ui_left"):
-		translate(Vector3(0,0,0.4))
-	if Input.is_action_pressed("ui_right"):
-		translate(Vector3(0,0,-0.4))
-	if Input.is_action_pressed("ui_up"):
-		get_parent().rotate_x(0.001)
-	if Input.is_action_pressed("ui_down"):
-		get_parent().rotate_x(-0.001)
-	if Input.is_action_pressed("turn_right"):
-		get_parent().rotate_y(0.005)
-	if Input.is_action_pressed("turn_left"):
-		get_parent().rotate_y(-0.005)
+	if Input.is_action_pressed("modifier"):
+		if Input.is_action_pressed("ui_left"):
+			translate(Vector3(0,0,0.4))
+		if Input.is_action_pressed("ui_right"):
+			translate(Vector3(0,0,-0.4))
+		if Input.is_action_pressed("ui_up"):
+			get_parent().rotate_x(0.001)
+		if Input.is_action_pressed("ui_down"):
+			get_parent().rotate_x(-0.001)
+		if Input.is_action_pressed("turn_right"):
+			get_parent().rotate_y(0.005)
+		if Input.is_action_pressed("turn_left"):
+			get_parent().rotate_y(-0.005)
 		
 	#translation.z = 100
 	

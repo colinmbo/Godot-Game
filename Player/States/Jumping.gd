@@ -32,7 +32,6 @@ func exit():
 func jump():
 	
 	player.velocity.y = player.jump_force
-	player.play_sound_3d(player.jump_sound, 15, 10)
 	state_machine.transition_to("InAir")
 
 

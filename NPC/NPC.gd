@@ -172,4 +172,5 @@ func play_sound_3d(sound, unit_db, unit_size):
 
 
 func _on_Hurtbox_area_entered(area):
+	print(area)
 	queue_free()
