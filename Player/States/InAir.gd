@@ -1,7 +1,19 @@
-extends PlayerState
+extends State
 
 
+var player : Player
+var sprite : Sprite3D
+var anim : AnimationPlayer
+var interact_ray : RayCast
 var input_vec := Vector2.ZERO
+
+
+func _ready():
+	yield(owner, "ready")
+	player = owner as Player
+	sprite = player.sprite
+	anim = player.anim
+	interact_ray = player.interact_ray
 
 
 # Called when first entering state
@@ -37,34 +49,7 @@ func physics_update(_delta):
 	player.velocity.y += player.grav_force
 	player.move_and_slide(player.velocity, Vector3.UP)
 	
-	if player.velocity.y > 0:
-		match player.facing_dir:
-			0:
-				sprite.frame = 20
-				sprite.set_flip_h(false)
-			90:
-				sprite.frame = 33
-				sprite.set_flip_h(false)
-			180:
-				sprite.frame = 20
-				sprite.set_flip_h(true)
-			270:
-				sprite.frame = 7
-				sprite.set_flip_h(false)
-	else:
-		match player.facing_dir:
-			0:
-				sprite.frame = 21
-				sprite.set_flip_h(false)
-			90:
-				sprite.frame = 34
-				sprite.set_flip_h(false)
-			180:
-				sprite.frame = 21
-				sprite.set_flip_h(true)
-			270:
-				sprite.frame = 8
-				sprite.set_flip_h(false)
+	# SET ANIMATION HERE
 	
 	if player.is_on_floor() and player.velocity.y < 0:
 		if is_equal_approx(input_vec.length(), 0):
@@ -76,4 +61,4 @@ func physics_update(_delta):
 		state_machine.transition_to("Attacking")
 
 func exit():
-	player.get_node("Particles").emitting = true
+	pass

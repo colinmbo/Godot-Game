@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Player/States/Jumping.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://rough spritesheet.png" type="Texture" id=17]
 [ext_resource path="res://newSpriteShader.shader" type="Shader" id=18]
 [ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=19]
-[ext_resource path="res://STAR.png" type="Texture" id=20]
 
 [sub_resource type="CylinderShape" id=1]
 
@@ -263,31 +262,6 @@ tracks/0/keys = {
 
 [sub_resource type="CapsuleShape" id=16]
 
-[sub_resource type="ParticlesMaterial" id=17]
-lifetime_randomness = 1.0
-flag_rotate_y = true
-direction = Vector3( 0, 0, 0 )
-spread = 180.0
-flatness = 1.0
-gravity = Vector3( 0, 1.5, 0 )
-initial_velocity = 3.0
-radial_accel = -0.8
-damping = 2.0
-
-[sub_resource type="SpatialMaterial" id=18]
-render_priority = 1
-flags_transparent = true
-flags_unshaded = true
-flags_albedo_tex_force_srgb = true
-params_billboard_mode = 3
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-albedo_texture = ExtResource( 20 )
-
-[sub_resource type="QuadMesh" id=19]
-material = SubResource( 18 )
-
 [sub_resource type="CubeMesh" id=20]
 
 [sub_resource type="SpatialMaterial" id=21]
@@ -351,7 +325,6 @@ offset = Vector2( 0.5, 12 )
 pixel_size = 0.1
 texture = ExtResource( 17 )
 hframes = 14
-frame = 11
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
@@ -375,21 +348,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2658, 0 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.253059, 0 )
 shape = SubResource( 16 )
 
-[node name="Particles" type="Particles" parent="."]
-emitting = false
-lifetime = 2.0
-one_shot = true
-speed_scale = 3.0
-explosiveness = 1.0
-local_coords = false
-process_material = SubResource( 17 )
-draw_pass_1 = SubResource( 19 )
-
 [node name="Anchor" type="Spatial" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="Anchor"]
 transform = Transform( 0.15168, 0, 0, 0, 0.15168, 0, 0, 0, 1.36888, 0, 1.39064, 1.38695 )
 mesh = SubResource( 20 )
 material/0 = SubResource( 21 )
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 
 [editable path="Hurtbox"]

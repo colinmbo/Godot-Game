@@ -1,7 +1,19 @@
-extends PlayerState
+extends State
 
 
+var player : Player
+var sprite : Sprite3D
+var anim : AnimationPlayer
+var interact_ray : RayCast
 var input_vec := Vector2.ZERO
+
+
+func _ready():
+	yield(owner, "ready")
+	player = owner as Player
+	sprite = player.sprite
+	anim = player.anim
+	interact_ray = player.interact_ray
 
 
 # Called when first entering state
@@ -21,22 +33,8 @@ func update(_delta):
 	input_vec = input_vec.normalized()
 	
 	# Update facing direction
-	if input_vec.y != 0:
-		if input_vec.x != 0:
-			if player.facing_dir == 0:
-				if input_vec.x < 0: player.facing_dir = 180
-			elif player.facing_dir == 90:
-				if input_vec.y > 0: player.facing_dir = 270
-			elif player.facing_dir == 180:
-				if input_vec.x > 0: player.facing_dir = 0
-			elif player.facing_dir == 270:
-				if input_vec.y < 0: player.facing_dir = 90
-		else: 
-			if input_vec.y > 0: player.facing_dir = 270
-			else: player.facing_dir = 90
-	elif input_vec.x != 0:
-		if input_vec.x > 0: player.facing_dir = 0
-		else: player.facing_dir = 180
+	if input_vec != Vector2.ZERO:
+		player.facing_dir = input_vec.angle()
 	
 	# Play appropriate animation
 	set_anim(player.facing_dir, "run_front", "run_side", "run_back")
@@ -91,16 +89,6 @@ func physics_update(_delta):
 # Called when exiting state
 func exit():
 	pass
-
-
-# Play randomized footstep sound effect, called by AnimationPlayer
-func play_footstep():
-	var num = randi() % 3
-	match num:
-		0: player.play_sound_3d(player.footstep_sound1, 15, 10)
-		1: player.play_sound_3d(player.footstep_sound2, 15, 10)
-		2: player.play_sound_3d(player.footstep_sound3, 15, 10)
-		3: player.play_sound_3d(player.footstep_sound4, 15, 10)
 
 
 # Play appropriate animation based on facing direction

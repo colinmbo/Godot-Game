@@ -9,6 +9,9 @@
 
 [node name="GenericProjectile" type="Spatial"]
 script = ExtResource( 2 )
+force = 15.0
+height = 15.0
+stun = 8.0
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )

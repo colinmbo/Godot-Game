@@ -1,10 +1,25 @@
-extends PlayerState
+extends State
+
+
+var player : Player
+var sprite : Sprite3D
+var anim : AnimationPlayer
+var interact_ray : RayCast
+var input_vec := Vector2.ZERO
 
 
 var dir = Vector2(0,0)
 var force = 0
 var height = 0
 var stun = 0
+
+
+func _ready():
+	yield(owner, "ready")
+	player = owner as Player
+	sprite = player.sprite
+	anim = player.anim
+	interact_ray = player.interact_ray
 
 
 # Called when first entering state
@@ -30,6 +45,7 @@ func enter():
 
 # Called once per frame
 func update(_delta):
+	print("hurt")
 	
 	if stun <= 0:
 		stun = 0

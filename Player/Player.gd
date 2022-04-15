@@ -17,9 +17,8 @@ onready var shadow_ray = $ShadowRay
 var health := 100
 var velocity := Vector3.ZERO
 
-var facing_dir := 270
-
 var global_facing = Vector2(0, 1)
+var facing_dir := 270
 var relative_facing = 0
 
 
@@ -42,8 +41,21 @@ func _process(_delta):
 	relative_facing = global_facing.angle_to(cam_facing_flat)
 	relative_facing = stepify(fposmod(relative_facing, PI*2), PI*0.5)
 	$Anchor.transform.basis.z = Vector3(global_facing.x, 0, global_facing.y)
-
-
+	
+	
 func end_interaction():
+	
 	$StateMachine.transition_to("Idle")
 
+
+func _on_Hurtbox_area_entered(area):
+	var state = get_node("StateMachine/Hurt")
+	state.dir = Vector2(
+		(transform.origin - area.owner.transform.origin).x, 
+		(transform.origin - area.owner.transform.origin).z
+	)
+	state.force = area.owner.force
+	state.height = area.owner.height
+	state.stun = area.owner.stun
+
+	$StateMachine.transition_to("Hurt")

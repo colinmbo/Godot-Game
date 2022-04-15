@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Player/Player.gd"
 }, {
-"base": "State",
-"class": "PlayerState",
-"language": "GDScript",
-"path": "res://Player/PlayerState.gd"
-}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -31,7 +26,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Player": "",
-"PlayerState": "",
 "State": "",
 "StateMachine": ""
 }

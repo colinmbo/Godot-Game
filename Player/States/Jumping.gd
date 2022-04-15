@@ -1,8 +1,20 @@
-extends PlayerState
+extends State
 
 
+var player : Player
+var sprite : Sprite3D
+var anim : AnimationPlayer
+var interact_ray : RayCast
 var input_vec := Vector2.ZERO
 
+
+func _ready():
+	yield(owner, "ready")
+	player = owner as Player
+	sprite = player.sprite
+	anim = player.anim
+	interact_ray = player.interact_ray
+	
 
 # Called when first entering state
 func enter():
@@ -35,18 +47,19 @@ func jump():
 	state_machine.transition_to("InAir")
 
 
+# Play appropriate animation based on facing direction
 func set_anim(dir, front_anim, side_anim, back_anim):
 	
-	match dir:
-		0:
-			anim.play(side_anim)
-			sprite.set_flip_h(false)
-		90:
-			anim.play(back_anim)
-			sprite.set_flip_h(false)
-		180:
-			anim.play(side_anim)
-			sprite.set_flip_h(true)
-		270:
+	match player.relative_facing:
+		0.0, PI*2:
 			anim.play(front_anim)
 			sprite.set_flip_h(false)
+		PI*0.5:
+			anim.play(side_anim)
+			sprite.set_flip_h(false)
+		PI*1:
+			anim.play(back_anim)
+			sprite.set_flip_h(false)
+		PI*1.5:
+			anim.play(side_anim)
+			sprite.set_flip_h(true)
