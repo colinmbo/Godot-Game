@@ -194,6 +194,16 @@ material/0 = SubResource( 3 )
 [node name="CollisionShape" type="CollisionShape" parent="World/Ground"]
 shape = SubResource( 4 )
 
+[node name="Ground2" type="StaticBody" parent="World"]
+transform = Transform( 13.9742, -0.63031, 0, 11.3456, 0.776343, 0, 0, 0, -6.45506, 27.1938, 10.6852, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="World/Ground2"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Ground2"]
+shape = SubResource( 4 )
+
 [node name="Hall1" type="StaticBody" parent="World"]
 transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, -33.244 )
 

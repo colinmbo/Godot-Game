@@ -270,6 +270,9 @@ flags_unshaded = true
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
 move_speed = 16.0
+jump_force = 30.0
+grav_force = -1.51
+floor_snap = 0.25
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )

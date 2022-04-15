@@ -12,4 +12,5 @@ func _ready():
 
 
 func _process(delta):
-	pass
+	transform.origin.x += dir.x * 0.25
+	transform.origin.z += dir.y * 0.25
