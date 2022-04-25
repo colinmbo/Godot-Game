@@ -19,9 +19,13 @@ func _ready():
 func _process(delta):
 	
 	if Input.is_action_just_pressed("pause"):
-		menu_node.visible = !menu_node.visible
-		get_tree().paused = !get_tree().paused
-		current_card_focus.grab_focus()
+		if !menu_node.visible:
+			menu_node.visible = true
+			get_tree().paused = true
+			current_card_focus.grab_focus()
+		else:
+			menu_node.visible = false
+			get_tree().paused = false
 		
 	# Go to badges menu
 	if get_tree().paused:

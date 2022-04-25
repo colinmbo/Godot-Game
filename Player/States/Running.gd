@@ -42,29 +42,30 @@ func update(_delta):
 # Called once per physics frame
 func physics_update(_delta):
 	
+	# Add gravity when grounded to detect floor
+	player.velocity.y += player.grav_force
+	
 	# Transition to air state if not grounded
 	if !player.is_on_floor():
 		state_machine.transition_to("InAir")
 		return
-
-	# CHANGED FOR CAMERA RELATIVITY
-	player.velocity.x += (get_viewport().get_camera().global_transform.basis.x.x * input_vec.x + input_vec.y * get_viewport().get_camera().global_transform.basis.z.x) *3
-	player.velocity.z += (get_viewport().get_camera().global_transform.basis.x.z * input_vec.x + input_vec.y * get_viewport().get_camera().global_transform.basis.z.z) *3
-	#player.velocity += Vector3(input_vec.x, 0, input_vec.y) * 3
-	var stored_vel = Vector2(player.velocity.x, player.velocity.z)
-	if stored_vel.length() > player.move_speed:
-		player.velocity.x = stored_vel.normalized().x * player.move_speed
-		player.velocity.z = stored_vel.normalized().y * player.move_speed
 	
-	# Add gravity when grounded to detect floor
-	player.velocity.y = player.grav_force
+	# If there is input, accelerate towards max speed
+	if input_vec.length() > 0:
+		player.move_vec = player.move_vec.move_toward(input_vec * player.max_speed, player.move_accel)
+		player.global_facing = player.move_vec.normalized()
+		
+	# If there is no input, decelerate towards zero
+	else:
+		player.move_vec = player.move_vec.move_toward(Vector2.ZERO, player.move_decel)
 	
-	player.global_facing = Vector2(player.velocity.x, player.velocity.z).normalized()
+	# Set target velocity
+	var target_velocity = Vector3(player.move_vec.x, player.velocity.y, player.move_vec.y)
 	
-	# Move the player based on velocity
-	player.move_and_slide_with_snap(player.velocity, 
+	# Move the player based on velocity	
+	player.velocity = player.move_and_slide_with_snap(target_velocity, 
 		Vector3.DOWN * player.floor_snap, Vector3.UP, true)
-	
+
 	# Transition to air state when jump is pressed
 	if Input.is_action_just_pressed("jump"):
 		state_machine.transition_to("Jumping")
@@ -73,9 +74,14 @@ func physics_update(_delta):
 	elif Input.is_action_just_pressed("action"):
 		state_machine.transition_to("Attacking")
 	
+	# CHANGE THIS TO RETURN TO IDLE STATE AS SOON AS THERE IS NO INPUT, HANDLE SLIDING IN IDLE STATE
 	# Transition to idle state when there is no input
-	elif input_vec.x == 0 and input_vec.y == 0:
-		state_machine.transition_to("Idle")
+	elif Vector2(player.velocity.x, player.velocity.z).length() <= 0.1:
+		if input_vec.length() == 0:
+			state_machine.transition_to("Idle")
+		else:
+			# you are hitting a wall
+			pass
 	
 	# Transition to interact state when interact is pressed with collider found
 	elif Input.is_action_just_pressed("interact"):

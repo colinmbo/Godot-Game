@@ -39,17 +39,11 @@ func update(_delta):
 
 # Called once per physics frame
 func physics_update(_delta):
-	
+
 	# Transition to air state if not grounded
 	if !player.is_on_floor():
 		state_machine.transition_to("InAir")
 		return
-	
-	# Slow down player
-	var stored_vel = Vector2(player.velocity.x, player.velocity.z)
-	stored_vel = stored_vel * 0.75
-	player.velocity.x = stored_vel.x
-	player.velocity.z = stored_vel.y
 	
 	# Add gravity when grounded to detect floor
 	player.velocity.y = player.grav_force
@@ -60,6 +54,7 @@ func physics_update(_delta):
 	
 	# Transition to air state when jump is pressed
 	if Input.is_action_just_pressed("jump"):
+		player.velocity = Vector3.ZERO
 		state_machine.transition_to("Jumping")
 	
 	# Transition to attack state when attack is pressed

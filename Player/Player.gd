@@ -2,10 +2,12 @@ class_name Player
 extends KinematicBody
 
 
-export var move_speed = 9.0
+export var max_speed = 15.0
+export var move_accel = 2.0
+export var move_decel = 1.0
 export var jump_force = 20.0
 export var grav_force = -1.0
-export var floor_snap = 0.1
+export var floor_snap = 0.2
 
 onready var sprite = $Sprite3D
 onready var anim = $AnimationPlayer
@@ -15,6 +17,8 @@ onready var shadow = $Shadow
 onready var shadow_ray = $ShadowRay
 
 var health := 100
+
+var move_vec := Vector2.ZERO
 var velocity := Vector3.ZERO
 
 var global_facing = Vector2(0, 1)
@@ -49,6 +53,11 @@ func end_interaction():
 
 
 func _on_Hurtbox_area_entered(area):
+	if area.owner.attack_user == self:
+		return
+	
+	#get_viewport().get_camera().hitlag(5)
+	get_viewport().get_camera().screenshake(1, 0.1)
 	var state = get_node("StateMachine/Hurt")
 	state.dir = Vector2(
 		(transform.origin - area.owner.transform.origin).x, 
@@ -57,5 +66,7 @@ func _on_Hurtbox_area_entered(area):
 	state.force = area.owner.force
 	state.height = area.owner.height
 	state.stun = area.owner.stun
+	
+	area.owner.queue_free()
 
 	$StateMachine.transition_to("Hurt")

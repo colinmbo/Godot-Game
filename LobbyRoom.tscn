@@ -194,10 +194,31 @@ material/0 = SubResource( 3 )
 [node name="CollisionShape" type="CollisionShape" parent="World/Ground"]
 shape = SubResource( 4 )
 
+[node name="Ground3" type="StaticBody" parent="World"]
+transform = Transform( 45.8145, 0, 0, 0, 1, 0, 0, 0, 5.89471, 0, 0, 32.9836 )
+
+[node name="MeshInstance" type="MeshInstance" parent="World/Ground3"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Ground3"]
+shape = SubResource( 4 )
+
+[node name="Ground4" type="StaticBody" parent="World"]
+transform = Transform( 41.2525, -0.435011, 0, 19.9298, 0.900425, 0, 0, 0, 5.89471, 9.72366, 0, 32.9836 )
+
+[node name="MeshInstance" type="MeshInstance" parent="World/Ground4"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Ground4"]
+shape = SubResource( 4 )
+
 [node name="Ground2" type="StaticBody" parent="World"]
-transform = Transform( 13.9742, -0.63031, 0, 11.3456, 0.776343, 0, 0, 0, -6.45506, 27.1938, 10.6852, 0 )
+transform = Transform( 16.1189, -0.445073, 0, 8.01133, 0.895494, 0, 0, 0, -6.45506, 27.1938, 7.35867, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Ground2"]
+transform = Transform( 1, 1.86265e-09, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
@@ -283,6 +304,7 @@ mesh = SubResource( 5 )
 material/0 = SubResource( 7 )
 
 [node name="CameraAnchor" type="Spatial" parent="."]
+pause_mode = 2
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3.3, 0.5 )
 script = ExtResource( 5 )
 

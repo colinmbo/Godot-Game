@@ -40,8 +40,8 @@ func update(delta):
 
 # Called once per physics frame
 func physics_update(delta):
-	owner.velocity.x = dir.x * force
-	owner.velocity.z = dir.y * force
+	owner.velocity.x = dir.normalized().x * force
+	owner.velocity.z = dir.normalized().y * force
 	if owner.is_on_floor():
 		force -= 1
 		if force <= 0:

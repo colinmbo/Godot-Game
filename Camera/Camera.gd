@@ -6,6 +6,9 @@ var shaking = false
 var shake_magnitude = 0
 var shake_decay = 0
 
+var hitlagging = false
+var lag_duration = 0
+
 
 func _ready():
 	# 36 is the game resolution width times the sprite pixel size (0.1)
@@ -29,8 +32,6 @@ func _process(delta):
 			get_parent().rotate_y(0.005)
 		if Input.is_action_pressed("turn_left"):
 			get_parent().rotate_y(-0.005)
-		
-	#translation.z = 100
 	
 	# 36 is the game resolution width times the sprite pixel size (0.1)
 	# 18 is half that
@@ -51,9 +52,25 @@ func _process(delta):
 			offset.y = rand_range(-shake_magnitude, shake_magnitude)
 			shake_magnitude -= shake_decay
 	
+	if hitlagging:
+		if get_tree().paused == false:
+			get_tree().paused = true
+			
+		if lag_duration < 0:
+			hitlagging = false
+			lag_duration = 0
+			get_tree().paused = false
+		else:
+			lag_duration -= 1	
+	
 	# Create offset for screenshake
 	transform.origin.x = offset.x + 0.05
 	transform.origin.y = offset.y
+
+
+func hitlag(dur):
+	hitlagging = true
+	lag_duration = dur
 
 
 func screenshake(magnitude, decay):

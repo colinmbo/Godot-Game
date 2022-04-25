@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Player/States/Jumping.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -260,19 +260,45 @@ tracks/0/keys = {
 "values": [ 6, 7, 8, 5 ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "idle_side"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "idle_side"
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "idle_back"
+
+[sub_resource type="AnimationNodeAnimation" id=22]
+animation = "idle_front"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=23]
+blend_point_0/node = SubResource( 19 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 20 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 21 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 22 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachine" id=24]
+states/Idle/node = SubResource( 23 )
+states/Idle/position = Vector2( 441.667, 164.333 )
+start_node = "Idle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=25]
+
 [sub_resource type="CapsuleShape" id=16]
 
-[sub_resource type="CubeMesh" id=20]
+[sub_resource type="CubeMesh" id=17]
 
-[sub_resource type="SpatialMaterial" id=21]
+[sub_resource type="SpatialMaterial" id=18]
 flags_unshaded = true
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
-move_speed = 16.0
-jump_force = 30.0
-grav_force = -1.51
-floor_snap = 0.25
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
@@ -328,6 +354,7 @@ offset = Vector2( 0.5, 12 )
 pixel_size = 0.1
 texture = ExtResource( 17 )
 hframes = 14
+frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
@@ -344,6 +371,13 @@ anims/run_back = SubResource( 13 )
 anims/run_front = SubResource( 14 )
 anims/run_side = SubResource( 15 )
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 24 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 25 )
+parameters/Idle/blend_position = Vector2( 0.248818, -0.199321 )
+
 [node name="Hurtbox" parent="." instance=ExtResource( 19 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2658, 0 )
 
@@ -355,8 +389,8 @@ shape = SubResource( 16 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Anchor"]
 transform = Transform( 0.15168, 0, 0, 0, 0.15168, 0, 0, 0, 1.36888, 0, 1.39064, 1.38695 )
-mesh = SubResource( 20 )
-material/0 = SubResource( 21 )
+mesh = SubResource( 17 )
+material/0 = SubResource( 18 )
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 

@@ -172,5 +172,20 @@ func play_sound_3d(sound, unit_db, unit_size):
 
 
 func _on_Hurtbox_area_entered(area):
-	print(area)
-	queue_free()
+	if area.owner.attack_user == self:
+		return
+	
+	#get_viewport().get_camera().hitlag(5)
+	get_viewport().get_camera().screenshake(1, 0.1)
+	var state = get_node("StateMachine/Hurt")
+	state.dir = Vector2(
+		(transform.origin - area.owner.transform.origin).x, 
+		(transform.origin - area.owner.transform.origin).z
+	)
+	state.force = area.owner.force
+	state.height = area.owner.height
+	state.stun = area.owner.stun
+	
+	area.owner.queue_free()
+
+	$StateMachine.transition_to("Hurt")

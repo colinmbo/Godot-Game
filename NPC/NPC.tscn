@@ -26,7 +26,9 @@ albedo_texture = ExtResource( 9 )
 
 [sub_resource type="CapsuleShape" id=4]
 
-[node name="NPC" type="KinematicBody"]
+[node name="NPC" type="KinematicBody" groups=[
+"enemies",
+]]
 script = ExtResource( 4 )
 
 [node name="StateMachine" type="Node" parent="."]

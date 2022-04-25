@@ -45,7 +45,6 @@ func enter():
 
 # Called once per frame
 func update(_delta):
-	print("hurt")
 	
 	if stun <= 0:
 		stun = 0

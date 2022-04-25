@@ -24,6 +24,15 @@ func _ready():
 # Called when first entering state
 func enter():
 	
+	# Update input vector
+	input_vec = Vector2(
+		int(Input.get_action_strength("move_right") 
+			- Input.get_action_strength("move_left")),
+		int(Input.get_action_strength("move_down") 
+			- Input.get_action_strength("move_up"))
+	)
+	input_vec = input_vec.normalized()
+	
 	player.velocity = Vector3.ZERO
 	
 	match player.facing_dir:
@@ -46,7 +55,43 @@ func enter():
 	var spell_inst = spell.instance()
 	get_tree().get_root().add_child(spell_inst)
 	spell_inst.transform.origin = player.transform.origin
-	spell_inst.dir = player.global_facing
+	spell_inst.dir = input_vec
+	spell_inst.attack_user = player
+	if input_vec.length() <= 0.1:
+		spell_inst.dir = player.global_facing
+	
+	
+	var dist = 20
+	var angle_diff = 180
+	var target_node = null
+	var target_angle = spell_inst.dir
+	for n in get_tree().get_nodes_in_group("enemies"):
+		var ppos = player.global_transform.origin
+		var ppos2d = Vector2(ppos.x, ppos.z)
+		var npos = n.global_transform.origin
+		var npos2d = Vector2(npos.x, npos.z)
+		
+		var current_angle = ppos2d.direction_to(npos2d).angle_to(spell_inst.dir)
+
+#		if abs(current_angle) < angle_diff:
+#			angle_diff = abs(current_angle)
+#			if abs(current_angle) < PI/4:
+#				target_node = n
+#				target_angle = ppos2d.direction_to(npos2d)
+		
+		var is_unlocked = true
+		if abs(current_angle) < PI/4 || is_unlocked:
+			var current_dist = ppos.distance_to(npos)
+			if current_dist < dist:
+				dist = current_dist
+				target_node = n
+				target_angle = ppos2d.direction_to(npos2d)
+		
+			
+	
+	
+	if target_node != null:
+		spell_inst.dir = (target_angle)
 
 
 # Called once per frame
