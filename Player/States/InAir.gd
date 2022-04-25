@@ -49,20 +49,21 @@ func physics_update(_delta):
 		
 	
 	# CHANGED FOR CAMERA RELATIVITY
-	player.velocity += Vector3(input_vec.x, 0, input_vec.y) * 0.4
-	var vel_xz = Vector2(player.velocity.x, player.velocity.z)
-	player.velocity.x = vel_xz.clamped(player.max_speed).x
-	player.velocity.z = vel_xz.clamped(player.max_speed).y
+	player.move_vec += input_vec * 0.4
+	player.move_vec.x = player.move_vec.clamped(player.max_speed).x
+	player.move_vec.y = player.move_vec.clamped(player.max_speed).y
 	
 	player.velocity.y += player.grav_force
-	player.velocity = player.move_and_slide(player.velocity, Vector3.UP)
+	
+	var target_velocity = Vector3(player.move_vec.x, player.velocity.y, player.move_vec.y)
+	player.velocity = player.move_and_slide(target_velocity, Vector3.UP)
 	
 	# USE MOVE_VEC TO KEEP MOMENTUM UPON LANDING!!
 	
 	# SET ANIMATION HERE
 	
 	if player.is_on_floor() and player.velocity.y < 0:
-		if is_equal_approx(vel_xz.length(), 0):
+		if is_equal_approx(player.move_vec.length(), 0):
 			state_machine.transition_to("Idle")
 		else:
 			state_machine.transition_to("Running")

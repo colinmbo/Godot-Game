@@ -4,7 +4,7 @@ extends Spatial
 onready var target = owner.get_node("Player")
 
 var is_smooth = false
-var is_following = true
+var is_following = false
 
 func _ready():
 	pass
@@ -43,14 +43,14 @@ func _physics_process(delta):
 					get_translation().z
 				))
 	else:
-		var newTarget = owner.get_node("NPC1")
-		var pan_speed = 0.1
-		if abs(get_translation().x - newTarget.get_translation().x) > pan_speed:
-			set_translation(Vector3(get_translation().x-sign(get_translation().x-newTarget.get_translation().x)*pan_speed, get_translation().y, get_translation().z))
-		if abs(get_translation().y - newTarget.get_translation().y) > pan_speed:
-			set_translation(Vector3(get_translation().x, get_translation().y-sign(get_translation().y-newTarget.get_translation().y)*pan_speed, get_translation().z))
-		if abs(get_translation().z - newTarget.get_translation().z) > pan_speed:
-			set_translation(Vector3(get_translation().x, get_translation().y, get_translation().z-sign(get_translation().z-newTarget.get_translation().z)*pan_speed))
-
+#		var newTarget = owner.get_node("NPC1")
+#		var pan_speed = 0.1
+#		if abs(get_translation().x - newTarget.get_translation().x) > pan_speed:
+#			set_translation(Vector3(get_translation().x-sign(get_translation().x-newTarget.get_translation().x)*pan_speed, get_translation().y, get_translation().z))
+#		if abs(get_translation().y - newTarget.get_translation().y) > pan_speed:
+#			set_translation(Vector3(get_translation().x, get_translation().y-sign(get_translation().y-newTarget.get_translation().y)*pan_speed, get_translation().z))
+#		if abs(get_translation().z - newTarget.get_translation().z) > pan_speed:
+#			set_translation(Vector3(get_translation().x, get_translation().y, get_translation().z-sign(get_translation().z-newTarget.get_translation().z)*pan_speed))
+		transform.origin.y = target.transform.origin.y
 
 

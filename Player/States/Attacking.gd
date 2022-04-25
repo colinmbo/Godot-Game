@@ -33,8 +33,6 @@ func enter():
 	)
 	input_vec = input_vec.normalized()
 	
-	player.velocity = Vector3.ZERO
-	
 	match player.facing_dir:
 		0:
 			anim.play("attack_side")
@@ -54,6 +52,7 @@ func enter():
 	# Spawn projectile
 	var spell_inst = spell.instance()
 	get_tree().get_root().add_child(spell_inst)
+	get_viewport().get_camera().screenshake(0.3, 0.1)
 	spell_inst.transform.origin = player.transform.origin
 	spell_inst.dir = input_vec
 	spell_inst.attack_user = player
@@ -87,9 +86,6 @@ func enter():
 				target_node = n
 				target_angle = ppos2d.direction_to(npos2d)
 		
-			
-	
-	
 	if target_node != null:
 		spell_inst.dir = (target_angle)
 
@@ -104,7 +100,7 @@ func update(_delta):
 
 # Called once per physics frame
 func physics_update(_delta):
-	pass
+	player.velocity = player.move_and_slide(player.velocity, Vector3.UP)
 
 
 # Called when exiting state
