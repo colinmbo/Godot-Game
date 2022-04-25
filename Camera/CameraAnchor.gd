@@ -4,7 +4,7 @@ extends Spatial
 onready var target = owner.get_node("Player")
 
 var is_smooth = false
-var is_following = false
+var is_following = true
 
 func _ready():
 	pass

@@ -32,7 +32,8 @@ func update(_delta):
 # Called once per physics frame
 func physics_update(_delta):
 	
-	player.move_and_slide_with_snap(player.velocity, 
+	var target_velocity = Vector3(player.move_vec.x, player.velocity.y, player.move_vec.y)
+	player.move_and_slide_with_snap(target_velocity, 
 		Vector3.DOWN * player.floor_snap, Vector3.UP, true)
 
 
@@ -43,8 +44,13 @@ func exit():
 
 func jump():
 	
+	get_viewport().get_camera().screenshake(0.2, 0.03, 0.25, 1.0)
 	player.velocity.y = player.jump_force
 	state_machine.transition_to("InAir")
+	var jump_particle = load("res://JumpParticle.tscn").instance()
+	get_tree().get_root().add_child(jump_particle)
+	jump_particle.transform.origin = player.transform.origin + Vector3.UP * 0.4
+	jump_particle.get_node("AnimationPlayer").play("Jump")
 
 
 # Play appropriate animation based on facing direction

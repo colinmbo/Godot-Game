@@ -36,6 +36,10 @@ func _process(_delta):
 	if (shadow_ray.is_colliding()):
 		shadow.show()
 		shadow.global_transform.origin.y = (shadow_ray.get_collision_point().y + 0.01)
+		if global_transform.origin.y - shadow_ray.get_collision_point().y > 20:
+			shadow.scale = Vector3.ONE - (Vector3.ONE * (global_transform.origin.y - shadow_ray.get_collision_point().y - 20)) * 0.1
+		else:
+			shadow.scale = Vector3.ONE
 	else:
 		shadow.hide()
 	

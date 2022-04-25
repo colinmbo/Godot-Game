@@ -5,6 +5,7 @@ var offset := Vector2.ZERO
 var shaking = false
 var shake_magnitude = 0
 var shake_decay = 0
+var shake_scale = Vector2(1,1)
 
 var hitlagging = false
 var lag_duration = 0
@@ -48,8 +49,8 @@ func _process(delta):
 			shake_decay = 0
 			offset = Vector2.ZERO
 		else:
-			offset.x = rand_range(-shake_magnitude, shake_magnitude)
-			offset.y = rand_range(-shake_magnitude, shake_magnitude)
+			offset.x = lerp(offset.x, rand_range(-shake_magnitude, shake_magnitude), 0.6)
+			offset.y = lerp(offset.x, rand_range(-shake_magnitude, shake_magnitude), 0.6)
 			shake_magnitude -= shake_decay
 	
 	if hitlagging:
@@ -64,8 +65,8 @@ func _process(delta):
 			lag_duration -= 1	
 	
 	# Create offset for screenshake
-	transform.origin.x = offset.x + 0.05
-	transform.origin.y = offset.y
+	transform.origin.x = offset.x * shake_scale.x + 0.05 #Fixes centered pixel from distorting
+	transform.origin.y = offset.y * shake_scale.y
 
 
 func hitlag(dur):
@@ -73,7 +74,9 @@ func hitlag(dur):
 	lag_duration = dur
 
 
-func screenshake(magnitude, decay):
+func screenshake(magnitude, decay, xscale = 1, yscale = 1):
 	shaking = true
 	shake_magnitude = magnitude
 	shake_decay = decay
+	shake_scale = Vector2(xscale, yscale)
+	

@@ -260,45 +260,46 @@ tracks/0/keys = {
 "values": [ 6, 7, 8, 5 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=19]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "idle_side"
 
-[sub_resource type="AnimationNodeAnimation" id=20]
+[sub_resource type="AnimationNodeAnimation" id=17]
 animation = "idle_side"
 
-[sub_resource type="AnimationNodeAnimation" id=21]
+[sub_resource type="AnimationNodeAnimation" id=18]
 animation = "idle_back"
 
-[sub_resource type="AnimationNodeAnimation" id=22]
+[sub_resource type="AnimationNodeAnimation" id=19]
 animation = "idle_front"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=23]
-blend_point_0/node = SubResource( 19 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=20]
+blend_point_0/node = SubResource( 16 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 20 )
+blend_point_1/node = SubResource( 17 )
 blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 21 )
+blend_point_2/node = SubResource( 18 )
 blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 22 )
+blend_point_3/node = SubResource( 19 )
 blend_point_3/pos = Vector2( 0, -1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeStateMachine" id=24]
-states/Idle/node = SubResource( 23 )
+[sub_resource type="AnimationNodeStateMachine" id=21]
+states/Idle/node = SubResource( 20 )
 states/Idle/position = Vector2( 441.667, 164.333 )
 start_node = "Idle"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=25]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=22]
 
-[sub_resource type="CapsuleShape" id=16]
+[sub_resource type="CapsuleShape" id=23]
 
-[sub_resource type="CubeMesh" id=17]
+[sub_resource type="CubeMesh" id=24]
 
-[sub_resource type="SpatialMaterial" id=18]
+[sub_resource type="SpatialMaterial" id=25]
 flags_unshaded = true
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
+grav_force = -1.1
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
@@ -332,7 +333,7 @@ shape = SubResource( 1 )
 [node name="ShadowRay" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.743551, 0 )
 enabled = true
-cast_to = Vector3( 0, -20, 0 )
+cast_to = Vector3( 0, -30, 0 )
 
 [node name="Shadow" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
@@ -372,10 +373,10 @@ anims/run_front = SubResource( 14 )
 anims/run_side = SubResource( 15 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 24 )
+tree_root = SubResource( 21 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 25 )
+parameters/playback = SubResource( 22 )
 parameters/Idle/blend_position = Vector2( 0.248818, -0.199321 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 19 )]
@@ -383,14 +384,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2658, 0 )
 
 [node name="CollisionShape" parent="Hurtbox" index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.253059, 0 )
-shape = SubResource( 16 )
+shape = SubResource( 23 )
 
 [node name="Anchor" type="Spatial" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="Anchor"]
 transform = Transform( 0.15168, 0, 0, 0, 0.15168, 0, 0, 0, 1.36888, 0, 1.39064, 1.38695 )
-mesh = SubResource( 17 )
-material/0 = SubResource( 18 )
+mesh = SubResource( 24 )
+material/0 = SubResource( 25 )
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 
