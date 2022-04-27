@@ -5,5 +5,7 @@
 [node name="CamRegion" type="Area"]
 script = ExtResource( 1 )
 
-[connection signal="body_entered" from="." to="." method="_on_RightCamArea_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_RightCamArea_body_exited"]
+[node name="CollisionShape" type="CollisionShape" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_CamRegion_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_CamRegion_body_exited"]

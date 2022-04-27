@@ -24,7 +24,7 @@ func _ready():
 # Called when first entering state
 func enter():
 	
-	player.anim.stop()
+	player.get_node("AnimationTree").get("parameters/playback").travel("Idle")
 	can_hold = true
 	can_jetpack = false
 	
@@ -42,6 +42,9 @@ func update(_delta):
 			- Input.get_action_strength("move_up"))
 	)
 	input_vec = input_vec.normalized()
+	
+	if player.move_vec.length() > 0.1:
+		player.global_facing = player.move_vec.normalized()
 
 
 # Called once per physics frame
@@ -59,9 +62,7 @@ func physics_update(_delta):
 	#jetpack stuff
 	if can_jetpack and Input.is_action_pressed("jump"):
 		player.velocity.y += 2
-		
 	
-	# CHANGED FOR CAMERA RELATIVITY
 	player.move_vec += input_vec * player.move_accel * 0.6
 	player.move_vec.x = player.move_vec.clamped(max(player.max_speed, init_move_vec.length())).x
 	player.move_vec.y = player.move_vec.clamped(max(player.max_speed, init_move_vec.length())).y

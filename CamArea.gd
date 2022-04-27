@@ -14,13 +14,13 @@ func _process(delta):
 	pass
 
 
-func _on_RightCamArea_body_entered(body):
+func _on_CamRegion_body_entered(body):
 	if body is Player:
 		#cam_anchor.target_rotation = 90
 		cam_anchor.change_angle(90)
 
 
-func _on_RightCamArea_body_exited(body):
+func _on_CamRegion_body_exited(body):
 	if body is Player:
 		#cam_anchor.target_rotation = 0
 		cam_anchor.change_angle(0)

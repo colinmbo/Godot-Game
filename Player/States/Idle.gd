@@ -18,8 +18,8 @@ func _ready():
 
 # Called when first entering state
 func enter():
-	
-	set_anim(player.facing_dir, "idle_front", "idle_side", "idle_back")
+	player.get_node("AnimationTree").get("parameters/playback").travel("Idle")
+	player.move_vec = Vector2.ZERO
 
 
 # Called once per frame
@@ -33,24 +33,22 @@ func update(_delta):
 			- Input.get_action_strength("move_up"))
 	)
 	input_vec = input_vec.normalized()
-	
-	set_anim(player.facing_dir, "idle_front", "idle_side", "idle_back")
 
 
 # Called once per physics frame
 func physics_update(_delta):
-
+	
+	# Add gravity when grounded to detect floor
+	player.velocity.y += player.grav_force
+	
+	# Move the player based on velocity
+	player.velocity = player.move_and_slide_with_snap(player.velocity, 
+		Vector3.DOWN * player.floor_snap, Vector3.UP, true)
+		
 	# Transition to air state if not grounded
 	if !player.is_on_floor():
 		state_machine.transition_to("InAir")
 		return
-	
-	# Add gravity when grounded to detect floor
-	player.velocity.y = player.grav_force
-	
-	# Move the player based on velocity
-	player.move_and_slide_with_snap(player.velocity, 
-		Vector3.DOWN * player.floor_snap, Vector3.UP, true)
 	
 	# Transition to air state when jump is pressed
 	if Input.is_action_just_pressed("jump"):
@@ -77,22 +75,3 @@ func physics_update(_delta):
 # Called when exiting state
 func exit():
 	pass
-
-
-# Play appropriate animation based on facing direction
-func set_anim(dir, front_anim, side_anim, back_anim):
-	
-	match player.relative_facing:
-		0.0, PI*2:
-			anim.play(front_anim)
-			sprite.set_flip_h(false)
-		PI*0.5:
-			anim.play(side_anim)
-			sprite.set_flip_h(false)
-		PI*1:
-			anim.play(back_anim)
-			sprite.set_flip_h(false)
-		PI*1.5:
-			anim.play(side_anim)
-			sprite.set_flip_h(true)
-

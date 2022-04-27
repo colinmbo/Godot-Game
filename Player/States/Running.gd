@@ -18,7 +18,7 @@ func _ready():
 
 # Called when first entering state
 func enter():
-	pass
+	player.get_node("AnimationTree").get("parameters/playback").travel("Running")
 
 # Called once per frame
 func update(_delta):
@@ -35,9 +35,6 @@ func update(_delta):
 	# Update facing direction
 	if input_vec != Vector2.ZERO:
 		player.facing_dir = input_vec.angle()
-	
-	# Play appropriate animation
-	set_anim(player.facing_dir, "run_front", "run_side", "run_back")
 
 # Called once per physics frame
 func physics_update(_delta):
@@ -95,21 +92,3 @@ func physics_update(_delta):
 # Called when exiting state
 func exit():
 	pass
-
-
-# Play appropriate animation based on facing direction
-func set_anim(dir, front_anim, side_anim, back_anim):
-	
-	match player.relative_facing:
-		0.0, PI*2:
-			anim.play(front_anim)
-			sprite.set_flip_h(false)
-		PI*0.5:
-			anim.play(side_anim)
-			sprite.set_flip_h(false)
-		PI*1:
-			anim.play(back_anim)
-			sprite.set_flip_h(false)
-		PI*1.5:
-			anim.play(side_anim)
-			sprite.set_flip_h(true)

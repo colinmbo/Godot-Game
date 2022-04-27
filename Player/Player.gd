@@ -25,12 +25,36 @@ var global_facing = Vector2(0, 1)
 var facing_dir := 270
 var relative_facing = 0
 
+var afterimg_pos_queue = []
+var afterimg_frame_queue = []
+
 
 func _ready():
 	pass
 
 
 func _process(_delta):
+	
+	#Afterimage
+	afterimg_pos_queue.push_front($Sprite3D.global_transform.origin)
+	afterimg_frame_queue.push_front($Sprite3D.frame)
+	if afterimg_pos_queue.size() > 2:
+		$AfterImage.global_transform.origin = afterimg_pos_queue[2] + Vector3.FORWARD * 0.01
+		$AfterImage.frame = afterimg_frame_queue[2]
+		if afterimg_pos_queue.size() > 4:
+			$AfterImage2.global_transform.origin = afterimg_pos_queue[4] + Vector3.FORWARD * 0.02
+			$AfterImage2.frame = afterimg_frame_queue[4]
+			if afterimg_pos_queue.size() > 6:
+				$AfterImage3.global_transform.origin = afterimg_pos_queue[6] + Vector3.FORWARD * 0.03
+				$AfterImage3.frame = afterimg_frame_queue[6]
+				if afterimg_pos_queue.size() > 9:
+					afterimg_pos_queue.pop_back()
+					afterimg_frame_queue.pop_back()
+	
+	#Set proper animation facing direction
+	$AnimationTree.set("parameters/Idle/blend_position", Vector2(global_facing.x, -global_facing.y))
+	$AnimationTree.set("parameters/Running/blend_position", Vector2(global_facing.x, -global_facing.y))
+	$AnimationTree.set("parameters/Jumping/blend_position", Vector2(global_facing.x, -global_facing.y))
 	
 	#Shadow stuff
 	if (shadow_ray.is_colliding()):

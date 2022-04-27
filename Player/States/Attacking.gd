@@ -33,20 +33,6 @@ func enter():
 	)
 	input_vec = input_vec.normalized()
 	
-	match player.facing_dir:
-		0:
-			anim.play("attack_side")
-			sprite.set_flip_h(false)
-		90:
-			anim.play("attack_back")
-			sprite.set_flip_h(false)
-		180:
-			anim.play("attack_side")
-			sprite.set_flip_h(true)
-		270:
-			anim.play("attack_front")
-			sprite.set_flip_h(false)
-	
 	timer = attack_time
 	
 	# Spawn projectile
@@ -58,7 +44,6 @@ func enter():
 	spell_inst.attack_user = player
 	if input_vec.length() <= 0.1:
 		spell_inst.dir = player.global_facing
-	
 	
 	var dist = 20
 	var angle_diff = 180
@@ -77,6 +62,9 @@ func enter():
 #			if abs(current_angle) < PI/4:
 #				target_node = n
 #				target_angle = ppos2d.direction_to(npos2d)
+
+		#Create ray to destination
+		
 		
 		var is_unlocked = true
 		if abs(current_angle) < PI/4 || is_unlocked:
@@ -92,7 +80,6 @@ func enter():
 
 # Called once per frame
 func update(_delta):
-	
 	timer -= 1
 	if timer <= 0:
 		state_machine.transition_to("Idle")

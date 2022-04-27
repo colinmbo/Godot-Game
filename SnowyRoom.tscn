@@ -77,7 +77,7 @@ shader_param/outline_color = Plane( 0, 0, 0, 1 )
 [sub_resource type="SpatialMaterial" id=6]
 flags_vertex_lighting = true
 params_diffuse_mode = 2
-albedo_color = Color( 0.654902, 0.654902, 0.654902, 1 )
+albedo_color = Color( 0.784314, 0.784314, 0.784314, 1 )
 uv1_scale = Vector3( 12, 12, 1 )
 
 [sub_resource type="SpatialMaterial" id=7]

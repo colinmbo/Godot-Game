@@ -27,20 +27,6 @@ func enter():
 	
 	sprite.material_override.set_shader_param("Is_White", true)
 	player.velocity.y = height
-	
-	match player.facing_dir:
-		0:
-			anim.play("idle_side")
-			sprite.set_flip_h(false)
-		90:
-			anim.play("idle_back")
-			sprite.set_flip_h(false)
-		180:
-			anim.play("idle_side")
-			sprite.set_flip_h(true)
-		270:
-			anim.play("idle_front")
-			sprite.set_flip_h(false)
 
 
 # Called once per frame
