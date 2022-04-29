@@ -5,6 +5,11 @@ onready var target = owner.get_node("Player")
 
 var default_rot = Vector2(-PI/6, 0)
 var target_rot = default_rot
+var unfiltered_rot = default_rot
+var last_rot = default_rot
+
+var rot_rate = 0.015
+var rot_phase = 1
 
 var is_following = true
 
@@ -20,11 +25,12 @@ func _process(delta):
 
 func _physics_process(delta):
 	
-	rotation.y = lerp_angle(rotation.y, target_rot.y, 0.05)
-	rotation.x = lerp_angle(rotation.x, target_rot.x, 0.05)
+	if rot_phase < 1:
+		rot_phase += rot_rate
+		rot_phase = min(rot_phase, 1)
 	
-#	rotation.y = move_toward(rotation.y, target_rot.y, PI/200)
-#	rotation.x = move_toward(rotation.x, target_rot.x, PI/200)
+	rotation.y = lerp_angle(last_rot.y, target_rot.y, ease(rot_phase, -2))
+	rotation.x = lerp_angle(last_rot.x, target_rot.x, ease(rot_phase, -2))
 	
 	transform = transform.orthonormalized()
 	
@@ -43,3 +49,8 @@ func _physics_process(delta):
 				))
 	else:
 		transform.origin.y = target.transform.origin.y
+
+func cam_angle(target_x = default_rot, target_y = default_rot):
+	rot_phase = 0
+	last_rot = Vector2(rotation.x, rotation.y)
+	target_rot = Vector2(target_x, target_y)

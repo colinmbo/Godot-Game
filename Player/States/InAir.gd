@@ -7,6 +7,8 @@ var anim : AnimationPlayer
 var interact_ray : RayCast
 var input_vec := Vector2.ZERO
 
+var total_flaps = 3
+var flaps_left = 0
 var can_hold = true
 var can_jetpack = false
 var buffer_time = 10
@@ -27,6 +29,7 @@ func enter():
 	player.get_node("AnimationTree").get("parameters/playback").travel("Idle")
 	can_hold = true
 	can_jetpack = false
+	flaps_left = total_flaps
 	
 	init_move_vec = player.move_vec
 
@@ -50,31 +53,44 @@ func update(_delta):
 # Called once per physics frame
 func physics_update(_delta):
 	
+	# Decrease jump buffer timer
 	buffer_timer = max(buffer_timer-1, 0)
 	
 	if Input.is_action_just_pressed("jump"):
 	#	can_jetpack = true
 		buffer_timer = buffer_time
 		
+		# this is for flapping wings/double jump
+	#	player.velocity.y = 20
+	
+	# When jump is no longer being pressed, stop holding the jump velocity
 	if !Input.is_action_pressed("jump"):
 		can_hold = false
 		
-	#jetpack stuff
+	# Jetpack stuff
 	if can_jetpack and Input.is_action_pressed("jump"):
 		player.velocity.y += 2
 	
-	player.move_vec += input_vec * player.move_accel * 0.6
-	player.move_vec.x = player.move_vec.clamped(max(player.max_speed, init_move_vec.length())).x
-	player.move_vec.y = player.move_vec.clamped(max(player.max_speed, init_move_vec.length())).y
+	# Air movement
+	var air_control = 0.6
+	player.move_vec += input_vec * player.move_accel * air_control
+	# Clamp air movement
+	var max_length = max(player.max_speed, init_move_vec.length())
+	player.move_vec = player.move_vec.clamped(max_length)
 	
+	# Apply gravity and jump holding
+	var hold_grav_scalar = 0.6
 	if player.velocity.y > 0 and can_hold:
-		player.velocity.y += player.grav_force * 0.6
+		player.velocity.y += player.grav_force * hold_grav_scalar
 	else:
 		player.velocity.y += player.grav_force
 	
+	# Additional gravity when falling
+	var add_grav_scalar = 0.5
 	if player.velocity.y < 0:
-		player.velocity.y += player.grav_force * 0.5
+		player.velocity.y += player.grav_force * add_grav_scalar
 	
+	# Move player
 	var target_velocity = Vector3(player.move_vec.x, player.velocity.y, player.move_vec.y)
 	player.velocity = player.move_and_slide(target_velocity, Vector3.UP)
 	

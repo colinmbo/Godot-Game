@@ -52,7 +52,7 @@ func physics_update(_delta):
 	var cam_basis = get_viewport().get_camera().global_transform.basis
 	var cam_basis_x = Vector2(cam_basis.x.x, cam_basis.x.z).normalized()
 	var cam_basis_z = Vector2(cam_basis.z.x, cam_basis.z.z).normalized()
-	var rel_input = input_vec.x*cam_basis_x + input_vec.y*cam_basis_z*z_scalar
+	var rel_input = input_vec.x * cam_basis_x + input_vec.y*cam_basis_z * z_scalar
 	
 	# If there is input, accelerate towards max speed
 	if input_vec.length() > 0:

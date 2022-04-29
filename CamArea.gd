@@ -19,9 +19,9 @@ func _process(delta):
 
 func _on_CamRegion_body_entered(body):
 	if body is Player:
-		cam_anchor.target_rot = Vector2(x_rotation, y_rotation)
+		cam_anchor.cam_angle(x_rotation, y_rotation)
 
 
 func _on_CamRegion_body_exited(body):
 	if body is Player:
-		cam_anchor.target_rot = cam_anchor.default_rot
+		cam_anchor.cam_angle(cam_anchor.default_rot.x, cam_anchor.default_rot.y)

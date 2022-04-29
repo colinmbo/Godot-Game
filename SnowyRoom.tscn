@@ -15,7 +15,7 @@ ambient_light_color = Color( 1, 1, 1, 1 )
 ambient_light_energy = 0.15
 fog_enabled = true
 fog_color = Color( 0.937255, 0.960784, 0.964706, 1 )
-fog_depth_begin = 75.0
+fog_depth_begin = 80.0
 fog_depth_end = 150.0
 
 [sub_resource type="QuadMesh" id=2]
@@ -334,13 +334,12 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="WorldEnvironment/BackgroundCanvas"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.905882, 0.905882, 0.905882, 1 )
+color = Color( 0.870588, 0.870588, 0.870588, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Outline" type="MeshInstance" parent="."]
-visible = false
 extra_cull_margin = 2000.0
 mesh = SubResource( 2 )
 material/0 = SubResource( 4 )
