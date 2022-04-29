@@ -12,10 +12,12 @@ var lag_duration = 0
 
 
 func _ready():
-	# 36 is the game resolution width times the sprite pixel size (0.1)
-	# 18 is half that
-	# set_fov(2*rad2deg(atan(18/get_translation().z)))
+	
+	translation.z = 90
+	
+	# 18 is half the game resolution width times the sprite pixel size (0.1)
 	set_fov(2*rad2deg(atan(18/get_translation().z)))
+	
 	
 func _process(delta):
 	
@@ -26,13 +28,13 @@ func _process(delta):
 		if Input.is_action_pressed("ui_right"):
 			translate(Vector3(0,0,-0.4))
 		if Input.is_action_pressed("ui_up"):
-			get_parent().rotate_x(0.001)
+			get_parent().target_rot.x += 0.005
 		if Input.is_action_pressed("ui_down"):
-			get_parent().rotate_x(-0.001)
+			get_parent().target_rot.x -= 0.005
 		if Input.is_action_pressed("turn_right"):
-			get_parent().rotate_y(0.005)
+			get_parent().target_rot.y += 0.005
 		if Input.is_action_pressed("turn_left"):
-			get_parent().rotate_y(-0.005)
+			get_parent().target_rot.y -= 0.005
 	
 	# 36 is the game resolution width times the sprite pixel size (0.1)
 	# 18 is half that
@@ -65,7 +67,7 @@ func _process(delta):
 			lag_duration -= 1	
 	
 	# Create offset for screenshake
-	transform.origin.x = offset.x * shake_scale.x + 0.05 #Fixes centered pixel from distorting
+	transform.origin.x = offset.x * shake_scale.x + 0.05 #Fixes distortion from being directly centered
 	transform.origin.y = offset.y * shake_scale.y
 
 

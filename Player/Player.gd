@@ -6,7 +6,7 @@ export var max_speed = 15.0
 export var move_accel = 2.0
 export var move_decel = 1.0
 export var jump_force = 20.0
-export var grav_force = -1.0
+export var grav_force = -1.1
 export var floor_snap = 0.2
 
 onready var sprite = $Sprite3D

@@ -774,7 +774,6 @@ flags_unshaded = true
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
-grav_force = -1.1
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )

@@ -47,11 +47,17 @@ func physics_update(_delta):
 		state_machine.transition_to("InAir")
 		return
 	
+	# Get input vector relative to the camera
+	var z_scalar = 1.0 # Additional Z movement to counter camera tilt
+	var cam_basis = get_viewport().get_camera().global_transform.basis
+	var cam_basis_x = Vector2(cam_basis.x.x, cam_basis.x.z).normalized()
+	var cam_basis_z = Vector2(cam_basis.z.x, cam_basis.z.z).normalized()
+	var rel_input = input_vec.x*cam_basis_x + input_vec.y*cam_basis_z*z_scalar
+	
 	# If there is input, accelerate towards max speed
 	if input_vec.length() > 0:
-		player.move_vec = player.move_vec.move_toward(input_vec * player.max_speed, player.move_accel)
+		player.move_vec = player.move_vec.move_toward(rel_input * player.max_speed, player.move_accel)
 		player.global_facing = player.move_vec.normalized()
-		
 	# If there is no input, decelerate towards zero
 	else:
 		player.move_vec = player.move_vec.move_toward(Vector2.ZERO, player.move_decel)
