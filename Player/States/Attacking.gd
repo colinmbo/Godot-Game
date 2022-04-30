@@ -43,7 +43,7 @@ func enter():
 	spell_inst.dir = input_vec
 	spell_inst.attack_user = player
 	if input_vec.length() <= 0.1:
-		spell_inst.dir = player.global_facing
+		spell_inst.dir = player.facing
 	
 	var dist = 20
 	var angle_diff = 180

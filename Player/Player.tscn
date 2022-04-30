@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://Player/States/Jumping.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -14,7 +14,8 @@
 [ext_resource path="res://newSpriteShader.shader" type="Shader" id=18]
 [ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=19]
 
-[sub_resource type="CylinderShape" id=1]
+[sub_resource type="CapsuleShape" id=66]
+radius = 1.5
 
 [sub_resource type="SpatialMaterial" id=2]
 flags_transparent = true
@@ -27,33 +28,6 @@ shader_param/Color_Override = false
 shader_param/Color = Color( 1, 1, 0, 1 )
 shader_param/Horizontal_Dither = false
 shader_param/Vertical_Dither = false
-shader_param/Sprites = ExtResource( 8 )
-
-[sub_resource type="ShaderMaterial" id=4]
-shader = ExtResource( 18 )
-shader_param/Is_White = false
-shader_param/Color_Override = true
-shader_param/Color = Color( 1, 1, 0, 1 )
-shader_param/Horizontal_Dither = false
-shader_param/Vertical_Dither = true
-shader_param/Sprites = ExtResource( 8 )
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = ExtResource( 18 )
-shader_param/Is_White = false
-shader_param/Color_Override = true
-shader_param/Color = Color( 1, 0, 0, 1 )
-shader_param/Horizontal_Dither = false
-shader_param/Vertical_Dither = true
-shader_param/Sprites = ExtResource( 8 )
-
-[sub_resource type="ShaderMaterial" id=6]
-shader = ExtResource( 18 )
-shader_param/Is_White = false
-shader_param/Color_Override = true
-shader_param/Color = Color( 0, 0, 1, 1 )
-shader_param/Horizontal_Dither = false
-shader_param/Vertical_Dither = true
 shader_param/Sprites = ExtResource( 8 )
 
 [sub_resource type="Animation" id=7]
@@ -766,6 +740,7 @@ start_node = "Idle"
 [sub_resource type="AnimationNodeStateMachinePlayback" id=62]
 
 [sub_resource type="CapsuleShape" id=63]
+height = 1.3
 
 [sub_resource type="CubeMesh" id=64]
 
@@ -801,8 +776,8 @@ script = ExtResource( 15 )
 script = ExtResource( 16 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1.65, 0, 0, 0, 1.65035, 0, 0, 0, 1.65, 0, 1.65985, 0 )
-shape = SubResource( 1 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.912, 0 )
+shape = SubResource( 66 )
 
 [node name="ShadowRay" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.743551, 0 )
@@ -829,40 +804,7 @@ offset = Vector2( 0.5, 12 )
 pixel_size = 0.1
 texture = ExtResource( 8 )
 hframes = 8
-frame = 7
-
-[node name="AfterImage" type="Sprite3D" parent="."]
-transform = Transform( 0.305666, 0, 0, 0, 0.553299, 0, 0, 0, 1, 0, 0.6, 0 )
-visible = false
-material_override = SubResource( 4 )
-cast_shadow = 0
-offset = Vector2( 0.5, 12 )
-pixel_size = 0.1
-texture = ExtResource( 8 )
-hframes = 8
-frame = 4
-
-[node name="AfterImage2" type="Sprite3D" parent="."]
-transform = Transform( 0.305666, 0, 0, 0, 0.553299, 0, 0, 0, 1, 0, 0.6, 0 )
-visible = false
-material_override = SubResource( 5 )
-cast_shadow = 0
-offset = Vector2( 0.5, 12 )
-pixel_size = 0.1
-texture = ExtResource( 8 )
-hframes = 8
-frame = 4
-
-[node name="AfterImage3" type="Sprite3D" parent="."]
-transform = Transform( 0.305666, 0, 0, 0, 0.553299, 0, 0, 0, 1, 0, 0.6, 0 )
-visible = false
-material_override = SubResource( 6 )
-cast_shadow = 0
-offset = Vector2( 0.5, 12 )
-pixel_size = 0.1
-texture = ExtResource( 8 )
-hframes = 8
-frame = 4
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
@@ -899,12 +841,13 @@ tree_root = SubResource( 61 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 62 )
-parameters/Idle/blend_position = Vector2( -0.365979, 0.563303 )
-parameters/Jumping/blend_position = Vector2( 0, 0 )
-parameters/Running/blend_position = Vector2( -0.701031, 0.706422 )
+parameters/Idle/blend_position = Vector2( 0, -1 )
+parameters/Jumping/blend_position = Vector2( 0, -1 )
+parameters/Running/blend_position = Vector2( 0, -1 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2658, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4587, 0 )
+visible = false
 
 [node name="CollisionShape" parent="Hurtbox" index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.253059, 0 )

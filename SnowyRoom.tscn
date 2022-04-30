@@ -310,7 +310,7 @@ material = SubResource( 10 )
 size = Vector2( 0.25, 0.25 )
 
 [sub_resource type="BoxShape" id=12]
-extents = Vector3( 11.6171, 2.07293, 10.9483 )
+extents = Vector3( 12.3342, 2.07293, 10.9483 )
 
 [node name="SnowyRoom" type="Spatial"]
 
@@ -340,6 +340,7 @@ __meta__ = {
 }
 
 [node name="Outline" type="MeshInstance" parent="."]
+visible = false
 extra_cull_margin = 2000.0
 mesh = SubResource( 2 )
 material/0 = SubResource( 4 )
@@ -354,8 +355,10 @@ volume_db = -4.0
 transform = Transform( 0.961934, -0.0745567, -0.262916, 0.250437, 0.625568, 0.738882, 0.109383, -0.776599, 0.620427, 0, 10, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.60054, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.138633, 7.60054, 12.5527 )
 collision/safe_margin = 0.01
+jump_force = 18.0
+grav_force = -1.0
 
 [node name="World" type="Spatial" parent="."]
 transform = Transform( 0.69953, 0, 0, 0, 0.69953, 0, 0, 0, 0.69953, 0, 0, 0 )
@@ -368,21 +371,6 @@ material = SubResource( 6 )
 
 [node name="CSGBox" type="CSGBox" parent="World"]
 transform = Transform( 4.81585, 0, 1.34443, 0, 5.00656, 0, -1.34443, 0, 4.81585, -25.0061, 1.1262, -38.5288 )
-use_collision = true
-material = SubResource( 7 )
-
-[node name="CSGBox8" type="CSGBox" parent="World"]
-transform = Transform( 3.13733, 0, -0.25584, 0, 2.63789, 0, 0.25584, 0, 3.13733, -16.4233, 7.91571, -20.072 )
-use_collision = true
-material = SubResource( 7 )
-
-[node name="CSGBox9" type="CSGBox" parent="World"]
-transform = Transform( 2.82067, 0, 1.39719, 0, 2.63789, 0, -1.39719, 0, 2.82067, 17.3016, 5.46575, -20.072 )
-use_collision = true
-material = SubResource( 7 )
-
-[node name="CSGBox10" type="CSGBox" parent="World"]
-transform = Transform( 1.14979, 0, 0.569536, 0, 6.45946, 0, -0.569536, 0, 1.14979, -11.1828, 10.9517, -4.59463 )
 use_collision = true
 material = SubResource( 7 )
 
@@ -406,6 +394,16 @@ transform = Transform( 9.00496, 0, -1.22493, 0, 3, 0, 2.27543, 0, 4.84763, 26.60
 use_collision = true
 material = SubResource( 7 )
 
+[node name="CSGBox11" type="CSGBox" parent="World"]
+transform = Transform( 3.80063, -0.351658, -1.50265, 0, 2.68661, -3.27711, 0.960367, 1.39168, 5.9467, 26.7631, -0.128323, 9.70043 )
+use_collision = true
+material = SubResource( 7 )
+
+[node name="CSGBox12" type="CSGBox" parent="World"]
+transform = Transform( -3.80063, 0.351658, 1.50265, 0, 2.68661, -3.27711, -0.960367, -1.39168, -5.9467, 29.0146, -0.128323, -9.72378 )
+use_collision = true
+material = SubResource( 7 )
+
 [node name="CSGBox6" type="CSGBox" parent="World"]
 transform = Transform( 5.19213, 0, 3.70132, 0, 4.31219, 0, -3.70132, 0, 5.19213, -24.6324, 4.20368, 2.38807 )
 use_collision = true
@@ -416,43 +414,99 @@ transform = Transform( 3.42012, 0, 3.64728, 0, 3, 0, -3.64728, 0, 3.42012, -33.7
 use_collision = true
 material = SubResource( 7 )
 
+[node name="CSGBox13" type="CSGBox" parent="World"]
+transform = Transform( 1.12642, 1.85461, 0, -0.885926, 2.35806, 0, 0, 0, 4.46782, -0.858697, 5.9283, -22.4347 )
+use_collision = true
+width = 1.23636
+height = 6.09306
+material = SubResource( 7 )
+
+[node name="CSGBox19" type="CSGBox" parent="World"]
+transform = Transform( 1.27403, 1.37358, 0, -0.656142, 2.66707, 0, 0, 0, 4.46782, -2.61484, 5.9283, -30.336 )
+use_collision = true
+width = 1.23636
+height = 6.09306
+material = SubResource( 7 )
+
+[node name="CSGBox20" type="CSGBox" parent="World"]
+transform = Transform( 1.33729, 1.07833, 0, -0.515106, 2.7995, 0, 0, 0, 4.46782, -3.47306, 5.9283, -38.8842 )
+use_collision = true
+width = 1.23636
+height = 6.09306
+material = SubResource( 7 )
+
+[node name="CSGBox14" type="CSGBox" parent="World"]
+transform = Transform( 0.993367, 2.16231, 0, -1.03291, 2.07953, 0, 0, 0, 4.46782, -0.379532, 4.81652, -14.5288 )
+use_collision = true
+width = 1.23636
+height = 6.09306
+material = SubResource( 7 )
+
+[node name="CSGBox15" type="CSGBox" parent="World"]
+transform = Transform( 0.840939, 2.42917, 0, -1.16039, 1.76043, 0, 0, 0, 4.46782, 0.505858, 4.14819, -8.05022 )
+use_collision = true
+width = 1.23636
+height = 6.09306
+material = SubResource( 7 )
+
+[node name="CSGBox16" type="CSGBox" parent="World"]
+transform = Transform( 0.718222, 2.59603, 0, -1.2401, 1.50354, 0, 0, 0, 4.46782, 0.728732, 3.33998, -1.54733 )
+use_collision = true
+width = 1.23636
+height = 6.09306
+material = SubResource( 7 )
+
+[node name="CSGBox17" type="CSGBox" parent="World"]
+transform = Transform( 0.584891, 2.73876, 0, -1.30827, 1.22442, 0, 0, 0, 4.46782, 1.10057, 2.66115, 3.8601 )
+use_collision = true
+width = 1.23636
+height = 6.09306
+material = SubResource( 7 )
+
+[node name="CSGBox18" type="CSGBox" parent="World"]
+transform = Transform( 0.426755, 2.86389, 0, -1.36805, 0.893374, 0, 0, 0, 4.46782, 1.45609, 1.75037, 9.48963 )
+use_collision = true
+width = 1.23636
+height = 6.09306
+material = SubResource( 7 )
+
 [node name="NPCs" type="Spatial" parent="."]
 transform = Transform( 0.10498, 0, 0.994474, 0, 1, 0, -0.994474, 0, 0.10498, 5.22889, 3.59625, -8.07141 )
 
 [node name="NPC" parent="NPCs" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87058, 4.90321, -8.81236 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.56651, 4.90322, -22.732 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
 
 [node name="NPC2" parent="NPCs" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.32359, 4.90321, 2.89735 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.75288, 4.90321, 7.06341 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
 
 [node name="NPC3" parent="NPCs" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.66905, 4.90321, -11.4678 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5933, 4.90321, -18.0707 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
 
 [node name="NPC4" parent="NPCs" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0669, 4.90321, 0.624137 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.36, 4.90321, 10.8859 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
 
 [node name="NPC5" parent="NPCs" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.8277, 4.90321, -7.77432 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29.1896, 4.90321, -26.7927 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
 
 [node name="NPC6" parent="NPCs" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23943, 4.90321, -3.69007 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0839, 4.90321, 20.278 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
 
 [node name="NPC7" parent="NPCs" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.477784, 4.90321, -23.0269 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.767791, 4.90321, -23.9645 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
 
 [node name="NPC8" parent="NPCs" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.17227, 4.90321, -19.2193 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.21876, 4.90321, -34.5375 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
 
 [node name="NPC9" parent="NPCs" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.83104, 4.90321, -5.83386 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0505, 4.90321, 1.97401 )
 dialog = [ "........./././huh?", "What are you doing here?", "./././", "I didn't think anyone else existed...", "I mean,/ after all,/ I've never seen another being my entire time here.", "I'm just an NPC you know!// In a DEBUG ROOM!!!" ]
 
 [node name="CameraAnchor" type="Spatial" parent="."]
@@ -471,7 +525,7 @@ draw_pass_1 = SubResource( 11 )
 [node name="Camera" type="Camera" parent="CameraAnchor"]
 transform = Transform( 1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 90 )
 keep_aspect = 0
-fov = 45.0
+fov = 22.6
 far = 500.0
 script = ExtResource( 4 )
 
@@ -480,13 +534,13 @@ transform = Transform( 0.997634, 0, 0.0687466, 0, 1, 0, -0.0687466, 0, 0.997634,
 x_rotation = -0.262
 
 [node name="CollisionShape" parent="CamRegion" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90735e-06, -0.675117, 1.07664 )
+transform = Transform( 0.999707, 0, -0.0242228, 0, 1, 0, 0.0242228, 0, 0.999707, -0.533104, -0.675117, -0.865664 )
 shape = SubResource( 12 )
 
 [node name="CamRegion2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.142681, 0, 0.989769, 0, 1, 0, -0.989769, 0, 0.142681, 24.8469, 2.37077, -13.2994 )
 x_rotation = -0.524
-y_rotation = 1.571
+y_rotation = 1.047
 
 [node name="CollisionShape" parent="CamRegion2" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90735e-06, -0.675117, 1.07664 )

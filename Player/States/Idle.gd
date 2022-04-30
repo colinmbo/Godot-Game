@@ -43,7 +43,7 @@ func physics_update(_delta):
 	
 	# Move the player based on velocity
 	player.velocity = player.move_and_slide_with_snap(player.velocity, 
-		Vector3.DOWN * player.floor_snap, Vector3.UP, true)
+		Vector3.DOWN * player.floor_snap, Vector3.UP, true, 4, PI/5)
 		
 	# Transition to air state if not grounded
 	if !player.is_on_floor():

@@ -17,6 +17,7 @@ func _ready():
 	
 	# 18 is half the game resolution width times the sprite pixel size (0.1)
 	set_fov(2*rad2deg(atan(18/get_translation().z)))
+	print(fov)
 	
 	
 func _process(delta):
